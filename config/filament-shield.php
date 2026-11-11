@@ -254,6 +254,7 @@ return [
 
     'custom_permissions' => [
         'ViewAll:Payment' => 'Lihat semua pembayaran',
+        'ReissueCard:Member' => 'Terbitkan ulang kartu member',
     ],
 
     /*

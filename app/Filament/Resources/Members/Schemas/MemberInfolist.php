@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Members\Schemas;
 
 use App\Models\Member;
 use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
 
@@ -33,6 +34,17 @@ class MemberInfolist
                 TextEntry::make('emergency_contact_phone')->label('HP kontak darurat')->placeholder('-'),
                 TextEntry::make('selectedPlan.name')->label('Paket pilihan')->placeholder('-'),
                 TextEntry::make('created_at')->label('Didaftarkan')->dateTime('d M Y H:i'),
+                RepeatableEntry::make('cards')
+                    ->label('Riwayat kartu')
+                    ->state(fn (Member $record) => $record->cards()->orderByDesc('version')->get())
+                    ->columns(4)
+                    ->columnSpanFull()
+                    ->schema([
+                        TextEntry::make('version')->label('Versi'),
+                        TextEntry::make('issued_at')->label('Terbit')->dateTime('d M Y H:i'),
+                        TextEntry::make('revoked_at')->label('Dicabut')->dateTime('d M Y H:i')->placeholder('Aktif'),
+                        TextEntry::make('revoke_reason')->label('Alasan')->placeholder('-'),
+                    ]),
             ]);
     }
 }

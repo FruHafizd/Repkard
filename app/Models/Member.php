@@ -61,6 +61,16 @@ class Member extends Model
         return $this->hasMany(Membership::class);
     }
 
+    public function cards(): HasMany
+    {
+        return $this->hasMany(MemberCard::class);
+    }
+
+    public function activeCard(): ?MemberCard
+    {
+        return $this->cards()->whereNull('revoked_at')->orderByDesc('version')->first();
+    }
+
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);

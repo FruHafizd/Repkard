@@ -48,6 +48,9 @@ class MembersTable
                 ActionGroup::make([
                     MemberActions::perpanjang(),
                     MemberActions::bekukan(),
+                    MemberActions::cetakKartu(),
+                    MemberActions::terbitkanUlangKartu(),
+                    MemberActions::cabutKartu(),
                     MemberActions::tolak(),
                 ]),
             ])

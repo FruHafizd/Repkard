@@ -89,11 +89,11 @@ Kolom **Pengunjung** = orang yang belum punya akun.
 
 | Fitur | Owner | Pegawai | Member | Fase | Status |
 |---|:-:|:-:|:-:|:-:|:-:|
-| Kartu dibuat otomatis setelah aktivasi (foto + QR) | ✅ | ✅ | 🙋 | 1 | ⬜ |
+| Kartu dibuat otomatis setelah aktivasi (foto + QR) | ✅ | ✅ | 🙋 | 1 | ✅ |
 | Lihat kartu | ✅ | ✅ | 🙋 | 1 | ⬜ |
-| Cetak / unduh kartu PDF (ukuran ID card) | ✅ | ✅ | 🙋 | 1 | ⬜ |
-| Terbitkan ulang kartu (kartu lama mati) | ✅ | ✅ | ❌ | 1 | ⬜ |
-| Cabut kartu | ✅ | ❌ | ❌ | 1 | ⬜ |
+| Cetak / unduh kartu PDF (ukuran ID card) | ✅ | ✅ | 🙋 | 1 | ✅ |
+| Terbitkan ulang kartu (kartu lama mati) | ✅ | ✅ | ❌ | 1 | ✅ |
+| Cabut kartu | ✅ | ❌ | ❌ | 1 | ✅ |
 | QR dinamis di HP (berganti tiap 30 detik) | — | — | 🙋 | 2 | ⬜ |
 | Atur template kartu | ✅ | ❌ | ❌ | 3 | ⬜ |
 

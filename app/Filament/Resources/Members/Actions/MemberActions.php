@@ -8,6 +8,7 @@ use App\Filament\Forms\Components\WebcamPhoto;
 use App\Filament\Resources\Members\MemberResource;
 use App\Models\Member;
 use App\Models\MembershipPlan;
+use App\Services\MemberCardService;
 use App\Services\MemberPhotoService;
 use App\Services\MembershipService;
 use Filament\Actions\Action;
@@ -163,6 +164,59 @@ class MemberActions
 
                     Notification::make()->success()->title('Membership dibekukan')->send();
                 });
+            });
+    }
+
+    public static function cetakKartu(): Action
+    {
+        return Action::make('cetakKartu')
+            ->label('Cetak kartu')
+            ->authorize('downloadCard')
+            ->visible(fn (Member $record): bool => $record->status === MemberStatus::Active
+                && $record->activeCard() !== null)
+            ->url(fn (Member $record): string => route('member.card.pdf', $record))
+            ->openUrlInNewTab();
+    }
+
+    public static function terbitkanUlangKartu(): Action
+    {
+        return Action::make('terbitkanUlangKartu')
+            ->label('Terbitkan ulang kartu')
+            ->color('warning')
+            ->authorize('reissueCard')
+            ->visible(fn (Member $record): bool => $record->status === MemberStatus::Active)
+            ->requiresConfirmation()
+            ->modalDescription('Kartu lama tidak akan berlaku lagi.')
+            ->schema([
+                Textarea::make('reason')->label('Alasan (mis. Kartu hilang)')->required()->maxLength(200),
+            ])
+            ->action(function (Member $record, array $data): void {
+                app(MemberCardService::class)->issue($record, auth()->user(), $data['reason']);
+
+                Notification::make()->success()->title('Kartu baru diterbitkan. Kartu lama tidak berlaku lagi.')->send();
+            });
+    }
+
+    public static function cabutKartu(): Action
+    {
+        return Action::make('cabutKartu')
+            ->label('Cabut kartu')
+            ->color('danger')
+            ->authorize('revokeCard')
+            ->visible(fn (Member $record): bool => $record->activeCard() !== null)
+            ->requiresConfirmation()
+            ->modalDescription('Kartu tidak bisa dipakai lagi sampai kartu baru diterbitkan.')
+            ->schema([
+                Textarea::make('reason')->label('Alasan pencabutan')->required()->maxLength(200),
+            ])
+            ->action(function (Member $record, array $data): void {
+                $card = $record->activeCard();
+
+                if ($card) {
+                    app(MemberCardService::class)->revoke($card, auth()->user(), $data['reason']);
+                }
+
+                Notification::make()->success()->title('Kartu dicabut')->send();
             });
     }
 
