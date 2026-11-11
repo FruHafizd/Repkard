@@ -8,17 +8,35 @@ use App\Filament\Resources\Members\MemberResource;
 use App\Filament\Resources\Members\Schemas\MemberForm;
 use App\Models\Member;
 use App\Models\User;
+use App\Services\MemberPhotoService;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class CreateMember extends CreateRecord
 {
     protected static string $resource = MemberResource::class;
 
     protected ?string $passwordSementara = null;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $webcam = $data['photo_webcam'] ?? null;
+        unset($data['photo_webcam']);
+
+        if (filled($webcam)) {
+            // Webcam diutamakan; bila ada unggahan juga, file unggahan yang sudah tersimpan dibuang.
+            app(MemberPhotoService::class)->delete($data['photo_upload'] ?? null);
+            $data['photo_upload'] = app(MemberPhotoService::class)->storeFromDataUrl($webcam);
+        } elseif (blank($data['photo_upload'] ?? null)) {
+            throw ValidationException::withMessages(['data.photo_webcam' => 'Ambil foto dari kamera atau unggah foto.']);
+        }
+
+        return $data;
+    }
 
     protected function handleRecordCreation(array $data): Model
     {

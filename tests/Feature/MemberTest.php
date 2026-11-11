@@ -82,6 +82,35 @@ class MemberTest extends TestCase
         $this->assertSame([600, 800], [$w, $h]);
     }
 
+    public function test_pegawai_mendaftarkan_member_dengan_foto_webcam(): void
+    {
+        $this->actingAs($this->userDenganRole(UserRole::Pegawai));
+        ob_start();
+        imagejpeg(imagecreatetruecolor(300, 400));
+        $dataUrl = 'data:image/jpeg;base64,'.base64_encode(ob_get_clean());
+
+        Livewire::test(CreateMember::class)
+            ->fillForm($this->dataMember() + ['photo_webcam' => $dataUrl])
+            ->call('create')
+            ->assertHasNoFormErrors();
+
+        $member = Member::firstOrFail();
+        $this->assertStringStartsWith('member-photos/', $member->photo_path);
+        Storage::disk('local')->assertExists($member->photo_path);
+    }
+
+    public function test_create_member_tanpa_foto_ditolak(): void
+    {
+        $this->actingAs($this->userDenganRole(UserRole::Pegawai));
+
+        Livewire::test(CreateMember::class)
+            ->fillForm($this->dataMember())
+            ->call('create')
+            ->assertHasErrors();
+
+        $this->assertSame(0, Member::count());
+    }
+
     public function test_foto_tidak_bisa_diakses_lewat_storage_publik(): void
     {
         $member = $this->memberDenganFoto();
