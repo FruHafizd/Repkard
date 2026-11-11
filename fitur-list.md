@@ -55,12 +55,12 @@ Kolom **Pengunjung** = orang yang belum punya akun.
 
 | Fitur | Owner | Pegawai | Member | Fase | Status |
 |---|:-:|:-:|:-:|:-:|:-:|
-| Daftarkan member langsung di meja depan (tanpa HP / data lama) | ✅ | ✅ | ❌ | 1 | ⬜ |
+| Daftarkan member langsung di meja depan (tanpa HP / data lama) | ✅ | ✅ | ❌ | 1 | ✅ |
 | Ambil foto dari webcam / unggah foto | ✅ | ✅ | ❌ | 1 | ⬜ |
-| Lihat & cari member (nama / HP / nomor) | ✅ | ✅ | 🙋 | 1 | ⬜ |
-| Ubah data member | ✅ | ✅ | 🙋 (data kontak saja) | 1 | ⬜ |
-| Hapus member | ✅ | ❌ | ❌ | 1 | ⬜ |
-| Nonaktifkan member | ✅ | ✅ | ❌ | 1 | ⬜ |
+| Lihat & cari member (nama / HP / nomor) | ✅ | ✅ | 🙋 | 1 | ✅ |
+| Ubah data member | ✅ | ✅ | 🙋 (data kontak saja) | 1 | ✅ |
+| Hapus member | ✅ | ❌ | ❌ | 1 | ✅ |
+| Nonaktifkan member | ✅ | ✅ | ❌ | 1 | ✅ |
 | Ajukan ganti foto | — | — | 🙋 | 2 | ⬜ |
 | Setujui / tolak ganti foto | ✅ | ✅ | ❌ | 2 | ⬜ |
 | Impor member dari Excel / CSV (data buku lama) | ✅ | ❌ | ❌ | 3 | ⬜ |

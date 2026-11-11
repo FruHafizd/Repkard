@@ -1,0 +1,54 @@
+<?php
+
+namespace App\Filament\Resources\Members\Tables;
+
+use App\Enums\MemberStatus;
+use App\Models\Member;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
+use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TrashedFilter;
+use Filament\Tables\Table;
+
+class MembersTable
+{
+    public static function configure(Table $table): Table
+    {
+        return $table
+            ->modifyQueryUsing(fn ($query) => $query->with(['user', 'selectedPlan']))
+            ->columns([
+                ImageColumn::make('photo_path')
+                    ->label('Foto')
+                    ->getStateUsing(fn (Member $record): ?string => $record->photoUrl())
+                    ->imageHeight(48),
+                TextColumn::make('member_number')->label('Nomor member')->searchable()->placeholder('-'),
+                TextColumn::make('user.name')->label('Nama')->searchable(),
+                TextColumn::make('phone')->label('Nomor HP')->searchable(),
+                TextColumn::make('status')->label('Status')->badge(),
+                TextColumn::make('selectedPlan.name')->label('Paket pilihan')->placeholder('-'),
+            ])
+            ->filters([
+                SelectFilter::make('status')
+                    ->label('Status')
+                    ->options(MemberStatus::class),
+                TrashedFilter::make(),
+            ])
+            ->recordActions([
+                ViewAction::make(),
+                EditAction::make(),
+            ])
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
+                ]),
+            ]);
+    }
+}
