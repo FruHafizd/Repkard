@@ -119,8 +119,8 @@ Kolom **Pengunjung** = orang yang belum punya akun.
 | Fitur | Owner | Pegawai | Member | Fase | Status |
 |---|:-:|:-:|:-:|:-:|:-:|
 | Jumlah member aktif / habis / beku | ✅ | 👁️ | ❌ | 1 | ⬜ |
-| Member yang habis dalam 7 hari | ✅ | ✅ | ❌ | 1 | ⬜ |
-| Kehadiran hari ini | ✅ | ✅ | ❌ | 1 | ⬜ |
+| Member yang habis dalam 7 hari | ✅ | ✅ | ❌ | 1 | ✅ |
+| Kehadiran hari ini | ✅ | ✅ | ❌ | 1 | ✅ |
 | Laporan & total pemasukan (harian / bulanan) | ✅ | ❌ * | ❌ | 3 | ⬜ |
 | Transaksi yang dicatat sendiri hari ini | ✅ | 🙋 | ❌ | 1 | ⬜ |
 | Grafik jam ramai | ✅ | 👁️ | ❌ | 3 | ⬜ |
