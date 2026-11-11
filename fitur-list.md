@@ -83,14 +83,14 @@ Kolom **Pengunjung** = orang yang belum punya akun.
 | Batalkan / koreksi pembayaran | ✅ | ❌ | ❌ | 1 | ✅ |
 | Bekukan (cuti) membership | ✅ | ✅ | ❌ | 1 | ✅ |
 | Lihat riwayat membership & pembayaran | ✅ | 👁️ | 🙋 | 1 | ⬜ |
-| Lihat masa aktif & sisa hari | ✅ | ✅ | 🙋 | 1 | ⬜ |
+| Lihat masa aktif & sisa hari | ✅ | ✅ | 🙋 | 1 | ✅ |
 
 ## 6. Kartu Member
 
 | Fitur | Owner | Pegawai | Member | Fase | Status |
 |---|:-:|:-:|:-:|:-:|:-:|
 | Kartu dibuat otomatis setelah aktivasi (foto + QR) | ✅ | ✅ | 🙋 | 1 | ✅ |
-| Lihat kartu | ✅ | ✅ | 🙋 | 1 | ⬜ |
+| Lihat kartu | ✅ | ✅ | 🙋 | 1 | ✅ |
 | Cetak / unduh kartu PDF (ukuran ID card) | ✅ | ✅ | 🙋 | 1 | ✅ |
 | Terbitkan ulang kartu (kartu lama mati) | ✅ | ✅ | ❌ | 1 | ✅ |
 | Cabut kartu | ✅ | ❌ | ❌ | 1 | ✅ |
@@ -110,7 +110,7 @@ Kolom **Pengunjung** = orang yang belum punya akun.
 | Anti-passback (tidak bisa check-in 2x) | ✅ | ✅ | ❌ | 2 | ⬜ |
 | Snapshot wajah saat check-in | ✅ | ✅ | ❌ | 2 | ⬜ |
 | Lihat snapshot vs foto terdaftar | ✅ | 👁️ | ❌ | 2 | ⬜ |
-| Riwayat kehadiran | ✅ | 👁️ | 🙋 | 1 | ⬜ |
+| Riwayat kehadiran | ✅ | 👁️ | 🙋 | 1 | ✅ |
 | Hapus / ubah catatan check-in | ✅ | ❌ | ❌ | 1 | ✅ |
 | Pencocokan wajah otomatis (peringatan) | ✅ | ✅ | ❌ | 4 | ⬜ |
 
@@ -126,7 +126,7 @@ Kolom **Pengunjung** = orang yang belum punya akun.
 | Grafik jam ramai | ✅ | 👁️ | ❌ | 3 | ⬜ |
 | Laporan kecurigaan kartu | ✅ | ❌ | ❌ | 2 | ⬜ |
 | Ekspor laporan ke Excel / PDF | ✅ | ❌ | ❌ | 3 | ⬜ |
-| Ringkasan pribadi (kehadiran bulan ini, sisa hari) | — | — | 🙋 | 1 | ⬜ |
+| Ringkasan pribadi (kehadiran bulan ini, sisa hari) | — | — | 🙋 | 1 | ✅ |
 
 \* Owner bisa membuka akses ini untuk pegawai lewat pengaturan izin role.
 
