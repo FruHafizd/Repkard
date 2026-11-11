@@ -36,8 +36,8 @@ Kolom **Pengunjung** = orang yang belum punya akun.
 
 | Fitur | Owner | Pegawai | Member | Fase | Status |
 |---|:-:|:-:|:-:|:-:|:-:|
-| Login panel admin (`/admin`) | ✅ | ✅ | ❌ | 1 | ⬜ |
-| Login panel member (`/member`) | ❌ | ❌ | ✅ | 1 | ⬜ |
+| Login panel admin (`/admin`) | ✅ | ✅ | ❌ | 1 | ✅ |
+| Login panel member (`/member`) | ❌ | ❌ | ✅ | 1 | ✅ |
 | Lupa password | ✅ | ✅ | ✅ | 1 | ⬜ |
 | Wajib ganti password saat login pertama | ✅ | ✅ | ✅ | 1 | ⬜ |
 | Ubah profil & password sendiri | ✅ | ✅ | ✅ | 1 | ⬜ |
@@ -47,9 +47,9 @@ Kolom **Pengunjung** = orang yang belum punya akun.
 
 | Fitur | Owner | Pegawai | Member | Fase | Status |
 |---|:-:|:-:|:-:|:-:|:-:|
-| Tambah / ubah / nonaktifkan akun pegawai | ✅ | ❌ | ❌ | 1 | ⬜ |
-| Atur izin per role (Filament Shield) | ✅ | ❌ | ❌ | 1 | ⬜ |
-| Lihat daftar pegawai | ✅ | 👁️ | ❌ | 1 | ⬜ |
+| Tambah / ubah / nonaktifkan akun pegawai | ✅ | ❌ | ❌ | 1 | ✅ |
+| Atur izin per role (Filament Shield) | ✅ | ❌ | ❌ | 1 | ✅ |
+| Lihat daftar pegawai | ✅ | 👁️ | ❌ | 1 | ✅ |
 
 ## 3. Data Member
 
