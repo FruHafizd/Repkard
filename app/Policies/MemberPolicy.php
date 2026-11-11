@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\UserRole;
 use App\Models\Member;
 use App\Models\User;
 
@@ -65,5 +66,23 @@ class MemberPolicy
     public function forceDeleteAny(User $user): bool
     {
         return $user->can('ForceDeleteAny:Member');
+    }
+
+    public function downloadCard(User $user, Member $member): bool
+    {
+        return $this->milikSendiri($user, $member) || $user->can('View:Member');
+    }
+
+    public function reissueCard(User $user, Member $member): bool
+    {
+        return $user->can('ReissueCard:Member');
+    }
+
+    /**
+     * Pencabutan hanya Owner (aturan keras, tidak bisa diubah lewat halaman Role).
+     */
+    public function revokeCard(User $user, Member $member): bool
+    {
+        return $user->hasRole(UserRole::Owner->value);
     }
 }
