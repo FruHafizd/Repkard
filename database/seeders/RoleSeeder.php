@@ -27,6 +27,8 @@ class RoleSeeder extends Seeder
             'ViewAny:User', 'View:User',
             'ViewAny:MembershipPlan', 'View:MembershipPlan',
             'ViewAny:Member', 'View:Member', 'Create:Member', 'Update:Member',
+            // Hanya transaksi yang dicatat sendiri; "ViewAll:Payment" sengaja tidak diberikan.
+            'ViewAny:Payment', 'View:Payment',
         ]);
     }
 }

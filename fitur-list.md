@@ -27,9 +27,9 @@ Kolom **Pengunjung** = orang yang belum punya akun.
 | Verifikasi email setelah daftar | — | — | ✅ | — | 1 | ✅ |
 | Lihat status "Menunggu aktivasi" + total bayar + petunjuk ke gym | — | — | 🙋 | — | 1 | ✅ |
 | Ganti paket pilihan sebelum diaktifkan | — | — | 🙋 | — | 1 | ✅ |
-| Antrean akun menunggu aktivasi | ✅ | ✅ | ❌ | ❌ | 1 | ⬜ |
-| Aktivasi tatap muka (cocokkan wajah, catat bayar, terbitkan kartu) | ✅ | ✅ | ❌ | ❌ | 1 | ⬜ |
-| Tolak / hapus pendaftaran palsu | ✅ | ✅ | ❌ | ❌ | 1 | ⬜ |
+| Antrean akun menunggu aktivasi | ✅ | ✅ | ❌ | ❌ | 1 | ✅ |
+| Aktivasi tatap muka (cocokkan wajah, catat bayar, terbitkan kartu) | ✅ | ✅ | ❌ | ❌ | 1 | ✅ |
+| Tolak / hapus pendaftaran palsu | ✅ | ✅ | ❌ | ❌ | 1 | ✅ |
 | Hapus otomatis akun yang tidak diaktifkan (mis. 30 hari) | ✅ | ❌ | ❌ | ❌ | 3 | ⬜ |
 
 ## 1. Login & Akun
@@ -77,11 +77,11 @@ Kolom **Pengunjung** = orang yang belum punya akun.
 
 | Fitur | Owner | Pegawai | Member | Fase | Status |
 |---|:-:|:-:|:-:|:-:|:-:|
-| Aktifkan / perpanjang membership | ✅ | ✅ | ❌ | 1 | ⬜ |
-| Catat pembayaran (tunai / transfer / QRIS) | ✅ | ✅ | ❌ | 1 | ⬜ |
-| Cetak kuitansi | ✅ | ✅ | 🙋 | 1 | ⬜ |
-| Batalkan / koreksi pembayaran | ✅ | ❌ | ❌ | 1 | ⬜ |
-| Bekukan (cuti) membership | ✅ | ✅ | ❌ | 1 | ⬜ |
+| Aktifkan / perpanjang membership | ✅ | ✅ | ❌ | 1 | ✅ |
+| Catat pembayaran (tunai / transfer / QRIS) | ✅ | ✅ | ❌ | 1 | ✅ |
+| Cetak kuitansi | ✅ | ✅ | 🙋 | 1 | ✅ |
+| Batalkan / koreksi pembayaran | ✅ | ❌ | ❌ | 1 | ✅ |
+| Bekukan (cuti) membership | ✅ | ✅ | ❌ | 1 | ✅ |
 | Lihat riwayat membership & pembayaran | ✅ | 👁️ | 🙋 | 1 | ⬜ |
 | Lihat masa aktif & sisa hari | ✅ | ✅ | 🙋 | 1 | ⬜ |
 
@@ -104,7 +104,7 @@ Kolom **Pengunjung** = orang yang belum punya akun.
 | Halaman scan (kamera / scanner USB) | ✅ | ✅ | ❌ | 1 | ⬜ |
 | Scan dari foto kartu (unggah gambar) | ✅ | ✅ | ❌ | 1 | ⬜ |
 | Tampil foto besar + status untuk dicocokkan | ✅ | ✅ | ❌ | 1 | ⬜ |
-| Tolak otomatis jika habis / kuota habis / beku / kartu dicabut | ✅ | ✅ | ❌ | 1 | ⬜ |
+| Tolak otomatis jika habis / kuota habis / beku / kartu dicabut | ✅ | ✅ | ❌ | 1 | ✅ |
 | Check-in manual (kartu ketinggalan, wajib alasan) | ✅ | ✅ | ❌ | 1 | ⬜ |
 | Check-out | ✅ | ✅ | ❌ | 2 | ⬜ |
 | Anti-passback (tidak bisa check-in 2x) | ✅ | ✅ | ❌ | 2 | ⬜ |

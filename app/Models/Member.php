@@ -8,6 +8,7 @@ use Database\Factories\MemberFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Member extends Model
@@ -53,6 +54,31 @@ class Member extends Model
     public function selectedPlan(): BelongsTo
     {
         return $this->belongsTo(MembershipPlan::class, 'selected_plan_id');
+    }
+
+    public function memberships(): HasMany
+    {
+        return $this->hasMany(Membership::class);
+    }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    /**
+     * Membership yang belum dibatalkan dan masa berlakunya mencakup hari ini.
+     */
+    public function currentMembership(): ?Membership
+    {
+        $today = now()->toDateString();
+
+        return $this->memberships()
+            ->whereNull('cancelled_at')
+            ->whereDate('starts_on', '<=', $today)
+            ->whereDate('ends_on', '>=', $today)
+            ->orderByDesc('ends_on')
+            ->first();
     }
 
     /**
