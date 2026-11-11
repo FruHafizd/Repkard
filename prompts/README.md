@@ -12,8 +12,9 @@ Kumpulan prompt untuk dikerjakan oleh model yang lebih murah (Sonnet / Haiku), s
    Kerjakan prompts/fase-1/01-role-izin.md
    ```
 
-4. Setelah selesai, model akan membuat branch + commit (tidak push). Review hasilnya, lalu merge ke `main` sebelum lanjut ke langkah berikutnya.
-5. **Jangan jalankan dua langkah sekaligus** — tiap langkah bergantung pada langkah sebelumnya.
+4. Model membuat **branch baru**, commit di branch itu, push, lalu membuat **Pull Request** ke `main` (tidak pernah commit langsung ke `main`, tidak pernah merge sendiri).
+5. Review PR-nya di GitHub, lalu merge ke `main` sebelum lanjut ke langkah berikutnya.
+6. **Jangan jalankan dua langkah sekaligus** — tiap langkah bergantung pada langkah sebelumnya.
 
 ## Urutan Fase 1
 

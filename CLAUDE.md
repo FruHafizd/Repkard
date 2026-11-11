@@ -27,6 +27,13 @@ php artisan test
 php artisan migrate
 ```
 
+## Alur Git (wajib)
+
+- **Setiap penambahan fitur = branch baru dari `main` + Pull Request ke `main`.** Nama branch: `fase-N/NN-nama-singkat` (untuk langkah di `prompts/`) atau `feat/nama-singkat`.
+- **Jangan pernah commit atau push langsung ke `main`.**
+- **Jangan merge PR sendiri** — pemilik proyek yang review dan merge.
+- Jangan commit sama sekali kalau pemilik proyek belum meminta atau prompt langkah tidak menyuruh.
+
 ## Aturan proyek
 
 - **Tampilan belum final.** Desain akan dibuat di Figma oleh pemilik proyek. Pakai tampilan default Filament; jangan menambah warna, font, atau styling custom sampai desain diberikan.

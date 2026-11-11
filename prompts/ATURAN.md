@@ -9,6 +9,8 @@ Baca file ini sampai habis sebelum mengerjakan prompt langkah mana pun. Aturan d
 3. Buat branch dari `main`: `git switch main && git switch -c <nama-branch-di-prompt>`.
 4. Jalankan `php artisan test` — harus hijau sebelum kamu mengubah apa pun.
 
+> **Aturan Git:** setiap langkah/fitur = **satu branch baru dari `main` + satu Pull Request**. Tidak ada commit langsung ke `main`, tidak ada merge oleh model.
+
 ## 2. Saat mengerjakan
 
 - **Kerjakan hanya yang ada di prompt langkah ini.** Jangan mengerjakan langkah berikutnya, jangan menambah fitur "sekalian", jangan refactor kode yang tidak diminta.
@@ -49,12 +51,19 @@ Baca file ini sampai habis sebelum mengerjakan prompt langkah mana pun. Aturan d
 ## 5. Selesai
 
 1. Ubah status baris yang selesai di `fitur-list.md` dari ⬜ menjadi ✅ (hanya baris yang benar-benar selesai).
-2. Commit dengan pesan yang ada di prompt langkah. **Jangan push, jangan merge.**
-3. Laporkan dalam format ini:
+2. Commit di branch langkah ini dengan pesan yang ada di prompt langkah. **Jangan pernah commit ke `main`.**
+3. Push branch: `git push -u origin <nama-branch>`.
+4. Buat Pull Request ke `main`:
+   ```bash
+   gh pr create --base main --title "<pesan commit>" --body "<isi laporan di bawah>"
+   ```
+5. **Jangan merge PR.** Pemilik proyek yang review dan merge.
+6. Laporkan dalam format ini:
 
 ```
 ## Hasil langkah NN
 Branch: ...
+PR: (link PR)
 File baru / diubah: (daftar)
 Test: X passed
 Cara uji manual: (langkah singkat di browser)
