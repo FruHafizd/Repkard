@@ -77,10 +77,14 @@ class GantiPassword extends Page
     {
         $data = $this->form->getState();
 
-        Filament::auth()->user()->forceFill([
+        $user = Filament::auth()->user();
+        $user->forceFill([
             'password' => Hash::make($data['password']),
             'must_change_password' => false,
         ])->save();
+
+        // AuthenticateSession membatalkan sesi bila hash password berubah; perbarui agar sesi ini tetap login.
+        session()->put('password_hash_'.Filament::getAuthGuard(), $user->getAuthPassword());
 
         Notification::make()->success()->title('Password berhasil diganti')->send();
 
