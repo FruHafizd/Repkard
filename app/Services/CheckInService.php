@@ -66,7 +66,14 @@ class CheckInService
             }
 
             if ($fresh->membership->visits_remaining !== null) {
-                $fresh->membership->decrement('visits_remaining');
+                // Nilai di model bisa basi (snapshot transaksi); kurangi hanya bila kuota di database masih ada.
+                $terpakai = Membership::whereKey($fresh->membership->getKey())
+                    ->where('visits_remaining', '>', 0)
+                    ->decrement('visits_remaining');
+
+                if ($terpakai === 0) {
+                    return $this->reject($fresh, $staff, 'Kuota kunjungan habis', $method, $manualReason);
+                }
             }
 
             return $this->record($fresh, $staff, CheckIn::RESULT_ACCEPTED, null, $method, $manualReason);
