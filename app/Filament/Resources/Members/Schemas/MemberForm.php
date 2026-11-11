@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Members\Schemas;
 
 use App\Enums\MemberStatus;
+use App\Filament\Forms\Components\WebcamPhoto;
 use App\Models\Member;
 use App\Models\User;
 use App\Services\MemberPhotoService;
@@ -65,8 +66,12 @@ class MemberForm
                 Select::make('selected_plan_id')
                     ->label('Paket pilihan')
                     ->relationship('selectedPlan', 'name', fn (Builder $query) => $query->active()),
+                WebcamPhoto::make('photo_webcam')
+                    ->label('Foto dari kamera')
+                    // Hanya data URL sementara; dibuang di halaman create/edit, tidak disimpan ke database.
+                    ->helperText('Nyalakan kamera lalu ambil foto, atau unggah file di bawah.'),
                 FileUpload::make('photo_upload')
-                    ->label('Foto')
+                    ->label('atau unggah foto')
                     ->helperText('Kosongkan bila tidak ingin mengganti foto. Maksimal 5 MB.')
                     ->image()
                     ->maxSize(MemberPhotoService::MAX_KB)

@@ -34,6 +34,19 @@ class EditMember extends EditRecord
         return $data;
     }
 
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        $webcam = $data['photo_webcam'] ?? null;
+        unset($data['photo_webcam']);
+
+        if (filled($webcam)) {
+            app(MemberPhotoService::class)->delete($data['photo_upload'] ?? null);
+            $data['photo_upload'] = app(MemberPhotoService::class)->storeFromDataUrl($webcam);
+        }
+
+        return $data;
+    }
+
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
         return DB::transaction(function () use ($record, $data): Model {
