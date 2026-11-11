@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
 
         if (app()->environment('local')) {
+            $this->call(MembershipPlanSeeder::class);
+
             foreach ([
                 ['owner@repkard.test', 'Owner Repkard', UserRole::Owner],
                 ['pegawai@repkard.test', 'Pegawai Repkard', UserRole::Pegawai],
