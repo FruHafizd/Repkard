@@ -31,7 +31,8 @@ class ScanCheckIn extends Page
 
     private const MAX_SCAN_PER_MENIT = 60;
 
-    /** Hanya token yang disimpan dari browser; semuanya diperiksa ulang di server setiap langkah. */
+    /** Diisi hanya lewat scan() (ada rate limit); tetap diperiksa ulang di server setiap langkah. */
+    #[Locked]
     public ?string $token = null;
 
     #[Locked]

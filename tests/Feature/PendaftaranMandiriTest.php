@@ -115,8 +115,7 @@ class PendaftaranMandiriTest extends TestCase
         $this->get(LengkapiProfil::getUrl())->assertOk();
 
         Livewire::test(LengkapiProfil::class)
-            ->fillForm(['gender' => 'L'])
-            ->set('data.photo', [Storage::disk('local')->putFileAs('tmp', UploadedFile::fake()->image('f.jpg', 600, 800), 'f.jpg')])
+            ->fillForm(['gender' => 'L', 'photo' => UploadedFile::fake()->image('f.jpg', 600, 800)])
             ->call('simpan');
 
         $user->member->refresh();

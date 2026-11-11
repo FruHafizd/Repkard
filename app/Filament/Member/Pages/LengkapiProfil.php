@@ -16,6 +16,7 @@ use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\EmbeddedSchema;
 use Filament\Schemas\Components\Form;
 use Filament\Schemas\Schema;
+use Illuminate\Validation\ValidationException;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class LengkapiProfil extends Page
@@ -28,6 +29,9 @@ class LengkapiProfil extends Page
 
     /** @var array<string, mixed>|null */
     public ?array $data = [];
+
+    /** Path foto yang benar-benar disimpan dari unggahan di request ini (bukan properti publik, tidak bisa diisi browser). */
+    protected ?string $fotoTersimpan = null;
 
     public function mount(): void
     {
@@ -75,7 +79,7 @@ class LengkapiProfil extends Page
                 ->disk('local')
                 ->visibility('private')
                 ->required()
-                ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file): string => app(MemberPhotoService::class)->store($file)),
+                ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file): string => $this->fotoTersimpan = app(MemberPhotoService::class)->store($file)),
         ]);
     }
 
@@ -97,6 +101,11 @@ class LengkapiProfil extends Page
     {
         $data = $this->form->getState();
         $member = Filament::auth()->user()->member;
+
+        // FileUpload meneruskan string path dari browser apa adanya; hanya terima file yang baru diunggah.
+        if ($this->fotoTersimpan === null || $data['photo'] !== $this->fotoTersimpan) {
+            throw ValidationException::withMessages(['data.photo' => 'Unggah foto wajah.']);
+        }
 
         // Cegah ganti foto lewat request ganda setelah profil lengkap.
         if (filled($member->photo_path) && filled($member->gender)) {
