@@ -21,12 +21,12 @@ Kolom **Pengunjung** = orang yang belum punya akun.
 
 | Fitur | Owner | Pegawai | Member | Pengunjung | Fase | Status |
 |---|:-:|:-:|:-:|:-:|:-:|:-:|
-| Landing page (profil gym) | 👁️ | 👁️ | 👁️ | 👁️ | 1 | ⬜ |
-| Daftar paket & harga di landing page | 👁️ | 👁️ | 👁️ | 👁️ | 1 | ⬜ |
-| Buat akun sendiri (pilih paket, isi data, unggah foto) | — | — | — | ✅ | 1 | ⬜ |
-| Verifikasi email setelah daftar | — | — | ✅ | — | 1 | ⬜ |
-| Lihat status "Menunggu aktivasi" + total bayar + petunjuk ke gym | — | — | 🙋 | — | 1 | ⬜ |
-| Ganti paket pilihan sebelum diaktifkan | — | — | 🙋 | — | 1 | ⬜ |
+| Landing page (profil gym) | 👁️ | 👁️ | 👁️ | 👁️ | 1 | ✅ |
+| Daftar paket & harga di landing page | 👁️ | 👁️ | 👁️ | 👁️ | 1 | ✅ |
+| Buat akun sendiri (pilih paket, isi data, unggah foto) | — | — | — | ✅ | 1 | ✅ |
+| Verifikasi email setelah daftar | — | — | ✅ | — | 1 | ✅ |
+| Lihat status "Menunggu aktivasi" + total bayar + petunjuk ke gym | — | — | 🙋 | — | 1 | ✅ |
+| Ganti paket pilihan sebelum diaktifkan | — | — | 🙋 | — | 1 | ✅ |
 | Antrean akun menunggu aktivasi | ✅ | ✅ | ❌ | ❌ | 1 | ⬜ |
 | Aktivasi tatap muka (cocokkan wajah, catat bayar, terbitkan kartu) | ✅ | ✅ | ❌ | ❌ | 1 | ⬜ |
 | Tolak / hapus pendaftaran palsu | ✅ | ✅ | ❌ | ❌ | 1 | ⬜ |
@@ -39,7 +39,7 @@ Kolom **Pengunjung** = orang yang belum punya akun.
 | Login panel admin (`/admin`) | ✅ | ✅ | ❌ | 1 | ✅ |
 | Login panel member (`/member`) | ❌ | ❌ | ✅ | 1 | ✅ |
 | Lupa password | ✅ | ✅ | ✅ | 1 | ⬜ |
-| Wajib ganti password saat login pertama | ✅ | ✅ | ✅ | 1 | ⬜ |
+| Wajib ganti password saat login pertama | ✅ | ✅ | ✅ | 1 | ✅ |
 | Ubah profil & password sendiri | ✅ | ✅ | ✅ | 1 | ⬜ |
 | Hanya 1 sesi login aktif per member | — | — | ✅ | 2 | ⬜ |
 

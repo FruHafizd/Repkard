@@ -2,6 +2,10 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Member\Pages\Auth\Register;
+use App\Filament\Pages\GantiPassword;
+use App\Http\Middleware\EnsureMemberProfileComplete;
+use App\Http\Middleware\EnsurePasswordChanged;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -27,6 +31,9 @@ class MemberPanelProvider extends PanelProvider
             ->id('member')
             ->path('member')
             ->login()
+            ->registration(Register::class)
+            ->emailVerification()
+            ->passwordReset()
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -34,6 +41,7 @@ class MemberPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Member/Pages'), for: 'App\Filament\Member\Pages')
             ->pages([
                 Dashboard::class,
+                GantiPassword::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Member/Widgets'), for: 'App\Filament\Member\Widgets')
             ->widgets([
@@ -53,6 +61,8 @@ class MemberPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+                EnsurePasswordChanged::class,
+                EnsureMemberProfileComplete::class,
             ]);
     }
 }
