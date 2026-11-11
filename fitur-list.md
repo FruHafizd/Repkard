@@ -101,17 +101,17 @@ Kolom **Pengunjung** = orang yang belum punya akun.
 
 | Fitur | Owner | Pegawai | Member | Fase | Status |
 |---|:-:|:-:|:-:|:-:|:-:|
-| Halaman scan (kamera / scanner USB) | ✅ | ✅ | ❌ | 1 | ⬜ |
-| Scan dari foto kartu (unggah gambar) | ✅ | ✅ | ❌ | 1 | ⬜ |
-| Tampil foto besar + status untuk dicocokkan | ✅ | ✅ | ❌ | 1 | ⬜ |
+| Halaman scan (kamera / scanner USB) | ✅ | ✅ | ❌ | 1 | ✅ |
+| Scan dari foto kartu (unggah gambar) | ✅ | ✅ | ❌ | 1 | ✅ |
+| Tampil foto besar + status untuk dicocokkan | ✅ | ✅ | ❌ | 1 | ✅ |
 | Tolak otomatis jika habis / kuota habis / beku / kartu dicabut | ✅ | ✅ | ❌ | 1 | ✅ |
-| Check-in manual (kartu ketinggalan, wajib alasan) | ✅ | ✅ | ❌ | 1 | ⬜ |
+| Check-in manual (kartu ketinggalan, wajib alasan) | ✅ | ✅ | ❌ | 1 | ✅ |
 | Check-out | ✅ | ✅ | ❌ | 2 | ⬜ |
 | Anti-passback (tidak bisa check-in 2x) | ✅ | ✅ | ❌ | 2 | ⬜ |
 | Snapshot wajah saat check-in | ✅ | ✅ | ❌ | 2 | ⬜ |
 | Lihat snapshot vs foto terdaftar | ✅ | 👁️ | ❌ | 2 | ⬜ |
 | Riwayat kehadiran | ✅ | 👁️ | 🙋 | 1 | ⬜ |
-| Hapus / ubah catatan check-in | ✅ | ❌ | ❌ | 1 | ⬜ |
+| Hapus / ubah catatan check-in | ✅ | ❌ | ❌ | 1 | ✅ |
 | Pencocokan wajah otomatis (peringatan) | ✅ | ✅ | ❌ | 4 | ⬜ |
 
 ## 8. Dashboard & Laporan
