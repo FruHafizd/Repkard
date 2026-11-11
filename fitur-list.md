@@ -69,7 +69,7 @@ Kolom **Pengunjung** = orang yang belum punya akun.
 
 | Fitur | Owner | Pegawai | Member | Fase | Status |
 |---|:-:|:-:|:-:|:-:|:-:|
-| Buat / ubah / nonaktifkan paket & harga | ✅ | 👁️ | ❌ | 1 | ⬜ |
+| Buat / ubah / nonaktifkan paket & harga | ✅ | 👁️ | ❌ | 1 | ✅ |
 | Paket per kunjungan dengan kuota (tetap pakai kartu) | ✅ | 👁️ | 👁️ | 1 | ⬜ |
 | Lihat daftar paket | ✅ | 👁️ | 👁️ | 1 | ⬜ |
 

@@ -23,6 +23,9 @@ class RoleSeeder extends Seeder
         $owner->syncPermissions(Permission::all());
 
         // Izin default pegawai: hanya melihat daftar pegawai.
-        $pegawai->givePermissionTo(['ViewAny:User', 'View:User']);
+        $pegawai->givePermissionTo([
+            'ViewAny:User', 'View:User',
+            'ViewAny:MembershipPlan', 'View:MembershipPlan',
+        ]);
     }
 }
