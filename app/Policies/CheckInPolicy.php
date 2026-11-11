@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\UserRole;
 use App\Models\CheckIn;
 use App\Models\User;
 
@@ -9,7 +10,8 @@ class CheckInPolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->can('ViewAny:CheckIn');
+        // Member boleh membuka daftar; isinya dibatasi ke miliknya sendiri di resource panel member.
+        return $user->hasRole(UserRole::Member->value) || $user->can('ViewAny:CheckIn');
     }
 
     public function view(User $user, CheckIn $checkIn): bool

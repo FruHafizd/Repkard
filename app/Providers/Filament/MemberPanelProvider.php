@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Member\Pages\Auth\EditProfile;
 use App\Filament\Member\Pages\Auth\Register;
 use App\Filament\Pages\GantiPassword;
 use App\Http\Middleware\EnsureMemberProfileComplete;
@@ -34,6 +35,7 @@ class MemberPanelProvider extends PanelProvider
             ->registration(Register::class)
             ->emailVerification()
             ->passwordReset()
+            ->profile(EditProfile::class)
             ->colors([
                 'primary' => Color::Amber,
             ])
