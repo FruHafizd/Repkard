@@ -26,6 +26,7 @@ class RoleSeeder extends Seeder
         $pegawai->givePermissionTo([
             'ViewAny:User', 'View:User',
             'ViewAny:MembershipPlan', 'View:MembershipPlan',
+            'ViewAny:Member', 'View:Member', 'Create:Member', 'Update:Member',
         ]);
     }
 }
