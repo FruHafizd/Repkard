@@ -10,7 +10,8 @@ class PaymentPolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->can('ViewAny:Payment');
+        // Member boleh membuka daftar; isinya dibatasi ke miliknya sendiri di resource panel member.
+        return $user->hasRole(UserRole::Member->value) || $user->can('ViewAny:Payment');
     }
 
     public function view(User $user, Payment $payment): bool
