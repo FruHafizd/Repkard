@@ -1,0 +1,225 @@
+<?php
+
+namespace App\Filament\Resources\Members\Actions;
+
+use App\Enums\MemberStatus;
+use App\Enums\PaymentMethod;
+use App\Filament\Forms\Components\WebcamPhoto;
+use App\Filament\Resources\Members\MemberResource;
+use App\Models\Member;
+use App\Models\MembershipPlan;
+use App\Services\MemberPhotoService;
+use App\Services\MembershipService;
+use Filament\Actions\Action;
+use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
+use Filament\Schemas\Components\Image;
+use Filament\Schemas\Components\Text;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use InvalidArgumentException;
+
+class MemberActions
+{
+    public static function aktifkan(): Action
+    {
+        return Action::make('aktifkan')
+            ->label('Aktifkan')
+            ->color('success')
+            ->authorize('update')
+            ->visible(fn (Member $record): bool => $record->status === MemberStatus::Pending)
+            ->modalHeading('Aktifkan member')
+            ->modalSubmitActionLabel('Aktifkan')
+            ->fillForm(fn (Member $record): array => [
+                'plan_id' => $record->selected_plan_id,
+                'amount' => $record->selectedPlan?->price,
+                'method' => PaymentMethod::Cash->value,
+            ])
+            ->schema([
+                Image::make(fn (Member $record): string => (string) $record->photoUrl(), 'Foto member')
+                    ->imageHeight('20rem'),
+                Text::make(fn (Member $record): string => $record->user->name.' — '.$record->phone),
+                Checkbox::make('face_checked')
+                    ->label('Saya sudah mencocokkan wajah dengan foto')
+                    ->accepted()
+                    ->validationMessages(['accepted' => 'Cocokkan wajah dengan foto terlebih dahulu.']),
+                WebcamPhoto::make('photo_webcam')
+                    ->label('Ganti foto dari kamera (opsional)'),
+                ...self::bayarFields(),
+            ])
+            ->action(function (Member $record, array $data): void {
+                self::jalankan(function () use ($record, $data): void {
+                    if (filled($data['photo_webcam'] ?? null)) {
+                        self::gantiFoto($record, $data['photo_webcam']);
+                    }
+
+                    app(MembershipService::class)->activate(
+                        $record,
+                        MembershipPlan::findOrFail($data['plan_id']),
+                        self::metode($data['method']),
+                        (int) $data['amount'],
+                        auth()->user(),
+                        $data['proof_path'] ?? null,
+                    );
+
+                    Notification::make()->success()->title('Member diaktifkan')->send();
+                });
+            });
+    }
+
+    public static function tolak(): Action
+    {
+        return Action::make('tolak')
+            ->label('Tolak pendaftaran')
+            ->color('danger')
+            ->authorize('update')
+            ->visible(fn (Member $record): bool => $record->status === MemberStatus::Pending)
+            ->requiresConfirmation()
+            ->modalDescription('Akun, data, dan foto pendaftar akan dihapus permanen.')
+            ->schema([
+                Textarea::make('reason')->label('Alasan penolakan')->required()->maxLength(500),
+            ])
+            ->successRedirectUrl(fn (): string => MemberResource::getUrl())
+            ->action(function (Member $record, array $data): void {
+                if ($record->status !== MemberStatus::Pending) {
+                    return;
+                }
+
+                Log::info('Pendaftaran member ditolak', [
+                    'member_id' => $record->getKey(),
+                    'by' => auth()->id(),
+                    'reason' => $data['reason'],
+                ]);
+
+                DB::transaction(function () use ($record): void {
+                    $user = $record->user;
+                    // Foto ikut terhapus lewat event forceDeleted di model Member.
+                    $record->forceDelete();
+                    $user?->delete();
+                });
+
+                Notification::make()->success()->title('Pendaftaran ditolak dan dihapus')->send();
+            });
+    }
+
+    public static function perpanjang(): Action
+    {
+        return Action::make('perpanjang')
+            ->label('Perpanjang')
+            ->authorize('update')
+            ->visible(fn (Member $record): bool => $record->status === MemberStatus::Active)
+            ->modalSubmitActionLabel('Perpanjang')
+            ->fillForm(fn (Member $record): array => [
+                'plan_id' => $record->selected_plan_id,
+                'amount' => $record->selectedPlan?->price,
+                'method' => PaymentMethod::Cash->value,
+            ])
+            ->schema(self::bayarFields())
+            ->action(function (Member $record, array $data): void {
+                self::jalankan(function () use ($record, $data): void {
+                    app(MembershipService::class)->renew(
+                        $record,
+                        MembershipPlan::findOrFail($data['plan_id']),
+                        self::metode($data['method']),
+                        (int) $data['amount'],
+                        auth()->user(),
+                        $data['proof_path'] ?? null,
+                    );
+
+                    Notification::make()->success()->title('Membership diperpanjang')->send();
+                });
+            });
+    }
+
+    public static function bekukan(): Action
+    {
+        return Action::make('bekukan')
+            ->label('Bekukan')
+            ->color('warning')
+            ->authorize('update')
+            ->visible(fn (Member $record): bool => $record->status === MemberStatus::Active
+                && ($ms = $record->currentMembership()) !== null
+                && ! $ms->isFrozen())
+            ->schema([
+                TextInput::make('days')
+                    ->label('Lama pembekuan (hari)')
+                    ->numeric()
+                    ->integer()
+                    ->minValue(1)
+                    ->maxValue(MembershipService::MAX_FREEZE_DAYS)
+                    ->required()
+                    ->helperText('Maksimal '.MembershipService::MAX_FREEZE_DAYS.' hari. Masa aktif diperpanjang sebanyak itu.'),
+            ])
+            ->action(function (Member $record, array $data): void {
+                self::jalankan(function () use ($record, $data): void {
+                    $membership = $record->currentMembership()
+                        ?? throw new InvalidArgumentException('Tidak ada membership aktif.');
+
+                    app(MembershipService::class)->freeze($membership, (int) $data['days'], auth()->user());
+
+                    Notification::make()->success()->title('Membership dibekukan')->send();
+                });
+            });
+    }
+
+    /**
+     * Field bersama untuk aktivasi & perpanjangan: paket, metode, jumlah, bukti.
+     *
+     * @return array<int, mixed>
+     */
+    private static function bayarFields(): array
+    {
+        return [
+            Select::make('plan_id')
+                ->label('Paket')
+                ->options(fn (): array => MembershipPlan::active()->pluck('name', 'id')->all())
+                ->required()
+                ->live()
+                ->afterStateUpdated(fn ($state, $set) => $set('amount', MembershipPlan::find($state)?->price)),
+            Select::make('method')
+                ->label('Metode bayar')
+                ->options(PaymentMethod::class)
+                ->required(),
+            TextInput::make('amount')
+                ->label('Jumlah (Rp)')
+                ->numeric()
+                ->integer()
+                ->minValue(0)
+                ->required(),
+            FileUpload::make('proof_path')
+                ->label('Bukti transfer (opsional)')
+                ->disk('local')
+                ->directory('payment-proofs')
+                ->visibility('private')
+                ->acceptedFileTypes(['image/jpeg', 'image/png', 'application/pdf'])
+                ->maxSize(5120),
+        ];
+    }
+
+    private static function metode(PaymentMethod|string $method): PaymentMethod
+    {
+        return $method instanceof PaymentMethod ? $method : PaymentMethod::from($method);
+    }
+
+    private static function gantiFoto(Member $member, string $dataUrl): void
+    {
+        $service = app(MemberPhotoService::class);
+        $lama = $member->photo_path;
+
+        $member->update(['photo_path' => $service->storeFromDataUrl($dataUrl)]);
+        $service->delete($lama);
+    }
+
+    private static function jalankan(\Closure $callback): void
+    {
+        try {
+            $callback();
+        } catch (InvalidArgumentException $e) {
+            Notification::make()->danger()->title($e->getMessage())->send();
+        }
+    }
+}

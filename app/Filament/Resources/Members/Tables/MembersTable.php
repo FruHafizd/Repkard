@@ -3,7 +3,9 @@
 namespace App\Filament\Resources\Members\Tables;
 
 use App\Enums\MemberStatus;
+use App\Filament\Resources\Members\Actions\MemberActions;
 use App\Models\Member;
+use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -40,8 +42,14 @@ class MembersTable
                 TrashedFilter::make(),
             ])
             ->recordActions([
+                MemberActions::aktifkan(),
                 ViewAction::make(),
                 EditAction::make(),
+                ActionGroup::make([
+                    MemberActions::perpanjang(),
+                    MemberActions::bekukan(),
+                    MemberActions::tolak(),
+                ]),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
