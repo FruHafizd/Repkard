@@ -153,9 +153,9 @@ Rencana & keputusan: prd.md bagian 13. Prompt: `prompts/fitur-tambahan/`. Kolom 
 
 | Fitur | Owner | Pegawai | Trainer | Member | Status |
 |---|:-:|:-:|:-:|:-:|:-:|
-| Buat / ubah pengumuman | ✅ | ✅ | ❌ | ❌ | ⬜ |
-| Lihat pengumuman (dashboard + halaman) | ✅ | ✅ | ✅ | 👁️ | ⬜ |
-| Pengumuman di landing page | ✅ | ✅ | ❌ | 👁️ | ⬜ |
+| Buat / ubah pengumuman | ✅ | ✅ | ❌ | ❌ | ✅ |
+| Lihat pengumuman (dashboard + halaman) | ✅ | ✅ | ✅ | 👁️ | ✅ |
+| Pengumuman di landing page | ✅ | ✅ | ❌ | 👁️ | ✅ |
 | Daftar member mulai menghilang (≥ 14 / 30 hari) | ✅ | ✅ | ❌ | ❌ | ⬜ |
 | Catat tindak lanjut member menghilang | ✅ | ✅ | ❌ | ❌ | ⬜ |
 | Buat / ubah kode promo | ✅ | 👁️ | ❌ | ❌ | ⬜ |

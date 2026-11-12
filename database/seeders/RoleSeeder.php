@@ -33,6 +33,8 @@ class RoleSeeder extends Seeder
             // Pendatang: hanya catatan sendiri; "ViewAll:WalkIn" sengaja tidak diberikan.
             'ViewAny:WalkIn', 'View:WalkIn', 'Create:WalkIn',
             'View:ScanCheckIn', 'ViewAny:CheckIn', 'View:CheckIn',
+            // Pengumuman: boleh buat, ubah miliknya sendiri; "ManageAll" dan "Delete" sengaja tidak diberikan.
+            'ViewAny:Announcement', 'View:Announcement', 'Create:Announcement', 'Update:Announcement',
         ]);
     }
 }

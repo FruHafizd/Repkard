@@ -256,6 +256,7 @@ return [
         'ViewAll:Payment' => 'Lihat semua pembayaran',
         'ViewAll:WalkIn' => 'Lihat semua catatan pendatang',
         'ReissueCard:Member' => 'Terbitkan ulang kartu member',
+        'ManageAll:Announcement' => 'Kelola semua pengumuman',
     ],
 
     /*
