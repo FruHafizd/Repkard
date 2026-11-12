@@ -84,6 +84,23 @@
                 </div>
             </section>
 
+            @if ($announcements->isNotEmpty())
+                <section aria-labelledby="judul-pengumuman" class="border-b border-line bg-surface">
+                    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-14">
+                        <h2 id="judul-pengumuman" class="font-display text-2xl font-extrabold italic tracking-tight sm:text-3xl">Pengumuman</h2>
+                        <div class="mt-8 grid gap-8 md:grid-cols-2">
+                            @foreach ($announcements as $announcement)
+                                <article class="border-t-4 border-brand-600 pt-4">
+                                    <h3 class="text-lg font-bold">{{ $announcement->title }}</h3>
+                                    <p class="mt-1 text-sm text-muted">{{ $announcement->starts_at->format('d M Y') }}</p>
+                                    <p class="mt-3 text-muted">{!! nl2br(e($announcement->body)) !!}</p>
+                                </article>
+                            @endforeach
+                        </div>
+                    </div>
+                </section>
+            @endif
+
             <section id="paket" aria-labelledby="judul-paket" class="scroll-mt-4">
                 <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-14">
                     <h2 id="judul-paket" class="font-display text-2xl font-extrabold italic tracking-tight sm:text-3xl">Paket Membership</h2>
