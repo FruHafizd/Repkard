@@ -161,9 +161,9 @@ Rencana & keputusan: prd.md bagian 13. Prompt: `prompts/fitur-tambahan/`. Kolom 
 | Buat / ubah kode promo | ✅ | 👁️ | ❌ | ❌ | ✅ |
 | Pakai kode promo saat aktivasi / perpanjang | ✅ | ✅ | ❌ | ❌ | ✅ |
 | Isi kode promo saat daftar | — | — | — | 🙋 | ✅ |
-| Upgrade paket (prorata) | ✅ | ✅ | ❌ | ❌ | ⬜ |
-| Pindah paket untuk periode berikutnya | ✅ | ✅ | ❌ | ❌ | ⬜ |
-| Refund membership | ✅ | ❌ | ❌ | ❌ | ⬜ |
+| Upgrade paket (prorata) | ✅ | ✅ | ❌ | ❌ | ✅ |
+| Pindah paket untuk periode berikutnya | ✅ | ✅ | ❌ | ❌ | ✅ |
+| Refund membership | ✅ | ❌ | ❌ | ❌ | ✅ |
 | Kelola produk & harga | ✅ | 👁️ | ❌ | ❌ | ⬜ |
 | Tambah / koreksi stok | ✅ | ❌ | ❌ | ❌ | ⬜ |
 | Kasir: jual produk + struk | ✅ | ✅ | ❌ | ❌ | ⬜ |

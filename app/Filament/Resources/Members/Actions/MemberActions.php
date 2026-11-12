@@ -7,6 +7,7 @@ use App\Enums\PaymentMethod;
 use App\Filament\Forms\Components\WebcamPhoto;
 use App\Filament\Resources\Members\MemberResource;
 use App\Models\Member;
+use App\Models\Membership;
 use App\Models\MembershipPlan;
 use App\Models\PromoCode;
 use App\Services\MemberCardService;
@@ -115,9 +116,10 @@ class MemberActions
     public static function perpanjang(): Action
     {
         return Action::make('perpanjang')
-            ->label('Perpanjang')
+            ->label('Perpanjang / pindah paket')
             ->authorize('update')
             ->visible(fn (Member $record): bool => $record->status === MemberStatus::Active)
+            ->modalDescription('Paket baru berlaku setelah paket sekarang berakhir.')
             ->modalSubmitActionLabel('Perpanjang')
             ->fillForm(fn (Member $record): array => [
                 'plan_id' => $record->selected_plan_id,
@@ -140,6 +142,154 @@ class MemberActions
                     Notification::make()->success()->title('Membership diperpanjang')->send();
                 });
             });
+    }
+
+    public static function upgrade(): Action
+    {
+        return Action::make('upgrade')
+            ->label('Upgrade paket')
+            ->color('success')
+            ->authorize('update')
+            ->visible(fn (Member $record): bool => $record->status === MemberStatus::Active
+                && ($ms = $record->currentMembership()) !== null
+                && ! $ms->isFrozen())
+            ->modalDescription('Paket baru berlaku mulai hari ini. Sisa nilai paket lama menjadi kredit.')
+            ->modalSubmitActionLabel('Upgrade')
+            ->fillForm(fn (): array => ['method' => PaymentMethod::Cash->value])
+            ->schema([
+                Select::make('plan_id')
+                    ->label('Paket baru')
+                    ->options(function (Member $record): array {
+                        $harga = $record->currentMembership()?->plan->price ?? 0;
+
+                        return MembershipPlan::active()->where('price', '>', $harga)->pluck('name', 'id')->all();
+                    })
+                    ->required()
+                    ->live()
+                    ->afterStateUpdated(fn ($state, $set, Member $record) => $set('amount', self::rincianUpgrade($record, $state)['bayar'] ?? null)),
+                Text::make(function ($get, Member $record): string {
+                    $r = self::rincianUpgrade($record, $get('plan_id'));
+
+                    return $r
+                        ? 'Sisa nilai paket lama '.self::rupiah($r['sisa']).' — harga paket baru '.self::rupiah($r['harga'])
+                            .' — kredit '.self::rupiah($r['kredit']).' — harus dibayar '.self::rupiah($r['bayar'])
+                        : 'Pilih paket baru untuk melihat rincian.';
+                }),
+                Select::make('method')
+                    ->label('Metode bayar')
+                    ->options(PaymentMethod::class)
+                    ->required(),
+                TextInput::make('amount')
+                    ->label('Jumlah (Rp)')
+                    ->numeric()
+                    ->integer()
+                    ->minValue(0)
+                    ->required(),
+            ])
+            ->action(function (Member $record, array $data): void {
+                self::jalankan(function () use ($record, $data): void {
+                    app(MembershipService::class)->upgrade(
+                        $record,
+                        MembershipPlan::findOrFail($data['plan_id']),
+                        self::metode($data['method']),
+                        (int) $data['amount'],
+                        auth()->user(),
+                    );
+
+                    Notification::make()->success()->title('Paket di-upgrade')->send();
+                });
+            });
+    }
+
+    public static function refund(): Action
+    {
+        return Action::make('refund')
+            ->label('Refund')
+            ->color('danger')
+            ->authorize('refund')
+            ->visible(fn (Member $record): bool => self::membershipRefund($record) !== null)
+            ->modalDescription('Membership dibatalkan dan uang dikembalikan ke member. Ini berbeda dari pembatalan pembayaran yang salah catat.')
+            ->modalSubmitActionLabel('Refund')
+            ->fillForm(function (Member $record): array {
+                $ms = self::membershipRefund($record);
+
+                return [
+                    'amount' => $ms ? app(MembershipService::class)->remainingValue($ms) : null,
+                    'method' => PaymentMethod::Cash->value,
+                ];
+            })
+            ->schema([
+                Text::make(function (Member $record): string {
+                    $ms = self::membershipRefund($record);
+
+                    if (! $ms) {
+                        return '';
+                    }
+
+                    $service = app(MembershipService::class);
+
+                    return 'Nilai membership '.self::rupiah($service->membershipValue($ms))
+                        .' — sisa nilai (saran jumlah) '.self::rupiah($service->remainingValue($ms));
+                }),
+                TextInput::make('amount')
+                    ->label('Jumlah refund (Rp)')
+                    ->numeric()
+                    ->integer()
+                    ->minValue(1)
+                    ->required(),
+                Select::make('method')
+                    ->label('Metode')
+                    ->options(PaymentMethod::class)
+                    ->required(),
+                Textarea::make('reason')->label('Alasan')->required()->maxLength(500),
+                Checkbox::make('confirmed')
+                    ->label('Uang sudah dikembalikan ke member')
+                    ->accepted()
+                    ->validationMessages(['accepted' => 'Centang setelah uang dikembalikan ke member.']),
+            ])
+            ->action(function (Member $record, array $data): void {
+                self::jalankan(function () use ($record, $data): void {
+                    $ms = self::membershipRefund($record)
+                        ?? throw new InvalidArgumentException('Tidak ada membership yang bisa di-refund.');
+
+                    app(MembershipService::class)->refund(
+                        $ms,
+                        (int) $data['amount'],
+                        self::metode($data['method']),
+                        $data['reason'],
+                        auth()->user(),
+                    );
+
+                    Notification::make()->success()->title('Refund dicatat dan membership dibatalkan')->send();
+                });
+            });
+    }
+
+    /** Membership yang di-refund: yang sedang berjalan, atau yang belum mulai bila tidak ada. */
+    private static function membershipRefund(Member $member): ?Membership
+    {
+        return $member->currentMembership()
+            ?? $member->memberships()
+                ->whereNull('cancelled_at')
+                ->whereDate('starts_on', '>', now()->toDateString())
+                ->orderBy('starts_on')
+                ->first();
+    }
+
+    /** @return array{sisa: int, harga: int, kredit: int, bayar: int}|null */
+    private static function rincianUpgrade(Member $member, mixed $planId): ?array
+    {
+        $plan = $planId ? MembershipPlan::find($planId) : null;
+        $lama = $member->currentMembership();
+
+        if (! $plan || ! $lama) {
+            return null;
+        }
+
+        $sisa = app(MembershipService::class)->remainingValue($lama);
+        $kredit = min($sisa, $plan->price);
+
+        return ['sisa' => $sisa, 'harga' => $plan->price, 'kredit' => $kredit, 'bayar' => $plan->price - $kredit];
     }
 
     public static function bekukan(): Action

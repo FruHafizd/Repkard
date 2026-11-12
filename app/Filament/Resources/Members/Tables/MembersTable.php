@@ -47,10 +47,12 @@ class MembersTable
                 EditAction::make(),
                 ActionGroup::make([
                     MemberActions::perpanjang(),
+                    MemberActions::upgrade(),
                     MemberActions::bekukan(),
                     MemberActions::cetakKartu(),
                     MemberActions::terbitkanUlangKartu(),
                     MemberActions::cabutKartu(),
+                    MemberActions::refund(),
                     MemberActions::tolak(),
                 ]),
             ])

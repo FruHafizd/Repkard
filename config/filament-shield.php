@@ -257,6 +257,7 @@ return [
         'ViewAll:WalkIn' => 'Lihat semua catatan pendatang',
         'ReissueCard:Member' => 'Terbitkan ulang kartu member',
         'ManageAll:Announcement' => 'Kelola semua pengumuman',
+        'Refund:Member' => 'Refund membership member',
     ],
 
     /*

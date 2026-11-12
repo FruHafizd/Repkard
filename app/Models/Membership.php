@@ -19,9 +19,13 @@ class Membership extends Model
         'starts_on',
         'ends_on',
         'visits_remaining',
+        'visits_total',
+        'credit_amount',
         'frozen_from',
         'frozen_until',
         'cancelled_at',
+        'cancel_reason',
+        'replaced_by_id',
     ];
 
     protected function casts(): array
@@ -30,6 +34,8 @@ class Membership extends Model
             'starts_on' => 'date',
             'ends_on' => 'date',
             'visits_remaining' => 'integer',
+            'visits_total' => 'integer',
+            'credit_amount' => 'integer',
             'frozen_from' => 'date',
             'frozen_until' => 'date',
             'cancelled_at' => 'datetime',
