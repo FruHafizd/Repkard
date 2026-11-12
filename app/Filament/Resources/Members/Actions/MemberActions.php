@@ -6,15 +6,19 @@ use App\Enums\MemberStatus;
 use App\Enums\PaymentMethod;
 use App\Filament\Forms\Components\WebcamPhoto;
 use App\Filament\Resources\Members\MemberResource;
+use App\Filament\Resources\PtSubscriptions\Tables\PtSubscriptionsTable;
 use App\Models\Member;
 use App\Models\Membership;
 use App\Models\MembershipPlan;
 use App\Models\PromoCode;
+use App\Models\PtPackage;
+use App\Models\User;
 use App\Services\MemberCardService;
 use App\Services\MemberPhotoService;
 use App\Services\MembershipService;
 use App\Services\PromoResult;
 use App\Services\PromoService;
+use App\Services\PtService;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\FileUpload;
@@ -197,6 +201,54 @@ class MemberActions
                     );
 
                     Notification::make()->success()->title('Paket di-upgrade')->send();
+                });
+            });
+    }
+
+    public static function jualPt(): Action
+    {
+        return Action::make('jualPt')
+            ->label('Jual paket PT')
+            ->color('success')
+            ->authorize('sellPt')
+            ->visible(fn (Member $record): bool => $record->status === MemberStatus::Active
+                && $record->currentMembership() !== null)
+            ->modalSubmitActionLabel('Jual')
+            ->fillForm(fn (): array => ['method' => PaymentMethod::Cash->value])
+            ->schema([
+                Select::make('pt_package_id')
+                    ->label('Paket PT')
+                    ->options(fn (): array => PtPackage::active()->pluck('name', 'id')->all())
+                    ->required()
+                    ->live()
+                    ->afterStateUpdated(fn ($state, $set) => $set('amount', $state ? PtPackage::find($state)?->price : null)),
+                Select::make('trainer_id')
+                    ->label('Trainer')
+                    ->options(fn (): array => PtSubscriptionsTable::trainerOptions())
+                    ->required(),
+                Select::make('method')
+                    ->label('Metode bayar')
+                    ->options(PaymentMethod::class)
+                    ->required(),
+                TextInput::make('amount')
+                    ->label('Jumlah (Rp)')
+                    ->numeric()
+                    ->integer()
+                    ->minValue(0)
+                    ->required(),
+            ])
+            ->action(function (Member $record, array $data): void {
+                self::jalankan(function () use ($record, $data): void {
+                    app(PtService::class)->sell(
+                        $record,
+                        PtPackage::findOrFail($data['pt_package_id']),
+                        User::findOrFail($data['trainer_id']),
+                        self::metode($data['method']),
+                        (int) $data['amount'],
+                        auth()->user(),
+                    );
+
+                    Notification::make()->success()->title('Paket PT terjual')->send();
                 });
             });
     }

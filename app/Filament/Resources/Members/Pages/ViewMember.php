@@ -17,6 +17,7 @@ class ViewMember extends ViewRecord
             MemberActions::aktifkan(),
             MemberActions::perpanjang(),
             MemberActions::upgrade(),
+            MemberActions::jualPt(),
             MemberActions::bekukan(),
             MemberActions::cetakKartu(),
             MemberActions::terbitkanUlangKartu(),

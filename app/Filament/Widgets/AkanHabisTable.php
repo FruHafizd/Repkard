@@ -14,6 +14,11 @@ class AkanHabisTable extends TableWidget
 {
     protected static ?int $sort = 2;
 
+    public static function canView(): bool
+    {
+        return auth()->user()?->can('ViewAny:Member') ?? false;
+    }
+
     protected int|string|array $columnSpan = 'full';
 
     protected static ?string $heading = 'Akan habis 7 hari lagi';

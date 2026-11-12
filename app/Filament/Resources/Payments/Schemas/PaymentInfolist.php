@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Payments\Schemas;
 
 use App\Filament\Resources\Payments\PaymentResource;
+use App\Models\Payment;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
 
@@ -15,7 +16,7 @@ class PaymentInfolist
                 TextEntry::make('paid_at')->label('Tanggal')->dateTime('d M Y H:i'),
                 TextEntry::make('member.member_number')->label('Nomor member')->placeholder('-'),
                 TextEntry::make('member.user.name')->label('Nama'),
-                TextEntry::make('membership.plan.name')->label('Paket')->placeholder('-'),
+                TextEntry::make('item')->label('Paket')->state(fn (Payment $record): string => $record->itemLabel()),
                 TextEntry::make('original_amount')->label('Harga asli')->placeholder('-')
                     ->formatStateUsing(fn (int $state): string => PaymentResource::rupiah($state)),
                 TextEntry::make('discount_amount')->label('Diskon')

@@ -13,7 +13,7 @@ class PaymentReceiptController extends Controller
     {
         Gate::authorize('view', $payment);
 
-        $payment->load(['member.user', 'membership.plan', 'recorder']);
+        $payment->load(['member.user', 'membership.plan', 'ptSubscription.package', 'ptSubscription.trainer', 'recorder']);
 
         return Pdf::loadView('receipts.payment', ['payment' => $payment])
             ->setPaper('a6')

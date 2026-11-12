@@ -111,7 +111,7 @@ class DashboardAdminTest extends TestCase
     {
         $data = $this->skenarioDataUji();
 
-        Livewire::test(AkanHabisTable::class)
+        Livewire::actingAs($this->userDenganRole(UserRole::Pegawai))->test(AkanHabisTable::class)
             ->assertCanSeeTableRecords([$data['membershipHabis3']])
             ->assertCanNotSeeTableRecords([$data['membershipHabis8']]);
     }
@@ -120,7 +120,7 @@ class DashboardAdminTest extends TestCase
     {
         $data = $this->skenarioDataUji();
 
-        Livewire::test(CheckInHariIniTable::class)
+        Livewire::actingAs($this->userDenganRole(UserRole::Pegawai))->test(CheckInHariIniTable::class)
             ->assertCanSeeTableRecords($data['checkIns'])
             ->assertCountTableRecords(3);
     }
