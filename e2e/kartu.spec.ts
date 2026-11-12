@@ -1,9 +1,12 @@
 import { expect, Page, test } from '@playwright/test';
+import { resetLoginThrottle } from './helpers';
 
 const SS = 'test-results/kartu';
 
 // Filament membatasi percobaan login per IP, jadi sesi dipakai ulang antar test.
 const sesi = new Map<string, Awaited<ReturnType<ReturnType<Page['context']>['cookies']>>>();
+
+test.beforeEach(() => resetLoginThrottle());
 
 async function login(page: Page, email: string, password = 'password') {
     const cookies = sesi.get(email);
@@ -34,6 +37,8 @@ test.describe.serial('kartu member', () => {
         await login(page, 'pegawai@repkard.test');
         await page.goto('/admin/members');
         await page.getByRole('button', { name: /Menunggu aktivasi/ }).click();
+        // Tunggu filter tab selesai (member aktif hilang dari daftar) sebelum menghitung baris.
+        await expect(page.getByRole('row').filter({ hasText: 'Budi Valid' })).toHaveCount(0);
 
         const antre = page.getByRole('row').filter({ hasText: 'Calon Aktivasi' });
         if (await antre.count()) {

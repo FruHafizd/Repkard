@@ -1,7 +1,10 @@
 import { expect, Page, test } from '@playwright/test';
 import fs from 'node:fs';
+import { resetLoginThrottle } from './helpers';
 
 const SS = 'test-results/panel-member';
+
+test.beforeEach(() => resetLoginThrottle());
 
 async function login(page: Page, email: string) {
     await page.goto('/member/login');
