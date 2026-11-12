@@ -16,10 +16,12 @@ class ViewMember extends ViewRecord
         return [
             MemberActions::aktifkan(),
             MemberActions::perpanjang(),
+            MemberActions::upgrade(),
             MemberActions::bekukan(),
             MemberActions::cetakKartu(),
             MemberActions::terbitkanUlangKartu(),
             MemberActions::cabutKartu(),
+            MemberActions::refund(),
             MemberActions::tolak(),
             EditAction::make(),
         ];
