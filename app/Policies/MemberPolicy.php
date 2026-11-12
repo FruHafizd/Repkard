@@ -78,6 +78,11 @@ class MemberPolicy
         return $user->can('Refund:Member');
     }
 
+    public function sellPt(User $user, Member $member): bool
+    {
+        return $user->can('SellPt:Member');
+    }
+
     public function reissueCard(User $user, Member $member): bool
     {
         return $user->can('ReissueCard:Member');

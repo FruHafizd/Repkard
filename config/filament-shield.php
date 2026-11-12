@@ -261,6 +261,8 @@ return [
         'Cancel:Sale' => 'Batalkan penjualan kasir',
         'ManageStock:Product' => 'Tambah / koreksi stok produk',
         'Refund:Member' => 'Refund membership member',
+        'SellPt:Member' => 'Jual paket PT ke member',
+        'ViewAll:PtSubscription' => 'Lihat semua klien PT',
     ],
 
     /*

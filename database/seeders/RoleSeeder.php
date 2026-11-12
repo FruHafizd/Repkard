@@ -14,6 +14,7 @@ class RoleSeeder extends Seeder
     {
         $owner = Role::firstOrCreate(['name' => UserRole::Owner->value, 'guard_name' => 'web']);
         $pegawai = Role::firstOrCreate(['name' => UserRole::Pegawai->value, 'guard_name' => 'web']);
+        $trainer = Role::firstOrCreate(['name' => UserRole::Trainer->value, 'guard_name' => 'web']);
         Role::firstOrCreate(['name' => UserRole::Member->value, 'guard_name' => 'web']);
 
         // Buat permission untuk semua Resource/Page admin (Shield).
@@ -42,6 +43,16 @@ class RoleSeeder extends Seeder
             'ViewAny:Product', 'View:Product',
             'ViewAny:Sale', 'View:Sale',
             'View:Kasir',
+            // Personal trainer: pegawai menjual paket PT dan melihat semua klien PT; paket PT hanya dilihat.
+            'ViewAny:PtPackage', 'View:PtPackage',
+            'ViewAny:PtSubscription', 'View:PtSubscription', 'ViewAll:PtSubscription',
+            'SellPt:Member',
+        ]);
+
+        // Trainer: akses sempit, hanya paket PT dan klien PT miliknya sendiri.
+        $trainer->syncPermissions([
+            'ViewAny:PtPackage', 'View:PtPackage',
+            'ViewAny:PtSubscription', 'View:PtSubscription',
         ]);
     }
 }

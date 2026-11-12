@@ -12,6 +12,11 @@ class CheckInHariIniTable extends TableWidget
 {
     protected static ?int $sort = 3;
 
+    public static function canView(): bool
+    {
+        return auth()->user()?->can('ViewAny:Member') ?? false;
+    }
+
     protected int|string|array $columnSpan = 'full';
 
     protected static ?string $heading = 'Check-in hari ini';

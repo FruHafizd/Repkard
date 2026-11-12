@@ -17,6 +17,7 @@ class Payment extends Model
     protected $fillable = [
         'member_id',
         'membership_id',
+        'pt_subscription_id',
         'type',
         'amount',
         'original_amount',
@@ -55,6 +56,11 @@ class Payment extends Model
         return $this->belongsTo(Membership::class);
     }
 
+    public function ptSubscription(): BelongsTo
+    {
+        return $this->belongsTo(PtSubscription::class);
+    }
+
     public function promoCode(): BelongsTo
     {
         return $this->belongsTo(PromoCode::class);
@@ -68,6 +74,16 @@ class Payment extends Model
     public function canceller(): BelongsTo
     {
         return $this->belongsTo(User::class, 'cancelled_by');
+    }
+
+    /** Deskripsi yang dibayar: nama paket membership, atau paket PT beserta trainernya. */
+    public function itemLabel(): string
+    {
+        if ($this->pt_subscription_id !== null && ($pt = $this->ptSubscription)) {
+            return "Paket PT: {$pt->package->name} ({$pt->sessions_total} sesi) — Trainer {$pt->trainer->name}";
+        }
+
+        return $this->membership?->plan?->name ?? '-';
     }
 
     public function isCancelled(): bool

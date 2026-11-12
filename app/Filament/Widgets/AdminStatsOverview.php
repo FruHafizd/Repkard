@@ -21,6 +21,11 @@ class AdminStatsOverview extends StatsOverviewWidget
 {
     protected static ?int $sort = 1;
 
+    public static function canView(): bool
+    {
+        return auth()->user()?->can('ViewAny:Member') ?? false;
+    }
+
     protected function getStats(): array
     {
         $today = now()->toDateString();

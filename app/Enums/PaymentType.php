@@ -8,12 +8,14 @@ enum PaymentType: string implements HasLabel
 {
     case Purchase = 'purchase';
     case Upgrade = 'upgrade';
+    case Pt = 'pt';
 
     public function label(): string
     {
         return match ($this) {
             self::Purchase => 'Pembelian',
             self::Upgrade => 'Upgrade',
+            self::Pt => 'Paket PT',
         };
     }
 

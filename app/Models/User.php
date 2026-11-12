@@ -62,6 +62,11 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         return $this->hasOne(Member::class);
     }
 
+    public function trainerProfile(): HasOne
+    {
+        return $this->hasOne(TrainerProfile::class);
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
         if (! $this->is_active) {
@@ -69,7 +74,7 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         }
 
         return match ($panel->getId()) {
-            'admin' => $this->hasAnyRole([UserRole::Owner->value, UserRole::Pegawai->value]),
+            'admin' => $this->hasAnyRole([UserRole::Owner->value, UserRole::Pegawai->value, UserRole::Trainer->value]),
             'member' => $this->hasRole(UserRole::Member->value),
             default => false,
         };

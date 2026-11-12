@@ -32,7 +32,7 @@ class UserResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->role([UserRole::Owner->value, UserRole::Pegawai->value]);
+        return parent::getEloquentQuery()->role([UserRole::Owner->value, UserRole::Pegawai->value, UserRole::Trainer->value]);
     }
 
     public static function form(Schema $schema): Schema

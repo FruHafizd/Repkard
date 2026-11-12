@@ -168,9 +168,9 @@ Rencana & keputusan: prd.md bagian 13. Prompt: `prompts/fitur-tambahan/`. Kolom 
 | Tambah / koreksi stok | ✅ | ❌ | ❌ | ❌ | ✅ |
 | Kasir: jual produk + struk | ✅ | ✅ | ❌ | ❌ | ✅ |
 | Batalkan transaksi kasir | ✅ | ❌ | ❌ | ❌ | ✅ |
-| Kelola trainer & komisi per sesi | ✅ | 👁️ | ❌ | ❌ | ⬜ |
-| Kelola paket PT | ✅ | 👁️ | 👁️ | ❌ | ⬜ |
-| Jual paket PT ke member | ✅ | ✅ | ❌ | ❌ | ⬜ |
+| Kelola trainer & komisi per sesi | ✅ | 👁️ | ❌ | ❌ | ✅ |
+| Kelola paket PT | ✅ | 👁️ | 👁️ | ❌ | ✅ |
+| Jual paket PT ke member | ✅ | ✅ | ❌ | ❌ | ✅ |
 | Jadwalkan sesi PT | ✅ | ✅ | 🙋 | ❌ | ⬜ |
 | Tandai sesi selesai / tidak datang / batal | ✅ | ✅ | 🙋 | ❌ | ⬜ |
 | Lihat sisa sesi & jadwal PT | ✅ | ✅ | 🙋 | 🙋 | ⬜ |

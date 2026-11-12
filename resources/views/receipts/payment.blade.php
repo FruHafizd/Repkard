@@ -67,7 +67,7 @@
         <table class="rows">
             <tr><td class="k">Member</td><td class="v">{{ $payment->member->user->name }}</td></tr>
             <tr><td class="k">No. member</td><td class="v">{{ $payment->member->member_number ?? '-' }}</td></tr>
-            <tr><td class="k">Paket</td><td class="v">{{ $payment->membership?->plan?->name ?? '-' }}</td></tr>
+            <tr><td class="k">Paket</td><td class="v">{{ $payment->itemLabel() }}</td></tr>
             <tr><td class="k">Metode</td><td class="v">{{ $payment->method->label() }}</td></tr>
             @if ($payment->discount_amount > 0)
                 <tr><td class="k">Harga asli</td><td class="v">Rp {{ number_format($payment->original_amount ?? $payment->amount, 0, ',', '.') }}</td></tr>

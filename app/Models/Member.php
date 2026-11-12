@@ -81,6 +81,11 @@ class Member extends Model
         return $this->hasMany(Payment::class);
     }
 
+    public function ptSubscriptions(): HasMany
+    {
+        return $this->hasMany(PtSubscription::class);
+    }
+
     public function followUps(): HasMany
     {
         return $this->hasMany(MemberFollowUp::class);
