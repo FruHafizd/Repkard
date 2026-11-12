@@ -9,6 +9,7 @@ use App\Models\CheckIn;
 use App\Models\Member;
 use App\Models\Membership;
 use App\Models\Payment;
+use App\Models\Sale;
 use App\Models\WalkIn;
 use Filament\Support\Icons\Heroicon;
 use Filament\Widgets\StatsOverviewWidget;
@@ -54,7 +55,7 @@ class AdminStatsOverview extends StatsOverviewWidget
         $user = auth()->user();
         $rentang = [now()->startOfDay(), now()->endOfDay()];
 
-        // Pemasukan hari ini = pembayaran member + pendatang, tidak termasuk yang dibatalkan.
+        // Pemasukan hari ini = pembayaran member + pendatang + penjualan kasir, tidak termasuk yang dibatalkan.
         // Tanpa izin "lihat semua", hanya yang dicatat sendiri.
         $pemasukan = Payment::query()
             ->whereNull('cancelled_at')
@@ -65,7 +66,12 @@ class AdminStatsOverview extends StatsOverviewWidget
                 ->notCancelled()
                 ->whereBetween('visited_at', $rentang)
                 ->when(! $user?->can('ViewAll:WalkIn'), fn (Builder $q) => $q->where('recorded_by', $user?->getKey()))
-                ->sum('amount');
+                ->sum('amount')
+            + Sale::query()
+                ->notCancelled()
+                ->whereBetween('sold_at', $rentang)
+                ->when(! $user?->can('ViewAll:Sale'), fn (Builder $q) => $q->where('recorded_by', $user?->getKey()))
+                ->sum('total');
 
         return [
             Stat::make('Pemasukan hari ini', PaymentResource::rupiah($pemasukan))->icon(Heroicon::OutlinedBanknotes),

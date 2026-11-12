@@ -38,6 +38,10 @@ class RoleSeeder extends Seeder
             'ViewAny:Announcement', 'View:Announcement', 'Create:Announcement', 'Update:Announcement',
             // Promo: pegawai hanya melihat; membuat/mengubah hanya owner.
             'ViewAny:PromoCode', 'View:PromoCode',
+            // Kasir: lihat produk, jual, dan lihat penjualan sendiri; "ViewAll:Sale", "Cancel:Sale", "ManageStock:Product" sengaja tidak diberikan.
+            'ViewAny:Product', 'View:Product',
+            'ViewAny:Sale', 'View:Sale',
+            'View:Kasir',
         ]);
     }
 }

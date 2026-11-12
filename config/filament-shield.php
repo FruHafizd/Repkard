@@ -257,6 +257,9 @@ return [
         'ViewAll:WalkIn' => 'Lihat semua catatan pendatang',
         'ReissueCard:Member' => 'Terbitkan ulang kartu member',
         'ManageAll:Announcement' => 'Kelola semua pengumuman',
+        'ViewAll:Sale' => 'Lihat semua penjualan kasir',
+        'Cancel:Sale' => 'Batalkan penjualan kasir',
+        'ManageStock:Product' => 'Tambah / koreksi stok produk',
     ],
 
     /*
