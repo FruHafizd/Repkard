@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\PromoCodes\Schemas;
 
 use App\Enums\DiscountType;
+use Closure;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -33,12 +34,17 @@ class PromoCodeForm
                     ->required()
                     ->live(),
                 TextInput::make('discount_value')
-                    ->label(fn ($get): string => $get('discount_type') === DiscountType::Percent->value ? 'Persen (1-100)' : 'Potongan (Rp)')
+                    ->label('Nilai diskon')
+                    ->helperText('Persen: 1-100. Potongan nominal: jumlah rupiah.')
                     ->numeric()
                     ->integer()
                     ->required()
                     ->minValue(1)
-                    ->maxValue(fn ($get): ?int => $get('discount_type') === DiscountType::Percent->value ? 100 : null),
+                    ->rule(fn ($get): Closure => function (string $attribute, mixed $value, Closure $fail) use ($get): void {
+                        if ($get('discount_type') === DiscountType::Percent->value && (int) $value > 100) {
+                            $fail('Diskon persen tidak boleh lebih dari 100.');
+                        }
+                    }),
                 DatePicker::make('starts_on')->label('Mulai berlaku')->helperText('Kosong = tanpa batas.'),
                 DatePicker::make('ends_on')->label('Berakhir')->helperText('Kosong = tanpa batas.')->afterOrEqual('starts_on'),
                 TextInput::make('max_uses')->label('Maks. pemakaian total')->numeric()->integer()->minValue(1)->helperText('Kosong = tanpa batas.'),
