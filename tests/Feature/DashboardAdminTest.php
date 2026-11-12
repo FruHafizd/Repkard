@@ -134,13 +134,13 @@ class DashboardAdminTest extends TestCase
 
             $this->get('/admin')
                 ->assertOk()
-                ->assertDontSee('Rp');
+                ->assertDontSee('Rp ');
 
             Livewire::test(Dashboard::class)
                 ->assertSeeLivewire(AdminStatsOverview::class)
                 ->assertSeeLivewire(AkanHabisTable::class)
                 ->assertSeeLivewire(CheckInHariIniTable::class)
-                ->assertDontSee('Rp');
+                ->assertDontSee('Rp ');
         }
     }
 

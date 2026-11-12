@@ -5,12 +5,16 @@ namespace App\Filament\Member\Widgets;
 use App\Enums\MemberStatus;
 use App\Models\CheckIn;
 use Filament\Facades\Filament;
+use Filament\Support\Icons\Heroicon;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class MembershipStatusWidget extends StatsOverviewWidget
 {
     protected static ?int $sort = -10;
+
+    /** Di HP: status selebar layar, sisanya dua kolom. */
+    protected int|array|null $columns = ['default' => 2, '@xl' => 3, '!@lg' => 3];
 
     public static function canView(): bool
     {
@@ -30,7 +34,23 @@ class MembershipStatusWidget extends StatsOverviewWidget
         };
 
         $stats = [
-            Stat::make('Status membership', $status),
+            Stat::make('Status membership', $status)
+                ->description(match ($status) {
+                    'Aktif' => 'Tunjukkan kartu di meja depan',
+                    'Dibekukan' => 'Sedang cuti sementara',
+                    default => 'Perpanjang di meja depan',
+                })
+                ->descriptionIcon(match ($status) {
+                    'Aktif' => Heroicon::CheckCircle,
+                    'Dibekukan' => Heroicon::PauseCircle,
+                    default => Heroicon::XCircle,
+                })
+                ->columnSpanFull()
+                ->extraAttributes(['class' => 'rk-status rk-status-'.match ($status) {
+                    'Aktif' => 'ok',
+                    'Dibekukan' => 'hold',
+                    default => 'no',
+                }]),
             Stat::make('Paket', $membership?->plan?->name ?? '-'),
             Stat::make('Berlaku sampai', $membership?->ends_on->format('d M Y') ?? '-'),
             Stat::make('Sisa hari', $membership ? (int) now()->startOfDay()->diffInDays($membership->ends_on) + 1 : 0),

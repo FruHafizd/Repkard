@@ -1,7 +1,10 @@
 import { expect, Page, test } from '@playwright/test';
+import { resetLoginThrottle } from './helpers';
 
 // Filament membatasi percobaan login per IP, jadi sesi dipakai ulang antar test.
 const sesi = new Map<string, Awaited<ReturnType<ReturnType<Page['context']>['cookies']>>>();
+
+test.beforeEach(() => resetLoginThrottle());
 
 async function login(page: Page, email: string, password = 'password') {
     const cookies = sesi.get(email);

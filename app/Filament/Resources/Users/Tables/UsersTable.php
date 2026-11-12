@@ -15,7 +15,7 @@ class UsersTable
         return $table
             ->columns([
                 TextColumn::make('name')->label('Nama')->searchable(),
-                TextColumn::make('email')->label('Email')->searchable(),
+                TextColumn::make('email')->label('Email')->searchable()->visibleFrom('md'),
                 TextColumn::make('roles.name')->label('Role')->badge(),
                 IconColumn::make('is_active')->label('Aktif')->boolean(),
             ])

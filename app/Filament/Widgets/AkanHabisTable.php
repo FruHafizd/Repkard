@@ -29,9 +29,9 @@ class AkanHabisTable extends TableWidget
                 ->orderBy('ends_on'))
             ->columns([
                 TextColumn::make('member.user.name')->label('Nama'),
-                TextColumn::make('member.phone')->label('Nomor HP'),
-                TextColumn::make('member.member_number')->label('Nomor member')->placeholder('-'),
-                TextColumn::make('plan.name')->label('Paket')->placeholder('-'),
+                TextColumn::make('member.phone')->label('Nomor HP')->visibleFrom('md'),
+                TextColumn::make('member.member_number')->label('Nomor member')->placeholder('-')->visibleFrom('md'),
+                TextColumn::make('plan.name')->label('Paket')->placeholder('-')->visibleFrom('lg'),
                 TextColumn::make('ends_on')->label('Berlaku sampai')->date('d M Y'),
             ])
             ->recordUrl(fn (Membership $record): string => MemberResource::getUrl('view', ['record' => $record->member_id]))

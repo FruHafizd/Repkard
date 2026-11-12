@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import fs from 'node:fs';
+import { resetLoginThrottle } from './helpers';
 
 // PNG 1x1 valid; server memotong & memperbesar ke 3:4.
 const png = Buffer.from(
@@ -8,6 +9,8 @@ const png = Buffer.from(
 );
 
 test.beforeAll(() => fs.writeFileSync('storage/logs/laravel.log', ''));
+
+test.beforeEach(() => resetLoginThrottle());
 
 function linkVerifikasi(): string {
     const log = fs.readFileSync('storage/logs/laravel.log', 'utf8')

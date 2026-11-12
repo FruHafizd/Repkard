@@ -15,8 +15,9 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\View\PanelsRenderHook;
 use Filament\Widgets\AccountWidget;
-use Filament\Widgets\FilamentInfoWidget;
+use Illuminate\Contracts\View\View;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -31,14 +32,22 @@ class MemberPanelProvider extends PanelProvider
         return $panel
             ->id('member')
             ->path('member')
+            ->viteTheme('resources/css/filament/member/theme.css')
             ->login()
             ->registration(Register::class)
             ->emailVerification()
             ->passwordReset()
             ->profile(EditProfile::class)
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => config('design.primary'),
+                'success' => config('design.success'),
+                'danger' => config('design.danger'),
+                'gray' => Color::Slate,
             ])
+            ->font(config('design.font.sans'), url: config('design.font.url'))
+            ->brandLogo(fn (): View => view('partials.wordmark'))
+            ->brandLogoHeight('1.75rem')
+            ->renderHook(PanelsRenderHook::HEAD_END, fn (): View => view('partials.design-tokens', ['fonts' => false]))
             ->discoverResources(in: app_path('Filament/Member/Resources'), for: 'App\Filament\Member\Resources')
             ->discoverPages(in: app_path('Filament/Member/Pages'), for: 'App\Filament\Member\Pages')
             ->pages([
@@ -48,7 +57,6 @@ class MemberPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Member/Widgets'), for: 'App\Filament\Member\Widgets')
             ->widgets([
                 AccountWidget::class,
-                FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
