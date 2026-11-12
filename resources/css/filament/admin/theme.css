@@ -243,3 +243,170 @@
         @apply text-primary-700 dark:text-primary-300;
     }
 }
+
+/* ───── Kasir ─────
+   HP: keranjang di bawah grid. Tablet landscape ke atas: dua kolom. Target sentuh ≥ 44px. */
+.rk-pos {
+    display: grid;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+@media (min-width: 64rem) {
+    .rk-pos {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 24rem);
+    }
+
+    .rk-pos-cart {
+        position: sticky;
+        top: 5rem;
+    }
+}
+
+.rk-pos-search {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0 0.875rem;
+    border-radius: var(--radius-lg);
+    @apply bg-white text-gray-950 ring-1 ring-gray-950/10 dark:bg-white/5 dark:text-white dark:ring-white/20;
+}
+
+.rk-pos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.rk-pos-tile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-height: 5.5rem;
+    padding: 0.75rem;
+    text-align: left;
+    border-radius: var(--radius-xl);
+    @apply bg-white text-gray-950 ring-1 ring-gray-950/10 dark:bg-white/5 dark:text-white dark:ring-white/20;
+
+    &:hover:not(:disabled) {
+        @apply ring-primary-600;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+.rk-pos-tile-name {
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.rk-pos-tile-price {
+    font-family: var(--font-display);
+    font-weight: 800;
+}
+
+.rk-pos-tile-stock {
+    font-size: 0.8125rem;
+    @apply text-gray-600 dark:text-gray-400;
+}
+
+.rk-pos-out {
+    color: var(--rk-danger-600);
+    font-weight: 600;
+}
+
+.rk-pos-cart {
+    display: grid;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: var(--radius-xl);
+    @apply bg-white ring-1 ring-gray-950/10 dark:bg-white/5 dark:ring-white/20;
+}
+
+.rk-pos-title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 800;
+    font-size: 1.25rem;
+}
+
+.rk-pos-empty {
+    @apply text-gray-600 dark:text-gray-400;
+}
+
+.rk-pos-lines {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.rk-pos-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.rk-pos-line-info {
+    display: grid;
+    min-width: 0;
+}
+
+.rk-pos-line-name {
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.rk-pos-line-sub {
+    font-size: 0.875rem;
+    @apply text-gray-600 dark:text-gray-400;
+}
+
+.rk-pos-qty {
+    display: flex;
+    align-items: center;
+    flex: none;
+    gap: 0.25rem;
+
+    & button {
+        min-width: 2.75rem;
+        min-height: 2.75rem;
+        border-radius: var(--radius-lg);
+        font-size: 1.25rem;
+        @apply ring-1 ring-gray-950/10 dark:ring-white/20;
+    }
+
+    & span {
+        min-width: 1.5rem;
+        text-align: center;
+        font-weight: 700;
+    }
+}
+
+.rk-pos-total {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+
+    & strong {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 1.5rem;
+    }
+}
+
+.rk-pos-pay {
+    width: 100%;
+    min-height: 3rem;
+}
+
+.rk-pos-receipt {
+    text-align: center;
+    min-height: 2.75rem;
+    display: grid;
+    place-items: center;
+    font-weight: 600;
+    @apply text-primary-600 dark:text-primary-400;
+}

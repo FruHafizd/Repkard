@@ -164,10 +164,10 @@ Rencana & keputusan: prd.md bagian 13. Prompt: `prompts/fitur-tambahan/`. Kolom 
 | Upgrade paket (prorata) | ✅ | ✅ | ❌ | ❌ | ✅ |
 | Pindah paket untuk periode berikutnya | ✅ | ✅ | ❌ | ❌ | ✅ |
 | Refund membership | ✅ | ❌ | ❌ | ❌ | ✅ |
-| Kelola produk & harga | ✅ | 👁️ | ❌ | ❌ | ⬜ |
-| Tambah / koreksi stok | ✅ | ❌ | ❌ | ❌ | ⬜ |
-| Kasir: jual produk + struk | ✅ | ✅ | ❌ | ❌ | ⬜ |
-| Batalkan transaksi kasir | ✅ | ❌ | ❌ | ❌ | ⬜ |
+| Kelola produk & harga | ✅ | 👁️ | ❌ | ❌ | ✅ |
+| Tambah / koreksi stok | ✅ | ❌ | ❌ | ❌ | ✅ |
+| Kasir: jual produk + struk | ✅ | ✅ | ❌ | ❌ | ✅ |
+| Batalkan transaksi kasir | ✅ | ❌ | ❌ | ❌ | ✅ |
 | Kelola trainer & komisi per sesi | ✅ | 👁️ | ❌ | ❌ | ⬜ |
 | Kelola paket PT | ✅ | 👁️ | 👁️ | ❌ | ⬜ |
 | Jual paket PT ke member | ✅ | ✅ | ❌ | ❌ | ⬜ |
