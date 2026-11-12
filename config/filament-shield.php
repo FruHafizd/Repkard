@@ -254,6 +254,7 @@ return [
 
     'custom_permissions' => [
         'ViewAll:Payment' => 'Lihat semua pembayaran',
+        'ViewAll:WalkIn' => 'Lihat semua catatan pendatang',
         'ReissueCard:Member' => 'Terbitkan ulang kartu member',
     ],
 

@@ -30,6 +30,8 @@ class RoleSeeder extends Seeder
             'ReissueCard:Member',
             // Hanya transaksi yang dicatat sendiri; "ViewAll:Payment" sengaja tidak diberikan.
             'ViewAny:Payment', 'View:Payment',
+            // Pendatang: hanya catatan sendiri; "ViewAll:WalkIn" sengaja tidak diberikan.
+            'ViewAny:WalkIn', 'View:WalkIn', 'Create:WalkIn',
             'View:ScanCheckIn', 'ViewAny:CheckIn', 'View:CheckIn',
         ]);
     }
