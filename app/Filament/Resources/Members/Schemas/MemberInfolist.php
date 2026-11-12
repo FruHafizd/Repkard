@@ -45,6 +45,20 @@ class MemberInfolist
                         TextEntry::make('revoked_at')->label('Dicabut')->dateTime('d M Y H:i')->placeholder('Aktif'),
                         TextEntry::make('revoke_reason')->label('Alasan')->placeholder('-'),
                     ]),
+                RepeatableEntry::make('followUps')
+                    ->label('Riwayat tindak lanjut')
+                    ->state(fn (Member $record) => $record->followUps()->with('user')->orderByDesc('contacted_at')->get())
+                    ->placeholder('Belum ada tindak lanjut')
+                    ->columns(5)
+                    ->columnSpanFull()
+                    ->schema([
+                        TextEntry::make('contacted_at')->label('Tanggal')->dateTime('d M Y H:i'),
+                        TextEntry::make('channel')->label('Cara'),
+                        TextEntry::make('outcome')->label('Hasil'),
+                        TextEntry::make('user.name')->label('Dicatat oleh'),
+                        TextEntry::make('next_contact_on')->label('Hubungi lagi')->date('d M Y')->placeholder('-'),
+                        TextEntry::make('note')->label('Catatan')->placeholder('-')->columnSpanFull(),
+                    ]),
             ]);
     }
 }
