@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Members\Schemas;
 
 use App\Models\Member;
+use App\Models\Membership;
 use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
@@ -34,6 +35,22 @@ class MemberInfolist
                 TextEntry::make('emergency_contact_phone')->label('HP kontak darurat')->placeholder('-'),
                 TextEntry::make('selectedPlan.name')->label('Paket pilihan')->placeholder('-'),
                 TextEntry::make('created_at')->label('Didaftarkan')->dateTime('d M Y H:i'),
+                RepeatableEntry::make('memberships')
+                    ->label('Riwayat membership')
+                    ->state(fn (Member $record) => $record->memberships()->with('plan')->orderByDesc('starts_on')->get())
+                    ->placeholder('Belum ada membership')
+                    ->columns(4)
+                    ->columnSpanFull()
+                    ->schema([
+                        TextEntry::make('plan.name')->label('Paket'),
+                        TextEntry::make('starts_on')->label('Mulai')->date('d M Y'),
+                        TextEntry::make('ends_on')->label('Berakhir')->date('d M Y'),
+                        TextEntry::make('status')->label('Status')
+                            ->state(fn (Membership $record): string => $record->cancelled_at ? 'Dibatalkan' : 'Berlaku')
+                            ->badge()
+                            ->color(fn (string $state): string => $state === 'Dibatalkan' ? 'danger' : 'success'),
+                        TextEntry::make('cancel_reason')->label('Alasan pembatalan')->visible(fn (Membership $record): bool => $record->cancelled_at !== null)->columnSpanFull(),
+                    ]),
                 RepeatableEntry::make('cards')
                     ->label('Riwayat kartu')
                     ->state(fn (Member $record) => $record->cards()->orderByDesc('version')->get())

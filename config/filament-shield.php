@@ -260,6 +260,7 @@ return [
         'ViewAll:Sale' => 'Lihat semua penjualan kasir',
         'Cancel:Sale' => 'Batalkan penjualan kasir',
         'ManageStock:Product' => 'Tambah / koreksi stok produk',
+        'Refund:Member' => 'Refund membership member',
     ],
 
     /*

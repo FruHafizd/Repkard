@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Payments\Tables;
 
+use App\Enums\PaymentType;
 use App\Filament\Resources\Payments\PaymentResource;
 use App\Models\Payment;
 use Filament\Actions\Action;
@@ -9,6 +10,7 @@ use Filament\Actions\ViewAction;
 use Filament\Forms\Components\Textarea;
 use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class PaymentsTable
@@ -24,6 +26,7 @@ class PaymentsTable
                 TextColumn::make('amount')->label('Jumlah')
                     ->formatStateUsing(fn (int $state): string => PaymentResource::rupiah($state))
                     ->sortable(),
+                TextColumn::make('type')->label('Jenis')->badge()->visibleFrom('md'),
                 TextColumn::make('discount_amount')->label('Diskon')
                     ->formatStateUsing(fn (int $state): string => $state > 0 ? PaymentResource::rupiah($state) : '-')
                     ->visibleFrom('md'),
@@ -34,6 +37,9 @@ class PaymentsTable
                     ->state(fn (Payment $record): string => $record->isCancelled() ? 'Dibatalkan' : 'Lunas')
                     ->badge()
                     ->color(fn (string $state): string => $state === 'Dibatalkan' ? 'danger' : 'success'),
+            ])
+            ->filters([
+                SelectFilter::make('type')->label('Jenis')->options(PaymentType::class),
             ])
             ->recordActions([
                 ViewAction::make(),

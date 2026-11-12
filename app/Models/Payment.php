@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\PaymentMethod;
+use App\Enums\PaymentType;
 use Database\Factories\PaymentFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,6 +17,7 @@ class Payment extends Model
     protected $fillable = [
         'member_id',
         'membership_id',
+        'type',
         'amount',
         'original_amount',
         'discount_amount',
@@ -36,6 +38,7 @@ class Payment extends Model
             'amount' => 'integer',
             'original_amount' => 'integer',
             'discount_amount' => 'integer',
+            'type' => PaymentType::class,
             'method' => PaymentMethod::class,
             'paid_at' => 'datetime',
             'cancelled_at' => 'datetime',

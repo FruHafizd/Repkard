@@ -73,6 +73,11 @@ class MemberPolicy
         return $this->milikSendiri($user, $member) || $user->can('View:Member');
     }
 
+    public function refund(User $user, Member $member): bool
+    {
+        return $user->can('Refund:Member');
+    }
+
     public function reissueCard(User $user, Member $member): bool
     {
         return $user->can('ReissueCard:Member');
