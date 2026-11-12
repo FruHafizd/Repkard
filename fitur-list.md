@@ -171,10 +171,10 @@ Rencana & keputusan: prd.md bagian 13. Prompt: `prompts/fitur-tambahan/`. Kolom 
 | Kelola trainer & komisi per sesi | ✅ | 👁️ | ❌ | ❌ | ✅ |
 | Kelola paket PT | ✅ | 👁️ | 👁️ | ❌ | ✅ |
 | Jual paket PT ke member | ✅ | ✅ | ❌ | ❌ | ✅ |
-| Jadwalkan sesi PT | ✅ | ✅ | 🙋 | ❌ | ⬜ |
-| Tandai sesi selesai / tidak datang / batal | ✅ | ✅ | 🙋 | ❌ | ⬜ |
-| Lihat sisa sesi & jadwal PT | ✅ | ✅ | 🙋 | 🙋 | ⬜ |
-| Laporan komisi trainer | ✅ | ❌ | 🙋 | ❌ | ⬜ |
+| Jadwalkan sesi PT | ✅ | ✅ | 🙋 | ❌ | ✅ |
+| Tandai sesi selesai / tidak datang / batal | ✅ | ✅ | 🙋 | ❌ | ✅ |
+| Lihat sisa sesi & jadwal PT | ✅ | ✅ | 🙋 | 🙋 | ✅ |
+| Laporan komisi trainer | ✅ | ❌ | 🙋 | ❌ | ✅ |
 | Absen masuk / pulang dengan swafoto | — | ✅ | ✅ | ❌ | ⬜ |
 | Rekap & koreksi absensi | ✅ | 🙋 | 🙋 | ❌ | ⬜ |
 | Catat pengeluaran | ✅ | ✅ | ❌ | ❌ | ✅ |

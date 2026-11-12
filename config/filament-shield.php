@@ -264,6 +264,7 @@ return [
         'SellPt:Member' => 'Jual paket PT ke member',
         'ViewAll:Expense' => 'Lihat semua pengeluaran',
         'ViewAll:PtSubscription' => 'Lihat semua klien PT',
+        'ViewAll:PtSession' => 'Lihat & kelola semua sesi PT',
     ],
 
     /*
