@@ -263,6 +263,7 @@ return [
         'Refund:Member' => 'Refund membership member',
         'SellPt:Member' => 'Jual paket PT ke member',
         'ViewAll:PtSubscription' => 'Lihat semua klien PT',
+        'ViewAll:PtSession' => 'Lihat & kelola semua sesi PT',
     ],
 
     /*

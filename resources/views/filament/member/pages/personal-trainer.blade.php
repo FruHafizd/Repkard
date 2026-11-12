@@ -15,4 +15,27 @@
             <p>Tanyakan paket personal trainer ke petugas.</p>
         </x-filament::section>
     @endforelse
+
+    @if ($subscriptions->isNotEmpty())
+        <x-filament::section heading="Jadwal akan datang" icon="heroicon-o-calendar-days">
+            @forelse ($upcoming as $s)
+                <div>
+                    {{ $s->scheduled_at->translatedFormat('d M Y, H:i') }} · {{ $s->duration_minutes }} menit · {{ $s->trainer->name }}
+                </div>
+            @empty
+                <p>Belum ada sesi terjadwal.</p>
+            @endforelse
+        </x-filament::section>
+
+        <x-filament::section heading="Riwayat sesi" icon="heroicon-o-clock">
+            @forelse ($history as $s)
+                <div>
+                    {{ $s->scheduled_at->translatedFormat('d M Y') }} · {{ $s->trainer->name }}
+                    <x-filament::badge :color="$s->status->getColor()">{{ $s->status->label() }}</x-filament::badge>
+                </div>
+            @empty
+                <p>Belum ada riwayat sesi.</p>
+            @endforelse
+        </x-filament::section>
+    @endif
 </x-filament-panels::page>

@@ -26,7 +26,7 @@ export default defineConfig({
     reporter: [['list']],
     use: { baseURL: `http://127.0.0.1:${port}`, locale: 'id-ID' },
     webServer: {
-        command: `php -r "file_put_contents('database/e2e.sqlite','');" && php artisan migrate:fresh --seed --force && php e2e/seed.php && php e2e/seed-checkin.php && php e2e/seed-member.php && php e2e/seed-pengumuman.php && php e2e/seed-menghilang.php && php e2e/seed-promo.php && php e2e/seed-upgrade.php && php e2e/seed-pt.php && php artisan serve --host=127.0.0.1 --port=${port}`,
+        command: `php -r "file_put_contents('database/e2e.sqlite','');" && php artisan migrate:fresh --seed --force && php e2e/seed.php && php e2e/seed-checkin.php && php e2e/seed-member.php && php e2e/seed-pengumuman.php && php e2e/seed-menghilang.php && php e2e/seed-promo.php && php e2e/seed-upgrade.php && php e2e/seed-pt.php && php e2e/seed-pt-sesi.php && php artisan serve --host=127.0.0.1 --port=${port}`,
         url: `http://127.0.0.1:${port}`,
         reuseExistingServer: false,
         env: serverEnv,

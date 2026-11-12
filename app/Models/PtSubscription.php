@@ -57,6 +57,11 @@ class PtSubscription extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
+    public function sessions(): HasMany
+    {
+        return $this->hasMany(PtSession::class);
+    }
+
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
