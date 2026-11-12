@@ -8,6 +8,7 @@ use App\Events\MemberActivated;
 use App\Models\Member;
 use App\Models\Membership;
 use App\Models\MembershipPlan;
+use App\Models\PromoCode;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -20,9 +21,9 @@ class MembershipService
     /**
      * Aktivasi pertama: beri nomor member, buat membership dan catat pembayaran.
      */
-    public function activate(Member $member, MembershipPlan $plan, PaymentMethod $method, int $amount, User $by, ?string $proofPath = null): Membership
+    public function activate(Member $member, MembershipPlan $plan, PaymentMethod $method, int $amount, User $by, ?string $proofPath = null, ?PromoCode $promo = null): Membership
     {
-        $membership = DB::transaction(function () use ($member, $plan, $method, $amount, $by, $proofPath): Membership {
+        $membership = DB::transaction(function () use ($member, $plan, $method, $amount, $by, $proofPath, $promo): Membership {
             $member = Member::withTrashed()->lockForUpdate()->findOrFail($member->getKey());
 
             if ($member->status !== MemberStatus::Pending) {
@@ -41,7 +42,7 @@ class MembershipService
                 'selected_plan_id' => $plan->getKey(),
             ])->save();
 
-            return $this->buat($member, $plan, now()->startOfDay(), $method, $amount, $by, $proofPath);
+            return $this->buat($member, $plan, now()->startOfDay(), $method, $amount, $by, $proofPath, $promo, true);
         });
 
         MemberActivated::dispatch($membership->member);
@@ -49,9 +50,9 @@ class MembershipService
         return $membership;
     }
 
-    public function renew(Member $member, MembershipPlan $plan, PaymentMethod $method, int $amount, User $by, ?string $proofPath = null): Membership
+    public function renew(Member $member, MembershipPlan $plan, PaymentMethod $method, int $amount, User $by, ?string $proofPath = null, ?PromoCode $promo = null): Membership
     {
-        return DB::transaction(function () use ($member, $plan, $method, $amount, $by, $proofPath): Membership {
+        return DB::transaction(function () use ($member, $plan, $method, $amount, $by, $proofPath, $promo): Membership {
             $member = Member::withTrashed()->lockForUpdate()->findOrFail($member->getKey());
 
             if ($member->status !== MemberStatus::Active) {
@@ -65,7 +66,7 @@ class MembershipService
                 ? $terakhir->ends_on->copy()->addDay()
                 : $today;
 
-            return $this->buat($member, $plan, $mulai, $method, $amount, $by, $proofPath);
+            return $this->buat($member, $plan, $mulai, $method, $amount, $by, $proofPath, $promo, false);
         });
     }
 
@@ -96,8 +97,22 @@ class MembershipService
         });
     }
 
-    private function buat(Member $member, MembershipPlan $plan, Carbon $mulai, PaymentMethod $method, int $amount, User $by, ?string $proofPath): Membership
+    private function buat(Member $member, MembershipPlan $plan, Carbon $mulai, PaymentMethod $method, int $amount, User $by, ?string $proofPath, ?PromoCode $promo, bool $isActivation): Membership
     {
+        $diskon = 0;
+
+        if ($promo) {
+            // Kunci baris promo lalu cek ulang: dua pegawai tidak bisa melewati kuota bersamaan.
+            $promo = PromoCode::lockForUpdate()->findOrFail($promo->getKey());
+            $hasil = app(PromoService::class)->check($promo->code, $plan, $member, $isActivation);
+
+            if (! $hasil->valid) {
+                throw new InvalidArgumentException($hasil->message);
+            }
+
+            $diskon = $hasil->discount;
+        }
+
         $membership = $member->memberships()->create([
             'membership_plan_id' => $plan->getKey(),
             'starts_on' => $mulai,
@@ -108,6 +123,9 @@ class MembershipService
         $member->payments()->create([
             'membership_id' => $membership->getKey(),
             'amount' => $amount,
+            'original_amount' => $plan->price,
+            'discount_amount' => $diskon,
+            'promo_code_id' => $promo?->getKey(),
             'method' => $method,
             'proof_path' => $proofPath,
             'recorded_by' => $by->getKey(),

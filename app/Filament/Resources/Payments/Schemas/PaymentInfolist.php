@@ -16,7 +16,12 @@ class PaymentInfolist
                 TextEntry::make('member.member_number')->label('Nomor member')->placeholder('-'),
                 TextEntry::make('member.user.name')->label('Nama'),
                 TextEntry::make('membership.plan.name')->label('Paket')->placeholder('-'),
-                TextEntry::make('amount')->label('Jumlah')->formatStateUsing(fn (int $state): string => PaymentResource::rupiah($state)),
+                TextEntry::make('original_amount')->label('Harga asli')->placeholder('-')
+                    ->formatStateUsing(fn (int $state): string => PaymentResource::rupiah($state)),
+                TextEntry::make('discount_amount')->label('Diskon')
+                    ->formatStateUsing(fn (int $state): string => PaymentResource::rupiah($state)),
+                TextEntry::make('promoCode.code')->label('Kode promo')->placeholder('-'),
+                TextEntry::make('amount')->label('Jumlah dibayar')->formatStateUsing(fn (int $state): string => PaymentResource::rupiah($state)),
                 TextEntry::make('method')->label('Metode')->badge(),
                 TextEntry::make('recorder.name')->label('Dicatat oleh'),
                 TextEntry::make('note')->label('Catatan')->placeholder('-'),
