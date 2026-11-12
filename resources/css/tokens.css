@@ -1,0 +1,57 @@
+/*
+ * Pemetaan token → Tailwind. NILAI token ada di config/design.php (diterbitkan sebagai --rk-*
+ * oleh resources/views/partials/design-tokens.blade.php). Di sini hanya nama, bukan nilai.
+ * Diimpor oleh app.css (landing) dan kedua theme Filament.
+ */
+@theme inline {
+    --color-brand-50: var(--rk-primary-50);
+    --color-brand-100: var(--rk-primary-100);
+    --color-brand-200: var(--rk-primary-200);
+    --color-brand-300: var(--rk-primary-300);
+    --color-brand-400: var(--rk-primary-400);
+    --color-brand-500: var(--rk-primary-500);
+    --color-brand-600: var(--rk-primary-600);
+    --color-brand-700: var(--rk-primary-700);
+    --color-brand-800: var(--rk-primary-800);
+    --color-brand-900: var(--rk-primary-900);
+    --color-brand-950: var(--rk-primary-950);
+    --color-ok: var(--rk-success-600);
+    --color-no: var(--rk-danger-600);
+    --color-accent: var(--rk-accent);
+    --color-ink: var(--rk-ink);
+    --color-muted: var(--rk-muted);
+    --color-line: var(--rk-line);
+    --color-paper: var(--rk-paper);
+    --color-surface: var(--rk-surface);
+
+    --font-sans: var(--rk-font-sans);
+    --font-display: var(--rk-font-display);
+
+    --radius-md: calc(var(--rk-radius) - 2px);
+    --radius-lg: var(--rk-radius);
+    --radius-xl: calc(var(--rk-radius) + 2px);
+}
+
+.rk-wordmark {
+    font-family: var(--rk-font-display);
+    font-weight: 800;
+    font-style: italic;
+    font-size: 1.375rem;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+}
+
+.rk-wordmark-dot {
+    color: var(--rk-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
