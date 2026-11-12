@@ -123,6 +123,9 @@ Kolom **Pengunjung** = orang yang belum punya akun.
 | Kehadiran hari ini | ✅ | ✅ | ❌ | 1 | ✅ |
 | Laporan & total pemasukan (harian / bulanan) | ✅ | ❌ * | ❌ | 3 | ⬜ |
 | Transaksi yang dicatat sendiri hari ini | ✅ | 🙋 | ❌ | 1 | ⬜ |
+| Catat pendatang (tamu harian tanpa akun) + pembayarannya | ✅ | ✅ | ❌ | 1 | ✅ |
+| Pemasukan hari ini (member + pendatang) di dashboard | ✅ | 🙋 | ❌ | 1 | ✅ |
+| Batalkan catatan pendatang | ✅ | ❌ | ❌ | 1 | ✅ |
 | Grafik jam ramai | ✅ | 👁️ | ❌ | 3 | ⬜ |
 | Laporan kecurigaan kartu | ✅ | ❌ | ❌ | 2 | ⬜ |
 | Ekspor laporan ke Excel / PDF | ✅ | ❌ | ❌ | 3 | ⬜ |
