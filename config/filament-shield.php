@@ -262,6 +262,7 @@ return [
         'ManageStock:Product' => 'Tambah / koreksi stok produk',
         'Refund:Member' => 'Refund membership member',
         'SellPt:Member' => 'Jual paket PT ke member',
+        'ViewAll:Expense' => 'Lihat semua pengeluaran',
         'ViewAll:PtSubscription' => 'Lihat semua klien PT',
     ],
 

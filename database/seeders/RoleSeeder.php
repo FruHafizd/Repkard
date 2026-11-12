@@ -47,6 +47,8 @@ class RoleSeeder extends Seeder
             'ViewAny:PtPackage', 'View:PtPackage',
             'ViewAny:PtSubscription', 'View:PtSubscription', 'ViewAll:PtSubscription',
             'SellPt:Member',
+            // Kas kecil: pegawai mencatat dan melihat pengeluaran sendiri; ViewAll:Expense dan Laporan Keuangan sengaja tidak diberikan.
+            'ViewAny:Expense', 'View:Expense', 'Create:Expense',
         ]);
 
         // Trainer: akses sempit, hanya paket PT dan klien PT miliknya sendiri.

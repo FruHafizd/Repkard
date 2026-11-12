@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExpenseProofController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\MemberCardPdfController;
 use App\Http\Controllers\MemberPhotoController;
@@ -13,6 +14,9 @@ Route::get('/', [LandingController::class, 'index']);
 Route::middleware(['auth', EnsureUserIsActive::class])->group(function (): void {
     Route::get('/media/member-photos/{member}', MemberPhotoController::class)
         ->name('member.photo');
+
+    Route::get('/media/bukti-pengeluaran/{expense}', ExpenseProofController::class)
+        ->name('expense.proof');
 
     Route::get('/pembayaran/{payment}/kuitansi', PaymentReceiptController::class)
         ->name('payment.receipt');

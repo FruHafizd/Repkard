@@ -121,7 +121,7 @@ Kolom **Pengunjung** = orang yang belum punya akun.
 | Jumlah member aktif / habis / beku | ✅ | 👁️ | ❌ | 1 | ⬜ |
 | Member yang habis dalam 7 hari | ✅ | ✅ | ❌ | 1 | ✅ |
 | Kehadiran hari ini | ✅ | ✅ | ❌ | 1 | ✅ |
-| Laporan & total pemasukan (harian / bulanan) | ✅ | ❌ * | ❌ | 3 | ⬜ |
+| Laporan & total pemasukan (harian / bulanan) | ✅ | ❌ * | ❌ | 3 | ✅ |
 | Transaksi yang dicatat sendiri hari ini | ✅ | 🙋 | ❌ | 1 | ⬜ |
 | Catat pendatang (tamu harian tanpa akun) + pembayarannya | ✅ | ✅ | ❌ | 1 | ✅ |
 | Pemasukan hari ini (member + pendatang) di dashboard | ✅ | 🙋 | ❌ | 1 | ✅ |
@@ -177,10 +177,10 @@ Rencana & keputusan: prd.md bagian 13. Prompt: `prompts/fitur-tambahan/`. Kolom 
 | Laporan komisi trainer | ✅ | ❌ | 🙋 | ❌ | ⬜ |
 | Absen masuk / pulang dengan swafoto | — | ✅ | ✅ | ❌ | ⬜ |
 | Rekap & koreksi absensi | ✅ | 🙋 | 🙋 | ❌ | ⬜ |
-| Catat pengeluaran | ✅ | ✅ | ❌ | ❌ | ⬜ |
-| Lihat pengeluaran | ✅ | 🙋 | ❌ | ❌ | ⬜ |
-| Kategori pengeluaran | ✅ | ❌ | ❌ | ❌ | ⬜ |
-| Laporan keuangan & laba bulanan | ✅ | ❌ * | ❌ | ❌ | ⬜ |
+| Catat pengeluaran | ✅ | ✅ | ❌ | ❌ | ✅ |
+| Lihat pengeluaran | ✅ | 🙋 | ❌ | ❌ | ✅ |
+| Kategori pengeluaran | ✅ | ❌ | ❌ | ❌ | ✅ |
+| Laporan keuangan & laba bulanan | ✅ | ❌ * | ❌ | ❌ | ✅ |
 
 \* Owner bisa membuka akses ini untuk pegawai lewat pengaturan izin role.
 
