@@ -410,3 +410,100 @@
     font-weight: 600;
     @apply text-primary-600 dark:text-primary-400;
 }
+
+/* ───── Laporan Keuangan ─────
+   HP: semua tumpuk satu kolom; tabel digulir horizontal di dalam kartunya sendiri. */
+.rk-fin {
+    display: grid;
+    gap: 1.5rem;
+    min-width: 0;
+}
+
+.rk-fin-stats {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 48rem) {
+    .rk-fin-stats {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+.rk-fin-card {
+    min-width: 0;
+    padding: 1rem;
+    border-radius: var(--radius-xl);
+    @apply bg-white ring-1 ring-gray-950/10 dark:bg-white/5 dark:ring-white/20;
+}
+
+.rk-fin-label {
+    font-size: 0.875rem;
+    @apply text-gray-600 dark:text-gray-400;
+}
+
+.rk-fin-value {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+}
+
+.rk-fin-neg {
+    color: var(--rk-danger-600);
+}
+
+.rk-fin-delta {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--rk-success-600);
+}
+
+.rk-fin-delta.rk-fin-neg {
+    color: var(--rk-danger-600);
+}
+
+.rk-fin-title {
+    margin-bottom: 0.75rem;
+    font-family: var(--font-display);
+    font-weight: 800;
+}
+
+.rk-fin-scroll {
+    overflow-x: auto;
+}
+
+.rk-fin-table {
+    width: 100%;
+    min-width: 18rem;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+
+    th,
+    td {
+        padding: 0.5rem 0.75rem;
+        text-align: left;
+        white-space: nowrap;
+        @apply border-b border-gray-950/5 dark:border-white/10;
+    }
+
+    th:last-child,
+    td:last-child,
+    th:nth-child(2),
+    td:nth-child(2) {
+        text-align: right;
+    }
+
+    tfoot td {
+        font-weight: 700;
+    }
+}
+
+.rk-fin-select {
+    min-height: 2.75rem;
+    padding: 0 0.875rem;
+    border-radius: var(--radius-lg);
+    @apply bg-white text-gray-950 ring-1 ring-gray-950/10 dark:bg-white/5 dark:text-white dark:ring-white/20;
+}
