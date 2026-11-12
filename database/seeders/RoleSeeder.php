@@ -47,12 +47,17 @@ class RoleSeeder extends Seeder
             'ViewAny:PtPackage', 'View:PtPackage',
             'ViewAny:PtSubscription', 'View:PtSubscription', 'ViewAll:PtSubscription',
             'SellPt:Member',
+            // Sesi PT: pegawai menjadwalkan dan menandai semua sesi; Komisi Trainer sengaja tidak diberikan.
+            'ViewAny:PtSession', 'View:PtSession', 'Create:PtSession', 'Update:PtSession', 'ViewAll:PtSession',
         ]);
 
         // Trainer: akses sempit, hanya paket PT dan klien PT miliknya sendiri.
         $trainer->syncPermissions([
             'ViewAny:PtPackage', 'View:PtPackage',
             'ViewAny:PtSubscription', 'View:PtSubscription',
+            // Sesi PT miliknya sendiri (query + Policy) dan komisinya sendiri.
+            'ViewAny:PtSession', 'View:PtSession', 'Create:PtSession', 'Update:PtSession',
+            'View:KomisiTrainer',
         ]);
     }
 }
