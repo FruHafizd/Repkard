@@ -1,0 +1,56 @@
+/* Gaya bersama kedua panel Filament. Nilai warna/font/radius berasal dari token (lihat ../tokens.css). */
+@import '../tokens.css';
+
+/* Judul halaman memakai font display. */
+.fi-header-heading,
+.fi-simple-header-heading {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-style: italic;
+    letter-spacing: -0.02em;
+}
+
+.fi-wi-stats-overview-stat-value {
+    font-family: var(--font-display);
+    font-weight: 800;
+}
+
+.fi-logo {
+    @apply text-gray-950 dark:text-white;
+}
+
+/* Halaman auth (login, daftar, reset, verifikasi): latar brand dengan garis lintasan. */
+.fi-simple-layout {
+    background-color: var(--rk-primary-600);
+    background-image: repeating-linear-gradient(100deg, transparent 0 94px, rgb(255 255 255 / 0.08) 94px 98px);
+
+    @variant dark {
+        background-color: var(--rk-primary-950);
+    }
+}
+
+.fi-simple-main {
+    @apply my-8 px-5 py-8 sm:my-16 sm:px-12 sm:py-12;
+    border-top: 4px solid var(--rk-accent);
+}
+
+/* Target sentuh minimal 44px di layar sentuh. */
+@media (pointer: coarse) {
+    .fi-btn,
+    .fi-input,
+    .fi-select-input,
+    .fi-dropdown-list-item,
+    .fi-ta-actions .fi-link,
+    .fi-pagination-item-btn {
+        min-height: 2.75rem;
+    }
+
+    .fi-icon-btn {
+        min-width: 2.75rem;
+        min-height: 2.75rem;
+    }
+
+    .fi-ta-actions {
+        @apply gap-x-4;
+    }
+}

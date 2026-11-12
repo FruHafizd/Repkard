@@ -6,6 +6,7 @@ use App\Enums\MemberStatus;
 use App\Models\CheckIn;
 use App\Models\Member;
 use App\Models\Membership;
+use Filament\Support\Icons\Heroicon;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Database\Eloquent\Builder;
@@ -43,10 +44,10 @@ class AdminStatsOverview extends StatsOverviewWidget
             ->count();
 
         return [
-            Stat::make('Member aktif', $aktif),
-            Stat::make('Menunggu aktivasi', $menunggu),
-            Stat::make('Habis dalam 7 hari', $habisDalam7Hari),
-            Stat::make('Check-in hari ini', $checkInHariIni),
+            Stat::make('Member aktif', $aktif)->icon(Heroicon::OutlinedUserGroup),
+            Stat::make('Menunggu aktivasi', $menunggu)->icon(Heroicon::OutlinedClock),
+            Stat::make('Habis dalam 7 hari', $habisDalam7Hari)->icon(Heroicon::OutlinedExclamationTriangle),
+            Stat::make('Check-in hari ini', $checkInHariIni)->icon(Heroicon::OutlinedQrCode),
         ];
     }
 }

@@ -1,0 +1,245 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+@import '../shared.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+/* ───── Scan Check-in ─────
+   Dibaca dari ±1 m di tablet: status memakai warna penuh + teks besar + ikon. */
+.rk-scan {
+    display: grid;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+@media (min-width: 96rem) {
+    .rk-scan {
+        grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    }
+
+    .rk-scan-result {
+        order: 2;
+    }
+}
+
+.rk-scan-panel {
+    border-radius: var(--radius-xl);
+    padding: 1.25rem;
+    color: #fff;
+
+    @variant sm {
+        padding: 1.75rem;
+    }
+}
+
+.rk-scan-ok {
+    background-color: var(--rk-success-600);
+}
+
+.rk-scan-no {
+    background-color: var(--rk-danger-600);
+}
+
+.rk-scan-idle {
+    display: grid;
+    justify-items: center;
+    gap: 0.25rem;
+    min-height: 11rem;
+    align-content: center;
+    text-align: center;
+    border: 2px dashed var(--color-gray-400);
+    @apply text-gray-700 dark:text-gray-300;
+
+    & svg {
+        width: 3rem;
+        height: 3rem;
+    }
+}
+
+.rk-scan-idle-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.5rem;
+    @apply text-gray-950 dark:text-white;
+}
+
+.rk-scan-status {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    & svg {
+        flex: none;
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+
+    & h2 {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-style: italic;
+        font-size: clamp(2.75rem, 9vw, 4.5rem);
+        line-height: 1;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+    }
+}
+
+.rk-scan-name {
+    margin-top: 1rem;
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+}
+
+.rk-scan-reason {
+    margin-top: 1rem;
+    font-size: clamp(1.5rem, 4.5vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+}
+
+.rk-scan-hint {
+    margin-top: 0.5rem;
+    font-size: 1.0625rem;
+}
+
+.rk-scan-body {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 1.25rem;
+
+    @variant sm {
+        grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+.rk-scan-side {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-width: 0;
+}
+
+.rk-scan-photo {
+    width: 100%;
+    max-width: 22.5rem;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    border: 4px solid #fff;
+    border-radius: var(--radius-lg);
+    background-color: rgb(255 255 255 / 0.15);
+}
+
+.rk-scan-photo-empty {
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.rk-scan-facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+    gap: 0.75rem 1rem;
+
+    & dt {
+        font-size: 0.9375rem;
+    }
+
+    & dd {
+        font-size: 1.375rem;
+        font-weight: 700;
+        line-height: 1.2;
+        font-variant-numeric: tabular-nums;
+    }
+}
+
+.rk-scan-actions {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: auto;
+}
+
+.rk-scan-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    min-height: 4rem;
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--radius-lg);
+    font-size: 1.1875rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    cursor: pointer;
+
+    & svg {
+        flex: none;
+        width: 1.75rem;
+        height: 1.75rem;
+    }
+
+    &:focus-visible {
+        outline: 4px solid #fff;
+        outline-offset: 3px;
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: wait;
+    }
+}
+
+.rk-scan-btn-yes {
+    background-color: #fff;
+    color: var(--rk-success-700);
+}
+
+.rk-scan-btn-no {
+    background-color: var(--rk-ink);
+    color: #fff;
+    border: 2px solid #fff;
+}
+
+/* Widget html5-qrcode: tinggi dijaga supaya halaman tidak melompat saat kamera menyala/mati. */
+#reader {
+    min-height: 21rem;
+    border: 0 !important;
+    @apply text-gray-950 dark:text-white;
+
+    & video {
+        border-radius: var(--radius-lg);
+        max-height: 60vh;
+        object-fit: cover;
+    }
+
+    & button {
+        min-height: 3.5rem;
+        padding: 0 1.25rem;
+        margin: 0.25rem;
+        border-radius: var(--radius-lg);
+        background-color: var(--rk-primary-600);
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    & select {
+        min-height: 2.75rem;
+        max-width: 100%;
+        border-radius: var(--radius-lg);
+        @apply border border-gray-300 bg-white px-3 text-gray-950 dark:border-white/20 dark:bg-gray-900 dark:text-white;
+    }
+
+    & #html5-qrcode-anchor-scan-type-change {
+        display: inline-flex !important;
+        align-items: center;
+        min-height: 2.75rem;
+        @apply text-primary-700 dark:text-primary-300;
+    }
+}

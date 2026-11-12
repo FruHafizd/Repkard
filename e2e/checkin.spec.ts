@@ -1,9 +1,12 @@
 import { expect, Page, test } from '@playwright/test';
 import fs from 'node:fs';
+import { resetLoginThrottle } from './helpers';
 
 const SS = 'test-results/checkin';
 const tokens = () => JSON.parse(fs.readFileSync('test-results/checkin-tokens.json', 'utf8'));
 const sesi = new Map<string, any>();
+
+test.beforeEach(() => resetLoginThrottle());
 
 async function login(page: Page, email: string) {
     const cookies = sesi.get(email);

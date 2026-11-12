@@ -17,10 +17,12 @@ class MembershipPlansTable
                 TextColumn::make('name')->label('Nama')->searchable(),
                 TextColumn::make('duration_days')
                     ->label('Durasi')
-                    ->formatStateUsing(fn (int $state): string => "{$state} hari"),
+                    ->formatStateUsing(fn (int $state): string => "{$state} hari")
+                    ->visibleFrom('md'),
                 TextColumn::make('visit_quota')
                     ->label('Kuota')
-                    ->formatStateUsing(fn (?int $state): string => $state === null ? 'Tanpa batas' : (string) $state),
+                    ->formatStateUsing(fn (?int $state): string => $state === null ? 'Tanpa batas' : (string) $state)
+                    ->visibleFrom('md'),
                 TextColumn::make('price')
                     ->label('Harga')
                     ->formatStateUsing(fn (int $state): string => 'Rp '.number_format($state, 0, ',', '.')),

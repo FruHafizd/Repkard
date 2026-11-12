@@ -36,7 +36,7 @@ php artisan migrate
 
 ## Aturan proyek
 
-- **Tampilan belum final.** Desain akan dibuat di Figma oleh pemilik proyek. Pakai tampilan default Filament; jangan menambah warna, font, atau styling custom sampai desain diberikan.
+- **Tampilan mengikuti token di [docs/design-tokens.md](docs/design-tokens.md).** Perubahan warna/font/radius cukup di file token (`config/design.php`); jangan menulis nilai warna atau font langsung di view/CSS. Desain Figma (bila ada) menggantikan nilai token.
 - **Hak akses selalu dicek di server** (Policy / permission), bukan hanya disembunyikan di UI. Role yang hanya boleh melihat harus mendapat akses read-only, bukan tombol yang tersembunyi.
 - **Isi QR kartu tidak boleh berupa ID mentah.** Selalu token yang ditandatangani (HMAC) dan bisa dicabut — lihat bagian "Anti penyalahgunaan kartu" di prd.md.
 - Foto member dan snapshot check-in adalah data pribadi: simpan di disk `local` (private), sajikan lewat route yang dicek izinnya, bukan di `public/`.

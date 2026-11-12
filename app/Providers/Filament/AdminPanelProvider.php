@@ -12,7 +12,9 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\View\PanelsRenderHook;
 use Filament\Widgets\AccountWidget;
+use Illuminate\Contracts\View\View;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -28,10 +30,18 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->login()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => config('design.primary'),
+                'success' => config('design.success'),
+                'danger' => config('design.danger'),
+                'gray' => Color::Slate,
             ])
+            ->font(config('design.font.sans'), url: config('design.font.url'))
+            ->brandLogo(fn (): View => view('partials.wordmark'))
+            ->brandLogoHeight('1.75rem')
+            ->renderHook(PanelsRenderHook::HEAD_END, fn (): View => view('partials.design-tokens', ['fonts' => false]))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
