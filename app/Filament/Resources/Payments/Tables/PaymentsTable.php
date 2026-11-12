@@ -24,6 +24,10 @@ class PaymentsTable
                 TextColumn::make('amount')->label('Jumlah')
                     ->formatStateUsing(fn (int $state): string => PaymentResource::rupiah($state))
                     ->sortable(),
+                TextColumn::make('discount_amount')->label('Diskon')
+                    ->formatStateUsing(fn (int $state): string => $state > 0 ? PaymentResource::rupiah($state) : '-')
+                    ->visibleFrom('md'),
+                TextColumn::make('promoCode.code')->label('Kode promo')->placeholder('-')->visibleFrom('lg'),
                 TextColumn::make('method')->label('Metode')->badge()->visibleFrom('md'),
                 TextColumn::make('recorder.name')->label('Dicatat oleh')->visibleFrom('lg'),
                 TextColumn::make('status')->label('Status')

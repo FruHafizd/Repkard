@@ -8,9 +8,12 @@ use App\Filament\Forms\Components\WebcamPhoto;
 use App\Filament\Resources\Members\MemberResource;
 use App\Models\Member;
 use App\Models\MembershipPlan;
+use App\Models\PromoCode;
 use App\Services\MemberCardService;
 use App\Services\MemberPhotoService;
 use App\Services\MembershipService;
+use App\Services\PromoResult;
+use App\Services\PromoService;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\FileUpload;
@@ -37,7 +40,8 @@ class MemberActions
             ->modalSubmitActionLabel('Aktifkan')
             ->fillForm(fn (Member $record): array => [
                 'plan_id' => $record->selected_plan_id,
-                'amount' => $record->selectedPlan?->price,
+                'promo_code' => $record->requested_promo_code,
+                'amount' => self::hargaAwal($record, $record->selected_plan_id, $record->requested_promo_code, true),
                 'method' => PaymentMethod::Cash->value,
             ])
             ->schema([
@@ -50,7 +54,7 @@ class MemberActions
                     ->validationMessages(['accepted' => 'Cocokkan wajah dengan foto terlebih dahulu.']),
                 WebcamPhoto::make('photo_webcam')
                     ->label('Ganti foto dari kamera (opsional)'),
-                ...self::bayarFields(),
+                ...self::bayarFields(true),
             ])
             ->action(function (Member $record, array $data): void {
                 self::jalankan(function () use ($record, $data): void {
@@ -65,6 +69,7 @@ class MemberActions
                         (int) $data['amount'],
                         auth()->user(),
                         $data['proof_path'] ?? null,
+                        self::promo($record, $data, true),
                     );
 
                     Notification::make()->success()->title('Member diaktifkan')->send();
@@ -119,7 +124,7 @@ class MemberActions
                 'amount' => $record->selectedPlan?->price,
                 'method' => PaymentMethod::Cash->value,
             ])
-            ->schema(self::bayarFields())
+            ->schema(self::bayarFields(false))
             ->action(function (Member $record, array $data): void {
                 self::jalankan(function () use ($record, $data): void {
                     app(MembershipService::class)->renew(
@@ -129,6 +134,7 @@ class MemberActions
                         (int) $data['amount'],
                         auth()->user(),
                         $data['proof_path'] ?? null,
+                        self::promo($record, $data, false),
                     );
 
                     Notification::make()->success()->title('Membership diperpanjang')->send();
@@ -225,7 +231,7 @@ class MemberActions
      *
      * @return array<int, mixed>
      */
-    private static function bayarFields(): array
+    private static function bayarFields(bool $isActivation): array
     {
         return [
             Select::make('plan_id')
@@ -233,7 +239,23 @@ class MemberActions
                 ->options(fn (): array => MembershipPlan::active()->pluck('name', 'id')->all())
                 ->required()
                 ->live()
-                ->afterStateUpdated(fn ($state, $set) => $set('amount', MembershipPlan::find($state)?->price)),
+                ->afterStateUpdated(fn ($state, $get, $set, Member $record) => $set('amount', self::hargaAwal($record, $state, $get('promo_code'), $isActivation))),
+            TextInput::make('promo_code')
+                ->label('Kode promo (opsional)')
+                ->maxLength(30)
+                ->live(onBlur: true)
+                ->afterStateUpdated(fn ($state, $get, $set, Member $record) => $set('amount', self::hargaAwal($record, $get('plan_id'), $state, $isActivation)))
+                ->helperText(function ($get, Member $record) use ($isActivation): ?string {
+                    $hasil = self::cekPromo($record, $get('plan_id'), $get('promo_code'), $isActivation);
+
+                    if (! $hasil) {
+                        return null;
+                    }
+
+                    return $hasil->valid
+                        ? 'Diskon '.self::rupiah($hasil->discount).' → bayar '.self::rupiah($hasil->finalPrice)
+                        : $hasil->message;
+                }),
             Select::make('method')
                 ->label('Metode bayar')
                 ->options(PaymentMethod::class)
@@ -252,6 +274,42 @@ class MemberActions
                 ->acceptedFileTypes(['image/jpeg', 'image/png', 'application/pdf'])
                 ->maxSize(5120),
         ];
+    }
+
+    private static function rupiah(int $amount): string
+    {
+        return 'Rp '.number_format($amount, 0, ',', '.');
+    }
+
+    private static function cekPromo(Member $member, mixed $planId, ?string $code, bool $isActivation): ?PromoResult
+    {
+        $plan = $planId ? MembershipPlan::find($planId) : null;
+
+        if (blank($code) || ! $plan) {
+            return null;
+        }
+
+        return app(PromoService::class)->check($code, $plan, $member, $isActivation);
+    }
+
+    /** Harga yang disarankan: harga paket, atau harga setelah diskon bila kode valid. */
+    private static function hargaAwal(Member $member, mixed $planId, ?string $code, bool $isActivation): ?int
+    {
+        $hasil = self::cekPromo($member, $planId, $code, $isActivation);
+
+        return $hasil?->valid ? $hasil->finalPrice : ($planId ? MembershipPlan::find($planId)?->price : null);
+    }
+
+    /** @param array<string, mixed> $data */
+    private static function promo(Member $member, array $data, bool $isActivation): ?PromoCode
+    {
+        $hasil = self::cekPromo($member, $data['plan_id'], $data['promo_code'] ?? null, $isActivation);
+
+        if ($hasil && ! $hasil->valid) {
+            throw new InvalidArgumentException($hasil->message);
+        }
+
+        return $hasil?->promo;
     }
 
     private static function metode(PaymentMethod|string $method): PaymentMethod

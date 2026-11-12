@@ -5,6 +5,7 @@ namespace App\Filament\Member\Widgets;
 use App\Enums\MemberStatus;
 use App\Models\Member;
 use App\Models\MembershipPlan;
+use App\Services\PromoService;
 use Filament\Facades\Filament;
 use Filament\Notifications\Notification;
 use Filament\Widgets\Widget;
@@ -56,8 +57,14 @@ class PendingActivationWidget extends Widget
     {
         $member = $this->member()?->load('selectedPlan');
 
+        $plan = $member?->selectedPlan;
+        $promo = $plan && filled($member->requested_promo_code)
+            ? app(PromoService::class)->check($member->requested_promo_code, $plan, $member, isActivation: true)
+            : null;
+
         return [
-            'plan' => $member?->selectedPlan,
+            'promo' => $promo,
+            'plan' => $plan,
             'plans' => MembershipPlan::active()->get(),
         ];
     }

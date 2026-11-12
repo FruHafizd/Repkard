@@ -10,7 +10,12 @@
                         </div>
                         <div>
                             <dt class="text-sm text-gray-600 dark:text-gray-400">Total bayar</dt>
-                            <dd class="text-xl font-bold tabular-nums text-gray-950 dark:text-white">Rp {{ number_format($plan->price, 0, ',', '.') }}</dd>
+                            <dd class="text-xl font-bold tabular-nums text-gray-950 dark:text-white">Rp {{ number_format($promo?->valid ? $promo->finalPrice : $plan->price, 0, ',', '.') }}</dd>
+                            @if ($promo?->valid)
+                                <dd class="text-sm text-gray-600 dark:text-gray-400">Kode {{ $promo->promo->code }}: diskon Rp {{ number_format($promo->discount, 0, ',', '.') }} (perkiraan, dicek ulang saat aktivasi)</dd>
+                            @elseif ($promo)
+                                <dd class="text-sm text-danger-600 dark:text-danger-400">{{ $promo->message }}</dd>
+                            @endif
                         </div>
                     </dl>
                 @else

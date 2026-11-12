@@ -31,6 +31,7 @@ class Member extends Model
         'photo_path',
         'status',
         'selected_plan_id',
+        'requested_promo_code',
     ];
 
     protected function casts(): array

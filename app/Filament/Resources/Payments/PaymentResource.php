@@ -49,7 +49,7 @@ class PaymentResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        $query = parent::getEloquentQuery()->with(['member.user', 'membership.plan', 'recorder']);
+        $query = parent::getEloquentQuery()->with(['member.user', 'membership.plan', 'recorder', 'promoCode']);
         $user = auth()->user();
 
         // Tanpa izin "lihat semua", hanya transaksi yang dicatat sendiri.

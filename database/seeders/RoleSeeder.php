@@ -36,6 +36,8 @@ class RoleSeeder extends Seeder
             'View:MemberMenghilang',
             // Pengumuman: boleh buat, ubah miliknya sendiri; "ManageAll" dan "Delete" sengaja tidak diberikan.
             'ViewAny:Announcement', 'View:Announcement', 'Create:Announcement', 'Update:Announcement',
+            // Promo: pegawai hanya melihat; membuat/mengubah hanya owner.
+            'ViewAny:PromoCode', 'View:PromoCode',
         ]);
     }
 }

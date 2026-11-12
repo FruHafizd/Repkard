@@ -17,6 +17,9 @@ class Payment extends Model
         'member_id',
         'membership_id',
         'amount',
+        'original_amount',
+        'discount_amount',
+        'promo_code_id',
         'method',
         'proof_path',
         'note',
@@ -31,6 +34,8 @@ class Payment extends Model
     {
         return [
             'amount' => 'integer',
+            'original_amount' => 'integer',
+            'discount_amount' => 'integer',
             'method' => PaymentMethod::class,
             'paid_at' => 'datetime',
             'cancelled_at' => 'datetime',
@@ -45,6 +50,11 @@ class Payment extends Model
     public function membership(): BelongsTo
     {
         return $this->belongsTo(Membership::class);
+    }
+
+    public function promoCode(): BelongsTo
+    {
+        return $this->belongsTo(PromoCode::class);
     }
 
     public function recorder(): BelongsTo
