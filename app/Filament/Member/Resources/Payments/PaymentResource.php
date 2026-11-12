@@ -32,10 +32,10 @@ class PaymentResource extends Resource
             ->defaultSort('paid_at', 'desc')
             ->columns([
                 TextColumn::make('paid_at')->label('Tanggal')->dateTime('d M Y H:i')->sortable(),
-                TextColumn::make('membership.plan.name')->label('Paket')->placeholder('-'),
+                TextColumn::make('membership.plan.name')->label('Paket')->placeholder('-')->visibleFrom('md'),
                 TextColumn::make('amount')->label('Jumlah')
                     ->formatStateUsing(fn (int $state): string => AdminPaymentResource::rupiah($state)),
-                TextColumn::make('method')->label('Metode')->badge(),
+                TextColumn::make('method')->label('Metode')->badge()->visibleFrom('md'),
                 TextColumn::make('status')->label('Status')
                     ->state(fn (Payment $record): string => $record->isCancelled() ? 'Dibatalkan' : 'Lunas')
                     ->badge()
