@@ -34,6 +34,23 @@ Kumpulan prompt untuk dikerjakan oleh model yang lebih murah (Sonnet / Haiku), s
 
 Langkah 11 sengaja memakai model kuat: model murah membangun, model kuat memeriksa.
 
+## Fitur tambahan
+
+Keputusan bisnis tiap fitur ada di prd.md bagian 13 — **ubah dulu di sana kalau tidak sesuai**, baru jalankan prompt-nya. Jalankan berurutan (01 → 10); merge PR sebelumnya dulu.
+
+| # | File | Isi | Model | Butuh |
+|---|---|---|---|---|
+| 01 | [01-pengumuman.md](fitur-tambahan/01-pengumuman.md) | Pengumuman di panel member & landing | Haiku | — |
+| 02 | [02-member-menghilang.md](fitur-tambahan/02-member-menghilang.md) | Daftar member yang lama tidak datang + tindak lanjut | Sonnet | 01 |
+| 03 | [03-promo.md](fitur-tambahan/03-promo.md) | Kode promo & diskon | Sonnet | 02 |
+| 04 | [04-upgrade-refund.md](fitur-tambahan/04-upgrade-refund.md) | Upgrade prorata, pindah paket, refund | Sonnet | 03 |
+| 05 | [05-kasir.md](fitur-tambahan/05-kasir.md) | Produk, stok, halaman kasir, struk | Sonnet | 04 |
+| 06 | [06-pt-paket.md](fitur-tambahan/06-pt-paket.md) | Role trainer, paket PT, jual paket PT | Sonnet | 05 |
+| 07 | [07-pt-sesi-komisi.md](fitur-tambahan/07-pt-sesi-komisi.md) | Jadwal sesi PT, potong sesi, komisi | Sonnet | 06 |
+| 08 | [08-absensi-pegawai.md](fitur-tambahan/08-absensi-pegawai.md) | Absen masuk/pulang dengan swafoto, rekap | Sonnet | 07 |
+| 09 | [09-pengeluaran-laporan.md](fitur-tambahan/09-pengeluaran-laporan.md) | Pengeluaran + laporan keuangan & laba | Sonnet | 08 |
+| 10 | [10-review.md](fitur-tambahan/10-review.md) | Review keamanan & hitungan uang 01–09 | **Opus** | 09 |
+
 ## Fase 2–4
 
 Prompt Fase 2–4 ditulis setelah Fase 1 selesai, supaya isinya sesuai dengan kode yang benar-benar ada (nama class, tabel, service).

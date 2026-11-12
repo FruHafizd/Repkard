@@ -230,3 +230,18 @@ Akan ditambah saat fiturnya dikerjakan: `spatie/laravel-activitylog` (log), pake
 | 6 | Pengingat | **Email + Telegram**, tanpa WhatsApp. Member menghubungkan Telegram sendiri lewat tombol di panel member (bot Telegram milik gym). Owner membuat bot lewat @BotFather dan mengisi token-nya di pengaturan. |
 | 7 | Verifikasi akun | **Email** |
 | 8 | Akun tidak diaktifkan | **Dihapus otomatis setelah 30 hari** (beserta foto yang diunggah) |
+
+## 13. Fitur tambahan (rencana, 13 November 2026)
+
+Dipilih dari perbandingan dengan software gym lain (GymMaster, PushPress, Zen Planner, Glofox, Gymdesk). Prompt pengerjaannya ada di `prompts/fitur-tambahan/`. Keputusan default di bawah boleh diubah pemilik proyek **sebelum** prompt dijalankan.
+
+| # | Fitur | Keputusan default |
+|---|---|---|
+| 1 | **Pengumuman** | Owner & pegawai membuat pengumuman (judul, isi teks biasa, tanggal tayang & berakhir, sematkan). Tampil di dashboard + halaman Pengumuman panel member; bisa ditandai "tampil di landing page" (mis. jam libur Lebaran). Kirim ke Telegram menyusul setelah integrasi Telegram (Fase 3) ada. |
+| 2 | **Member mulai menghilang** | Member aktif (tidak beku) yang **tidak check-in ≥ 14 hari** masuk daftar tindak lanjut; ≥ 30 hari ditandai merah. Ambang diatur di `.env`. Pegawai mencatat tindak lanjut (cara, hasil, catatan, tanggal hubungi lagi). |
+| 3 | **Promo & kode diskon** | Kode promo (persen atau nominal), periode berlaku, batas pemakaian total & per member, bisa dibatasi ke paket tertentu atau member baru saja. Dipakai saat aktivasi & perpanjangan; calon member boleh mengisi kode saat daftar (dicek ulang saat aktivasi). Pembayaran menyimpan harga asli, diskon, dan kode yang dipakai. |
+| 4 | **Upgrade, pindah paket, refund** | **Upgrade** (ke paket lebih mahal) berlaku hari ini: sisa nilai membership lama dihitung proporsional (sisa hari, atau sisa kunjungan untuk paket kuota) menjadi kredit; member membayar selisihnya. **Pindah ke paket lebih murah** hanya untuk periode berikutnya (lewat Perpanjang). **Refund** hanya owner, wajib alasan; membership dibatalkan. Refund dicatat terpisah dari "batalkan pembayaran" (yang artinya salah catat). |
+| 5 | **Kasir / POS** | Produk (harga, stok opsional untuk jasa seperti sewa handuk), halaman Kasir dengan keranjang, metode bayar, uang diterima & kembalian, struk. Stok tidak boleh minus. Pegawai menjual; owner mengatur produk, stok, dan membatalkan transaksi (stok kembali). |
+| 6 | **Personal Trainer** | Role baru **`trainer`** (masuk panel admin, hanya melihat klien & sesinya sendiri). Paket PT (jumlah sesi, harga, masa berlaku) dijual ke member aktif dan dicatat sebagai pembayaran. Sesi dijadwalkan pegawai/trainer; selesai atau tidak datang (*no-show*) memotong 1 sesi, dibatalkan tidak. Komisi = nominal tetap per sesi per trainer. Member melihat sisa sesi & jadwal di panel member. |
+| 7 | **Absensi pegawai** | Pegawai & trainer absen masuk/pulang di panel admin dengan **swafoto webcam wajib** (mencegah titip absen). Jam kerja per orang untuk menandai terlambat (toleransi 10 menit). Owner melihat rekap bulanan dan bisa mengoreksi dengan alasan. |
+| 8 | **Pengeluaran & laporan laba** | Pengeluaran per kategori dengan bukti foto (private). Pegawai boleh mencatat (kas kecil) dan hanya melihat miliknya. Halaman **Laporan Keuangan** (owner): pemasukan per sumber (membership, PT, pendatang, kasir) − refund − pengeluaran = laba bersih per bulan. |

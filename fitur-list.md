@@ -147,6 +147,43 @@ Kolom **Pengunjung** = orang yang belum punya akun.
 | Backup database otomatis | ✅ | ❌ | ❌ | 3 | ⬜ |
 | Pembayaran online (aktivasi tanpa ke kasir) | ✅ | ❌ | 🙋 | 4 | ⬜ |
 
+## 10. Fitur Tambahan
+
+Rencana & keputusan: prd.md bagian 13. Prompt: `prompts/fitur-tambahan/`. Kolom **Trainer** = role baru di fitur Personal Trainer.
+
+| Fitur | Owner | Pegawai | Trainer | Member | Status |
+|---|:-:|:-:|:-:|:-:|:-:|
+| Buat / ubah pengumuman | ✅ | ✅ | ❌ | ❌ | ⬜ |
+| Lihat pengumuman (dashboard + halaman) | ✅ | ✅ | ✅ | 👁️ | ⬜ |
+| Pengumuman di landing page | ✅ | ✅ | ❌ | 👁️ | ⬜ |
+| Daftar member mulai menghilang (≥ 14 / 30 hari) | ✅ | ✅ | ❌ | ❌ | ⬜ |
+| Catat tindak lanjut member menghilang | ✅ | ✅ | ❌ | ❌ | ⬜ |
+| Buat / ubah kode promo | ✅ | 👁️ | ❌ | ❌ | ⬜ |
+| Pakai kode promo saat aktivasi / perpanjang | ✅ | ✅ | ❌ | ❌ | ⬜ |
+| Isi kode promo saat daftar | — | — | — | 🙋 | ⬜ |
+| Upgrade paket (prorata) | ✅ | ✅ | ❌ | ❌ | ⬜ |
+| Pindah paket untuk periode berikutnya | ✅ | ✅ | ❌ | ❌ | ⬜ |
+| Refund membership | ✅ | ❌ | ❌ | ❌ | ⬜ |
+| Kelola produk & harga | ✅ | 👁️ | ❌ | ❌ | ⬜ |
+| Tambah / koreksi stok | ✅ | ❌ | ❌ | ❌ | ⬜ |
+| Kasir: jual produk + struk | ✅ | ✅ | ❌ | ❌ | ⬜ |
+| Batalkan transaksi kasir | ✅ | ❌ | ❌ | ❌ | ⬜ |
+| Kelola trainer & komisi per sesi | ✅ | 👁️ | ❌ | ❌ | ⬜ |
+| Kelola paket PT | ✅ | 👁️ | 👁️ | ❌ | ⬜ |
+| Jual paket PT ke member | ✅ | ✅ | ❌ | ❌ | ⬜ |
+| Jadwalkan sesi PT | ✅ | ✅ | 🙋 | ❌ | ⬜ |
+| Tandai sesi selesai / tidak datang / batal | ✅ | ✅ | 🙋 | ❌ | ⬜ |
+| Lihat sisa sesi & jadwal PT | ✅ | ✅ | 🙋 | 🙋 | ⬜ |
+| Laporan komisi trainer | ✅ | ❌ | 🙋 | ❌ | ⬜ |
+| Absen masuk / pulang dengan swafoto | — | ✅ | ✅ | ❌ | ⬜ |
+| Rekap & koreksi absensi | ✅ | 🙋 | 🙋 | ❌ | ⬜ |
+| Catat pengeluaran | ✅ | ✅ | ❌ | ❌ | ⬜ |
+| Lihat pengeluaran | ✅ | 🙋 | ❌ | ❌ | ⬜ |
+| Kategori pengeluaran | ✅ | ❌ | ❌ | ❌ | ⬜ |
+| Laporan keuangan & laba bulanan | ✅ | ❌ * | ❌ | ❌ | ⬜ |
+
+\* Owner bisa membuka akses ini untuk pegawai lewat pengaturan izin role.
+
 ---
 
 ## Fondasi (Fase 0) — sudah selesai

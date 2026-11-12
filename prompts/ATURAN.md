@@ -21,7 +21,7 @@ Baca file ini sampai habis sebelum mengerjakan prompt langkah mana pun. Aturan d
   - Kalau ragu, **buka kode di `vendor/filament/`** dan ikuti yang ada di sana.
 - **Pakai generator artisan**, jangan menulis boilerplate dengan tangan:
   `php artisan make:model Nama -mf`, `php artisan make:filament-resource Nama --panel=admin`, `php artisan make:policy`, `php artisan make:test`.
-- **Tampilan:** pakai komponen default Filament dan Tailwind polos. Jangan menambah warna, font, CSS custom, atau ikon dekoratif — desain menyusul dari Figma.
+- **Tampilan:** pakai komponen Filament dan token di `docs/design-tokens.md` (nilai di `config/design.php`). Jangan menulis nilai warna/font langsung di view atau CSS. Halaman baru harus responsif (cek di lebar 390 px dan 1280 px).
 - **Teks UI dalam Bahasa Indonesia** (label, tombol, notifikasi, pesan validasi).
 - Kalau ada yang tidak jelas, bertentangan, atau API yang diminta tidak ada: **berhenti dan tanya**. Jangan memilih sendiri diam-diam.
 
@@ -36,6 +36,8 @@ Baca file ini sampai habis sebelum mengerjakan prompt langkah mana pun. Aturan d
 | Tanggal membership | kolom `date` (`starts_on`, `ends_on`), inklusif |
 | File pribadi (foto, bukti bayar) | disk `local` (`storage/app/private`). **Jangan** disk `public`. Sajikan lewat route yang dicek dengan Policy. |
 | Izin | Setiap Resource punya Policy. Format nama permission Shield: `ViewAny:Member`, `Create:Member`, dst. **Policy mengecek permission** (`$user->can('Update:Member')`), **bukan nama role** — supaya Owner bisa mengubah izin pegawai dari halaman Role tanpa ubah kode. |
+| Permission custom (mis. `ViewAll:Sale`, `Refund:Member`) | Daftarkan di `config/filament-shield.php` → `custom_permissions` dengan label Bahasa Indonesia (contoh: `ViewAll:WalkIn`, `ReissueCard:Member`), supaya ikut dibuat `shield:generate` di `RoleSeeder` dan tampil di halaman Role. |
+| Pola "hanya catatan sendiri" | Tanpa permission `ViewAll:X` → filter `recorded_by` / pemilik di `getEloquentQuery()` **dan** di Policy `view`. Contoh: `WalkInResource` + `WalkInPolicy`. |
 | Arti "pegawai boleh X" di prompt | Berikan permission X ke role `pegawai` di `RoleSeeder` (izin default). Owner = super admin Shield, otomatis punya semua permission. |
 | Aturan yang tidak boleh diubah lewat halaman Role | Ditulis keras di Policy: kepemilikan data (member hanya data sendiri), dan aksi yang disebut "tidak ada yang bisa" (mis. hapus pegawai) → selalu `false`. |
 | Akses read-only | Role yang hanya boleh melihat tetap bisa membuka halaman list/view, tetapi Policy menolak create/update/delete (bukan sekadar tombol disembunyikan). |
