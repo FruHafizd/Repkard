@@ -19,13 +19,13 @@ class PaymentsTable
             ->defaultSort('paid_at', 'desc')
             ->columns([
                 TextColumn::make('paid_at')->label('Tanggal')->dateTime('d M Y H:i')->sortable(),
-                TextColumn::make('member.member_number')->label('Nomor member')->placeholder('-'),
+                TextColumn::make('member.member_number')->label('Nomor member')->placeholder('-')->visibleFrom('lg'),
                 TextColumn::make('member.user.name')->label('Nama'),
                 TextColumn::make('amount')->label('Jumlah')
                     ->formatStateUsing(fn (int $state): string => PaymentResource::rupiah($state))
                     ->sortable(),
-                TextColumn::make('method')->label('Metode')->badge(),
-                TextColumn::make('recorder.name')->label('Dicatat oleh'),
+                TextColumn::make('method')->label('Metode')->badge()->visibleFrom('md'),
+                TextColumn::make('recorder.name')->label('Dicatat oleh')->visibleFrom('lg'),
                 TextColumn::make('status')->label('Status')
                     ->state(fn (Payment $record): string => $record->isCancelled() ? 'Dibatalkan' : 'Lunas')
                     ->badge()

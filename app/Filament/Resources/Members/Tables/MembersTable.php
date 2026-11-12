@@ -29,11 +29,11 @@ class MembersTable
                     ->label('Foto')
                     ->getStateUsing(fn (Member $record): ?string => $record->photoUrl())
                     ->imageHeight(48),
-                TextColumn::make('member_number')->label('Nomor member')->searchable()->placeholder('-'),
+                TextColumn::make('member_number')->label('Nomor member')->searchable()->placeholder('-')->visibleFrom('md'),
                 TextColumn::make('user.name')->label('Nama')->searchable(),
-                TextColumn::make('phone')->label('Nomor HP')->searchable(),
+                TextColumn::make('phone')->label('Nomor HP')->searchable()->visibleFrom('md'),
                 TextColumn::make('status')->label('Status')->badge(),
-                TextColumn::make('selectedPlan.name')->label('Paket pilihan')->placeholder('-'),
+                TextColumn::make('selectedPlan.name')->label('Paket pilihan')->placeholder('-')->visibleFrom('lg'),
             ])
             ->filters([
                 SelectFilter::make('status')

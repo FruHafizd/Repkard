@@ -28,9 +28,10 @@ class CheckInHariIniTable extends TableWidget
             ->columns([
                 TextColumn::make('checked_in_at')->label('Jam')->dateTime('H:i'),
                 TextColumn::make('member.user.name')->label('Nama')->placeholder('-'),
-                TextColumn::make('member.member_number')->label('Nomor member')->placeholder('-'),
+                TextColumn::make('member.member_number')->label('Nomor member')->placeholder('-')->visibleFrom('md'),
                 TextColumn::make('method')->label('Metode')->badge()
-                    ->formatStateUsing(fn (string $state): string => $state === 'manual' ? 'Manual' : 'Kartu'),
+                    ->formatStateUsing(fn (string $state): string => $state === 'manual' ? 'Manual' : 'Kartu')
+                    ->color(fn (string $state): string => $state === 'manual' ? 'warning' : 'gray'),
             ])
             ->paginated(false)
             ->emptyStateHeading('Belum ada check-in hari ini');
