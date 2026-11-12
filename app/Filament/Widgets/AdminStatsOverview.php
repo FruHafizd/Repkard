@@ -3,12 +3,13 @@
 namespace App\Filament\Widgets;
 
 use App\Enums\MemberStatus;
+use App\Filament\Pages\MemberMenghilang;
+use App\Filament\Resources\Payments\PaymentResource;
 use App\Models\CheckIn;
 use App\Models\Member;
 use App\Models\Membership;
 use App\Models\Payment;
 use App\Models\WalkIn;
-use App\Filament\Resources\Payments\PaymentResource;
 use Filament\Support\Icons\Heroicon;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -41,6 +42,10 @@ class AdminStatsOverview extends StatsOverviewWidget
             ->distinct('member_id')
             ->count('member_id');
 
+        $menghilang = Member::query()
+            ->mulaiMenghilang((int) config('repkard.inactive_warning_days'))
+            ->count();
+
         $checkInHariIni = CheckIn::query()
             ->where('result', CheckIn::RESULT_ACCEPTED)
             ->whereBetween('checked_in_at', [now()->startOfDay(), now()->endOfDay()])
@@ -67,6 +72,9 @@ class AdminStatsOverview extends StatsOverviewWidget
             Stat::make('Member aktif', $aktif)->icon(Heroicon::OutlinedUserGroup),
             Stat::make('Menunggu aktivasi', $menunggu)->icon(Heroicon::OutlinedClock),
             Stat::make('Habis dalam 7 hari', $habisDalam7Hari)->icon(Heroicon::OutlinedExclamationTriangle),
+            Stat::make('Mulai menghilang', $menghilang)
+                ->icon(Heroicon::OutlinedUserMinus)
+                ->url($user?->can('View:MemberMenghilang') ? MemberMenghilang::getUrl() : null),
             Stat::make('Check-in hari ini', $checkInHariIni)->icon(Heroicon::OutlinedQrCode),
         ];
     }

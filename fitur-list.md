@@ -156,8 +156,8 @@ Rencana & keputusan: prd.md bagian 13. Prompt: `prompts/fitur-tambahan/`. Kolom 
 | Buat / ubah pengumuman | ✅ | ✅ | ❌ | ❌ | ✅ |
 | Lihat pengumuman (dashboard + halaman) | ✅ | ✅ | ✅ | 👁️ | ✅ |
 | Pengumuman di landing page | ✅ | ✅ | ❌ | 👁️ | ✅ |
-| Daftar member mulai menghilang (≥ 14 / 30 hari) | ✅ | ✅ | ❌ | ❌ | ⬜ |
-| Catat tindak lanjut member menghilang | ✅ | ✅ | ❌ | ❌ | ⬜ |
+| Daftar member mulai menghilang (≥ 14 / 30 hari) | ✅ | ✅ | ❌ | ❌ | ✅ |
+| Catat tindak lanjut member menghilang | ✅ | ✅ | ❌ | ❌ | ✅ |
 | Buat / ubah kode promo | ✅ | 👁️ | ❌ | ❌ | ⬜ |
 | Pakai kode promo saat aktivasi / perpanjang | ✅ | ✅ | ❌ | ❌ | ⬜ |
 | Isi kode promo saat daftar | — | — | — | 🙋 | ⬜ |
