@@ -18,6 +18,9 @@
                     <a href="/" class="rk-focus inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-muted hover:text-ink">
                         Beranda
                     </a>
+                    <a href="{{ route('paket-pt') }}" class="rk-focus inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-muted hover:text-ink">
+                        Paket PT
+                    </a>
                     <a href="{{ route('pengumuman') }}" aria-current="page" class="rk-focus inline-flex min-h-11 items-center border-b-4 border-brand-600 px-3 text-sm font-bold text-ink">
                         Pengumuman
                     </a>

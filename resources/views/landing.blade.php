@@ -19,10 +19,14 @@
                     <a href="/" aria-current="page" class="rk-focus inline-flex min-h-11 items-center border-b-4 border-brand-600 px-3 text-sm font-bold text-ink">
                         Beranda
                     </a>
+                    <a href="{{ route('paket-pt') }}" class="rk-focus inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-muted hover:text-ink">
+                        Paket PT
+                    </a>
                     <a href="{{ route('pengumuman') }}" class="rk-focus inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-muted hover:text-ink">
                         Pengumuman
                     </a>
                     <a href="/member/login" class="rk-focus ml-1 inline-flex min-h-11 items-center rounded-lg border border-ink px-4 text-sm font-semibold hover:bg-ink hover:text-surface">
+
                         Masuk
                     </a>
                 </nav>
@@ -140,6 +144,25 @@
                     </div>
                 </div>
             </section>
+
+            @if ($ptPackages->isNotEmpty())
+                <section aria-labelledby="judul-paket-pt" class="border-t border-line bg-surface">
+                    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-14">
+                        <div class="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
+                            <div>
+                                <h2 id="judul-paket-pt" class="font-display text-2xl font-extrabold italic tracking-tight sm:text-3xl">Paket Personal Trainer</h2>
+                                <p class="mt-2 text-muted">Latihan satu lawan satu bersama pelatih, dibeli tambahan di meja depan.</p>
+                            </div>
+                            <a href="{{ route('paket-pt') }}" class="rk-focus inline-flex min-h-11 items-center font-semibold underline underline-offset-4">Lihat semua paket PT</a>
+                        </div>
+                        <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                            @foreach ($ptPackages->take(3) as $package)
+                                @include('partials.pt-package-card', ['package' => $package])
+                            @endforeach
+                        </div>
+                    </div>
+                </section>
+            @endif
 
             <section aria-labelledby="cara-daftar" class="bg-ink text-white">
                 <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-14">
