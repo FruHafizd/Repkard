@@ -57,7 +57,17 @@ PDF (kartu & kuitansi) memakai DejaVu Sans bawaan dompdf, karena dompdf tidak me
 
 ## Logo
 
-Wordmark teks "Repkard." (`resources/views/partials/wordmark.blade.php`): Archivo 800 miring, titik berwarna `accent`. Dipakai di topbar kedua panel, halaman login, landing, dan pratinjau kartu.
+Logo gambar PNG transparan di `public/images/brand/` (sumber: hasil ChatGPT, diolah jadi transparan):
+
+| File | Dipakai di |
+|---|---|
+| `logo.png` | Topbar & halaman login kedua panel (mode terang), header & ilustrasi kartu di landing, header halaman Paket PT & Pengumuman |
+| `logo-white.png` | Mode gelap kedua panel (`->darkModeBrandLogo()`), pratinjau "Kartu Saya" (latar biru) |
+| `public/favicon.ico` (16/32/48 px), `public/apple-touch-icon.png` (180 px) | Ikon tab browser & layar utama HP; dipasang lewat `partials/favicon.blade.php` di semua halaman |
+
+Tampilkan logo dengan `@include('partials.wordmark')` atau `@include('partials.wordmark', ['variant' => 'white'])`. Tinggi default 1.75rem; ubah per tempat dengan variabel CSS `--rk-logo-h`.
+
+Kartu & kuitansi PDF masih memakai wordmark teks "Repkard." (DejaVu Sans).
 
 ## Kontras (WCAG AA)
 

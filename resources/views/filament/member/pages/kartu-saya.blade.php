@@ -2,7 +2,7 @@
     @if ($card)
         <div class="rk-card-page">
             <div class="rk-card">
-                <div class="rk-card-brand">@include('partials.wordmark')</div>
+                <div class="rk-card-brand">@include('partials.wordmark', ['variant' => 'white'])</div>
                 @if ($member->photoUrl())
                     <img class="rk-card-photo" src="{{ $member->photoUrl() }}" alt="Foto member">
                 @endif

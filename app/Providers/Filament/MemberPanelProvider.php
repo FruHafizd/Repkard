@@ -45,9 +45,11 @@ class MemberPanelProvider extends PanelProvider
                 'gray' => Color::Slate,
             ])
             ->font(config('design.font.sans'), url: config('design.font.url'))
-            ->brandLogo(fn (): View => view('partials.wordmark'))
+            ->brandLogo(asset('images/brand/logo.png'))
+            ->darkModeBrandLogo(asset('images/brand/logo-white.png'))
             ->brandLogoHeight('1.75rem')
             ->renderHook(PanelsRenderHook::HEAD_END, fn (): View => view('partials.design-tokens', ['fonts' => false]))
+            ->renderHook(PanelsRenderHook::HEAD_END, fn (): View => view('partials.favicon'))
             ->discoverResources(in: app_path('Filament/Member/Resources'), for: 'App\Filament\Member\Resources')
             ->discoverPages(in: app_path('Filament/Member/Pages'), for: 'App\Filament\Member\Pages')
             ->pages([

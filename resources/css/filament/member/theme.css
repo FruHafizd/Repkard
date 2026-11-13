@@ -75,9 +75,7 @@
     top: 6cqw;
     left: 6cqw;
 
-    & .rk-wordmark {
-        font-size: 7cqw;
-    }
+    --rk-logo-h: 7cqw;
 }
 
 .rk-card-photo {
