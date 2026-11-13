@@ -141,6 +141,25 @@ class PengumumanTest extends TestCase
             ->assertDontSee('Landing belum tayang');
     }
 
+    public function test_halaman_publik_pengumuman_menampilkan_semua_yang_tayang_di_landing(): void
+    {
+        $this->pengumuman(['title' => 'Satu', 'show_on_landing' => true]);
+        $this->pengumuman(['title' => 'Dua', 'show_on_landing' => true]);
+        $this->pengumuman(['title' => 'Tiga', 'show_on_landing' => true, 'starts_at' => now()->subDays(9)]);
+        $this->pengumuman(['title' => 'Hanya member']);
+        $this->pengumuman(['title' => 'Belum tayang', 'show_on_landing' => true, 'starts_at' => now()->addDay()]);
+
+        $this->get('/pengumuman')
+            ->assertOk()
+            ->assertSee('Satu')
+            ->assertSee('Dua')
+            ->assertSee('Tiga')
+            ->assertDontSee('Hanya member')
+            ->assertDontSee('Belum tayang');
+
+        $this->get('/')->assertSee(route('pengumuman'), false);
+    }
+
     public function test_pegawai_bisa_membuat_pengumuman_dan_tercatat_pembuatnya(): void
     {
         $pegawai = $this->user(UserRole::Pegawai);

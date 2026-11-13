@@ -15,8 +15,14 @@
         <header class="border-b border-line bg-surface">
             <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
                 <h1 class="text-ink">@include('partials.wordmark')</h1>
-                <nav aria-label="Akun">
-                    <a href="/member/login" class="rk-focus inline-flex min-h-11 items-center rounded-lg border border-ink px-4 text-sm font-semibold hover:bg-ink hover:text-surface">
+                <nav aria-label="Navigasi utama" class="flex items-center gap-1 sm:gap-2">
+                    <a href="/" aria-current="page" class="rk-focus inline-flex min-h-11 items-center border-b-4 border-brand-600 px-3 text-sm font-bold text-ink">
+                        Beranda
+                    </a>
+                    <a href="{{ route('pengumuman') }}" class="rk-focus inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-muted hover:text-ink">
+                        Pengumuman
+                    </a>
+                    <a href="/member/login" class="rk-focus ml-1 inline-flex min-h-11 items-center rounded-lg border border-ink px-4 text-sm font-semibold hover:bg-ink hover:text-surface">
                         Masuk
                     </a>
                 </nav>
