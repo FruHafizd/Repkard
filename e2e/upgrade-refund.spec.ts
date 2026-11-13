@@ -24,6 +24,19 @@ async function bukaMember(page: Page, nama: string) {
 
 const modal = (page: Page) => page.locator('[role=dialog], [role=alertdialog]');
 
+/** Angka "Pemasukan hari ini" di dashboard, mis. 'Rp 283.334' → 283334. */
+async function pemasukanHariIni(page: Page): Promise<number> {
+    const nilai = page.locator('.fi-wi-stats-overview-stat')
+        .filter({ hasText: 'Pemasukan hari ini' })
+        .locator('.fi-wi-stats-overview-stat-value');
+    await expect(nilai).toHaveText(/Rp/);
+
+    return Number((await nilai.innerText()).replace(/\D/g, ''));
+}
+
+// Spec lain ikut mencatat pemasukan hari ini, jadi yang diuji selisihnya, bukan angka mutlak.
+let pemasukanSebelumRefund = 0;
+
 test.describe.serial('upgrade paket & refund', () => {
     test('pegawai upgrade ke 3 Bulan: rincian prorata benar', async ({ page }) => {
         const errors: string[] = [];
@@ -76,6 +89,7 @@ test.describe.serial('upgrade paket & refund', () => {
 
     test('owner refund: validasi, jumlah maksimal, lalu tercatat', async ({ page }) => {
         await loginAdmin(page, 'owner@repkard.test');
+        pemasukanSebelumRefund = await pemasukanHariIni(page);
         await bukaMember(page, 'Uji Refund');
         await page.getByRole('button', { name: 'Refund' }).click();
         const m = modal(page);
@@ -119,8 +133,8 @@ test.describe.serial('upgrade paket & refund', () => {
 
     test('dashboard owner: pemasukan hari ini dikurangi refund', async ({ page }) => {
         await loginAdmin(page, 'owner@repkard.test');
-        // Hanya upgrade 416.667 yang dibayar hari ini (pembayaran seed 10 hari lalu), refund 133.333 → 283.334.
-        await expect(page.getByText('Rp 283.334')).toBeVisible();
+        // Refund 133.333 mengurangi pemasukan hari ini.
+        expect(await pemasukanHariIni(page)).toBe(pemasukanSebelumRefund - 133333);
         await page.screenshot({ path: `${SS}/6-dashboard.png`, fullPage: true });
     });
 
