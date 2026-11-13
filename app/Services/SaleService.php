@@ -8,6 +8,7 @@ use App\Models\Member;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\User;
+use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 
@@ -38,7 +39,7 @@ class SaleService
 
         ksort($items);
 
-        return DB::transaction(function () use ($items, $method, $cashReceived, $member, $customerName, $by): Sale {
+        $simpan = function () use ($items, $method, $cashReceived, $member, $customerName, $by): Sale {
             $products = Product::query()
                 ->whereIn('id', array_keys($items))
                 ->orderBy('id')
@@ -101,7 +102,18 @@ class SaleService
             }
 
             return $sale;
-        });
+        };
+
+        // Dua kasir bisa membaca nomor terakhir yang sama; unique index menolak yang kalah, lalu transaksi diulang dengan nomor baru.
+        for ($percobaan = 1; ; $percobaan++) {
+            try {
+                return DB::transaction($simpan);
+            } catch (UniqueConstraintViolationException $e) {
+                if ($percobaan >= 3) {
+                    throw $e;
+                }
+            }
+        }
     }
 
     public function void(Sale $sale, User $by, string $reason): void
