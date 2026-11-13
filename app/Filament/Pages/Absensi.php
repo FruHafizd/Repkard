@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Enums\MenuGroup;
 use App\Filament\Forms\Components\WebcamPhoto;
 use App\Models\StaffAttendance;
 use App\Services\AttendanceService;
@@ -14,6 +15,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
+use UnitEnum;
 
 /**
  * Absen masuk / pulang dengan swafoto webcam. Hanya untuk pegawai & trainer (Owner tidak absen).
@@ -27,6 +29,10 @@ class Absensi extends Page
     protected static ?string $navigationLabel = 'Absensi';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClock;
+
+    protected static string|UnitEnum|null $navigationGroup = MenuGroup::MejaDepan;
+
+    protected static ?int $navigationSort = 4;
 
     protected string $view = 'filament.pages.absensi';
 

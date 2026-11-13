@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\PtSessions;
 
+use App\Enums\MenuGroup;
 use App\Enums\UserRole;
 use App\Filament\Resources\PtSessions\Pages\CreatePtSession;
 use App\Filament\Resources\PtSessions\Pages\ListPtSessions;
@@ -14,6 +15,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use UnitEnum;
 
 class PtSessionResource extends Resource
 {
@@ -22,6 +24,10 @@ class PtSessionResource extends Resource
     protected static ?string $modelLabel = 'Sesi PT';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCalendarDays;
+
+    protected static string|UnitEnum|null $navigationGroup = MenuGroup::PersonalTrainer;
+
+    protected static ?int $navigationSort = 1;
 
     public static function getNavigationLabel(): string
     {

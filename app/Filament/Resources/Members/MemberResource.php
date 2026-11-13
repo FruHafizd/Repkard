@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Members;
 
+use App\Enums\MenuGroup;
 use App\Filament\Resources\Members\Pages\CreateMember;
 use App\Filament\Resources\Members\Pages\EditMember;
 use App\Filament\Resources\Members\Pages\ListMembers;
@@ -17,6 +18,7 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use UnitEnum;
 
 class MemberResource extends Resource
 {
@@ -29,6 +31,10 @@ class MemberResource extends Resource
     protected static ?string $navigationLabel = 'Member';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
+
+    protected static string|UnitEnum|null $navigationGroup = MenuGroup::Member;
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {

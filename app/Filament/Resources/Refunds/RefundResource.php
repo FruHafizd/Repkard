@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Refunds;
 
+use App\Enums\MenuGroup;
 use App\Filament\Resources\Payments\PaymentResource;
 use App\Filament\Resources\Refunds\Pages\ManageRefunds;
 use App\Models\Refund;
@@ -11,6 +12,7 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use UnitEnum;
 
 class RefundResource extends Resource
 {
@@ -23,6 +25,10 @@ class RefundResource extends Resource
     protected static ?string $navigationLabel = 'Refund';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedReceiptRefund;
+
+    protected static string|UnitEnum|null $navigationGroup = MenuGroup::Keuangan;
+
+    protected static ?int $navigationSort = 5;
 
     public static function table(Table $table): Table
     {

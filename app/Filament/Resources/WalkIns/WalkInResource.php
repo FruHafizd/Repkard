@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\WalkIns;
 
+use App\Enums\MenuGroup;
 use App\Filament\Resources\WalkIns\Pages\ListWalkIns;
 use App\Filament\Resources\WalkIns\Tables\WalkInsTable;
 use App\Models\WalkIn;
@@ -10,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use UnitEnum;
 
 class WalkInResource extends Resource
 {
@@ -22,6 +24,10 @@ class WalkInResource extends Resource
     protected static ?string $navigationLabel = 'Pendatang';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTicket;
+
+    protected static string|UnitEnum|null $navigationGroup = MenuGroup::MejaDepan;
+
+    protected static ?int $navigationSort = 3;
 
     public static function table(Table $table): Table
     {

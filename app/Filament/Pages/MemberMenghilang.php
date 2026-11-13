@@ -4,6 +4,7 @@ namespace App\Filament\Pages;
 
 use App\Enums\FollowUpChannel;
 use App\Enums\FollowUpOutcome;
+use App\Enums\MenuGroup;
 use App\Filament\Resources\Members\MemberResource;
 use App\Models\Member;
 use App\Models\Membership;
@@ -23,6 +24,7 @@ use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use UnitEnum;
 
 class MemberMenghilang extends Page implements HasTable
 {
@@ -34,6 +36,10 @@ class MemberMenghilang extends Page implements HasTable
     protected static ?string $navigationLabel = 'Member Menghilang';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUserMinus;
+
+    protected static string|UnitEnum|null $navigationGroup = MenuGroup::Member;
+
+    protected static ?int $navigationSort = 2;
 
     protected string $view = 'filament.pages.member-menghilang';
 

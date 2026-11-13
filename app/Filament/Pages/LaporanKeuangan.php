@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Enums\MenuGroup;
 use App\Filament\Resources\Payments\PaymentResource;
 use App\Services\FinanceReportService;
 use BackedEnum;
@@ -10,6 +11,7 @@ use Carbon\CarbonImmutable;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
 use Livewire\Attributes\Computed;
+use UnitEnum;
 
 class LaporanKeuangan extends Page
 {
@@ -20,6 +22,10 @@ class LaporanKeuangan extends Page
     protected static ?string $navigationLabel = 'Laporan Keuangan';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedChartBar;
+
+    protected static string|UnitEnum|null $navigationGroup = MenuGroup::Keuangan;
+
+    protected static ?int $navigationSort = 1;
 
     protected string $view = 'filament.pages.laporan-keuangan';
 

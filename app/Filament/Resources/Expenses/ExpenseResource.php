@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Expenses;
 
+use App\Enums\MenuGroup;
 use App\Filament\Resources\Expenses\Pages\CreateExpense;
 use App\Filament\Resources\Expenses\Pages\ListExpenses;
 use App\Filament\Resources\Expenses\Pages\ViewExpense;
@@ -15,6 +16,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use UnitEnum;
 
 class ExpenseResource extends Resource
 {
@@ -27,6 +29,10 @@ class ExpenseResource extends Resource
     protected static ?string $navigationLabel = 'Pengeluaran';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBanknotes;
+
+    protected static string|UnitEnum|null $navigationGroup = MenuGroup::Keuangan;
+
+    protected static ?int $navigationSort = 4;
 
     public static function form(Schema $schema): Schema
     {

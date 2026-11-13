@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Sales;
 
+use App\Enums\MenuGroup;
 use App\Filament\Resources\Sales\Pages\ListSales;
 use App\Filament\Resources\Sales\Pages\ViewSale;
 use App\Filament\Resources\Sales\Schemas\SaleInfolist;
@@ -13,6 +14,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use UnitEnum;
 
 class SaleResource extends Resource
 {
@@ -25,6 +27,10 @@ class SaleResource extends Resource
     protected static ?string $navigationLabel = 'Penjualan';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedReceiptPercent;
+
+    protected static string|UnitEnum|null $navigationGroup = MenuGroup::Keuangan;
+
+    protected static ?int $navigationSort = 3;
 
     public static function infolist(Schema $schema): Schema
     {

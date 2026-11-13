@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\CheckIns;
 
+use App\Enums\MenuGroup;
 use App\Filament\Resources\CheckIns\Pages\ListCheckIns;
 use App\Filament\Resources\CheckIns\Tables\CheckInsTable;
 use App\Models\CheckIn;
@@ -10,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use UnitEnum;
 
 class CheckInResource extends Resource
 {
@@ -22,6 +24,10 @@ class CheckInResource extends Resource
     protected static ?string $navigationLabel = 'Riwayat Check-in';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
+
+    protected static string|UnitEnum|null $navigationGroup = MenuGroup::Member;
+
+    protected static ?int $navigationSort = 3;
 
     public static function table(Table $table): Table
     {
