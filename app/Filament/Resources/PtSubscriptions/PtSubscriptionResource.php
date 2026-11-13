@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\PtSubscriptions;
 
+use App\Enums\MenuGroup;
 use App\Filament\Resources\PtSubscriptions\Pages\ListPtSubscriptions;
 use App\Filament\Resources\PtSubscriptions\Pages\ViewPtSubscription;
 use App\Filament\Resources\PtSubscriptions\Schemas\PtSubscriptionInfolist;
@@ -13,6 +14,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use UnitEnum;
 
 class PtSubscriptionResource extends Resource
 {
@@ -25,6 +27,10 @@ class PtSubscriptionResource extends Resource
     protected static ?string $navigationLabel = 'Klien PT';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUserGroup;
+
+    protected static string|UnitEnum|null $navigationGroup = MenuGroup::PersonalTrainer;
+
+    protected static ?int $navigationSort = 2;
 
     public static function infolist(Schema $schema): Schema
     {

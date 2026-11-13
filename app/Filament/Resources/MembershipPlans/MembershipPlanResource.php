@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\MembershipPlans;
 
+use App\Enums\MenuGroup;
 use App\Filament\Resources\MembershipPlans\Pages\CreateMembershipPlan;
 use App\Filament\Resources\MembershipPlans\Pages\EditMembershipPlan;
 use App\Filament\Resources\MembershipPlans\Pages\ListMembershipPlans;
@@ -15,6 +16,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class MembershipPlanResource extends Resource
 {
@@ -27,6 +29,10 @@ class MembershipPlanResource extends Resource
     protected static ?string $navigationLabel = 'Paket';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+    protected static string|UnitEnum|null $navigationGroup = MenuGroup::Pengaturan;
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {

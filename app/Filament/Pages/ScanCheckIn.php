@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Enums\MenuGroup;
 use App\Models\CheckIn;
 use App\Models\Member;
 use App\Services\CheckInResult;
@@ -16,6 +17,7 @@ use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Facades\RateLimiter;
 use Livewire\Attributes\Locked;
+use UnitEnum;
 
 class ScanCheckIn extends Page
 {
@@ -26,6 +28,10 @@ class ScanCheckIn extends Page
     protected static ?string $navigationLabel = 'Scan Check-in';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedQrCode;
+
+    protected static string|UnitEnum|null $navigationGroup = MenuGroup::MejaDepan;
+
+    protected static ?int $navigationSort = 1;
 
     protected string $view = 'filament.pages.scan-check-in';
 

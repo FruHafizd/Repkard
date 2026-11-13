@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ExpenseCategories;
 
+use App\Enums\MenuGroup;
 use App\Filament\Resources\ExpenseCategories\Pages\ManageExpenseCategories;
 use App\Models\ExpenseCategory;
 use BackedEnum;
@@ -15,6 +16,7 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class ExpenseCategoryResource extends Resource
 {
@@ -27,6 +29,10 @@ class ExpenseCategoryResource extends Resource
     protected static ?string $navigationLabel = 'Kategori Pengeluaran';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTag;
+
+    protected static string|UnitEnum|null $navigationGroup = MenuGroup::Pengaturan;
+
+    protected static ?int $navigationSort = 4;
 
     public static function form(Schema $schema): Schema
     {

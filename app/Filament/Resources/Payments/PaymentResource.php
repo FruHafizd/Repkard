@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Payments;
 
+use App\Enums\MenuGroup;
 use App\Filament\Resources\Payments\Pages\ListPayments;
 use App\Filament\Resources\Payments\Pages\ViewPayment;
 use App\Filament\Resources\Payments\Schemas\PaymentInfolist;
@@ -13,6 +14,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use UnitEnum;
 
 class PaymentResource extends Resource
 {
@@ -25,6 +27,10 @@ class PaymentResource extends Resource
     protected static ?string $navigationLabel = 'Pembayaran';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBanknotes;
+
+    protected static string|UnitEnum|null $navigationGroup = MenuGroup::Keuangan;
+
+    protected static ?int $navigationSort = 2;
 
     public static function rupiah(int|string|null $amount): string
     {

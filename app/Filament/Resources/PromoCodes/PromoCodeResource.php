@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\PromoCodes;
 
+use App\Enums\MenuGroup;
 use App\Filament\Resources\PromoCodes\Pages\CreatePromoCode;
 use App\Filament\Resources\PromoCodes\Pages\EditPromoCode;
 use App\Filament\Resources\PromoCodes\Pages\ListPromoCodes;
@@ -15,6 +16,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class PromoCodeResource extends Resource
 {
@@ -27,6 +29,10 @@ class PromoCodeResource extends Resource
     protected static ?string $navigationLabel = 'Promo';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTicket;
+
+    protected static string|UnitEnum|null $navigationGroup = MenuGroup::Pengaturan;
+
+    protected static ?int $navigationSort = 2;
 
     public static function form(Schema $schema): Schema
     {

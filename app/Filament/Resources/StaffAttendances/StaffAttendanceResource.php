@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\StaffAttendances;
 
+use App\Enums\MenuGroup;
 use App\Filament\Resources\StaffAttendances\Pages\ListStaffAttendances;
 use App\Filament\Resources\StaffAttendances\Tables\StaffAttendancesTable;
 use App\Models\StaffAttendance;
@@ -10,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use UnitEnum;
 
 class StaffAttendanceResource extends Resource
 {
@@ -22,6 +24,10 @@ class StaffAttendanceResource extends Resource
     protected static ?string $navigationLabel = 'Rekap Absensi';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
+
+    protected static string|UnitEnum|null $navigationGroup = MenuGroup::TimAkses;
+
+    protected static ?int $navigationSort = 2;
 
     public static function table(Table $table): Table
     {

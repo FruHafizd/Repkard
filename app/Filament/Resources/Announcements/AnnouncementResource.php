@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Announcements;
 
+use App\Enums\MenuGroup;
 use App\Filament\Resources\Announcements\Pages\CreateAnnouncement;
 use App\Filament\Resources\Announcements\Pages\EditAnnouncement;
 use App\Filament\Resources\Announcements\Pages\ListAnnouncements;
@@ -15,6 +16,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class AnnouncementResource extends Resource
 {
@@ -27,6 +29,10 @@ class AnnouncementResource extends Resource
     protected static ?string $navigationLabel = 'Pengumuman';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedMegaphone;
+
+    protected static string|UnitEnum|null $navigationGroup = MenuGroup::Member;
+
+    protected static ?int $navigationSort = 4;
 
     public static function form(Schema $schema): Schema
     {

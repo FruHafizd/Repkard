@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\PtPackages;
 
+use App\Enums\MenuGroup;
 use App\Filament\Resources\PtPackages\Pages\CreatePtPackage;
 use App\Filament\Resources\PtPackages\Pages\EditPtPackage;
 use App\Filament\Resources\PtPackages\Pages\ListPtPackages;
@@ -15,6 +16,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class PtPackageResource extends Resource
 {
@@ -27,6 +29,10 @@ class PtPackageResource extends Resource
     protected static ?string $navigationLabel = 'Paket PT';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedSparkles;
+
+    protected static string|UnitEnum|null $navigationGroup = MenuGroup::PersonalTrainer;
+
+    protected static ?int $navigationSort = 4;
 
     public static function form(Schema $schema): Schema
     {

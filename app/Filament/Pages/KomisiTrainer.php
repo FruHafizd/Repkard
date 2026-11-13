@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Enums\MenuGroup;
 use App\Enums\PtSessionStatus;
 use App\Models\PtSession;
 use BackedEnum;
@@ -9,6 +10,7 @@ use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Carbon;
+use UnitEnum;
 
 class KomisiTrainer extends Page
 {
@@ -19,6 +21,10 @@ class KomisiTrainer extends Page
     protected static ?string $navigationLabel = 'Komisi Trainer';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBanknotes;
+
+    protected static string|UnitEnum|null $navigationGroup = MenuGroup::PersonalTrainer;
+
+    protected static ?int $navigationSort = 3;
 
     protected string $view = 'filament.pages.komisi-trainer';
 

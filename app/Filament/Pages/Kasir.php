@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Enums\MenuGroup;
 use App\Enums\PaymentMethod;
 use App\Filament\Resources\Payments\PaymentResource;
 use App\Models\Member;
@@ -21,6 +22,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\RateLimiter;
 use InvalidArgumentException;
 use Livewire\Attributes\Locked;
+use UnitEnum;
 
 class Kasir extends Page
 {
@@ -31,6 +33,10 @@ class Kasir extends Page
     protected static ?string $navigationLabel = 'Kasir';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShoppingCart;
+
+    protected static string|UnitEnum|null $navigationGroup = MenuGroup::MejaDepan;
+
+    protected static ?int $navigationSort = 2;
 
     protected string $view = 'filament.pages.kasir';
 

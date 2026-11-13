@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Enums\MenuGroup;
 use App\Http\Middleware\EnsurePasswordChanged;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\Authenticate;
@@ -41,6 +42,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(asset('images/brand/logo.png'))
             ->darkModeBrandLogo(asset('images/brand/logo-white.png'))
             ->brandLogoHeight('1.75rem')
+            ->navigationGroups(MenuGroup::class)
             ->renderHook(PanelsRenderHook::HEAD_END, fn (): View => view('partials.design-tokens', ['fonts' => false]))
             ->renderHook(PanelsRenderHook::HEAD_END, fn (): View => view('partials.favicon'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
@@ -61,7 +63,9 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->plugins([
-                FilamentShieldPlugin::make(),
+                FilamentShieldPlugin::make()
+                    ->navigationGroup(MenuGroup::TimAkses)
+                    ->navigationSort(3),
             ])
             ->authMiddleware([
                 Authenticate::class,
