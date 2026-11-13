@@ -15,4 +15,11 @@ class LandingController extends Controller
             'announcements' => Announcement::query()->published()->where('show_on_landing', true)->limit(2)->get(),
         ]);
     }
+
+    public function pengumuman(): View
+    {
+        return view('pengumuman', [
+            'announcements' => Announcement::query()->published()->where('show_on_landing', true)->paginate(10),
+        ]);
+    }
 }
