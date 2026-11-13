@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Enums\UserRole;
 use App\Models\Payment;
+use App\Models\Refund;
 use App\Models\User;
 
 class PaymentPolicy
@@ -45,10 +46,19 @@ class PaymentPolicy
     }
 
     /**
-     * Pembatalan hanya Owner (aturan keras).
+     * Pembatalan hanya Owner (aturan keras). Pembayaran yang nilainya sudah menjadi kredit upgrade
+     * atau sudah di-refund tidak bisa dibatalkan: kredit/refund itu akan menjadi uang keluar tanpa pemasukan.
      */
     public function cancel(User $user, Payment $payment): bool
     {
-        return $user->hasRole(UserRole::Owner->value) && ! $payment->isCancelled();
+        if (! $user->hasRole(UserRole::Owner->value) || $payment->isCancelled()) {
+            return false;
+        }
+
+        $membership = $payment->membership;
+
+        return ! $membership
+            || ($membership->replaced_by_id === null
+                && ! Refund::query()->where('membership_id', $membership->getKey())->exists());
     }
 }

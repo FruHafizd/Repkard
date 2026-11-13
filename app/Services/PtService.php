@@ -174,6 +174,10 @@ class PtService
                 throw new InvalidArgumentException('Sesi ini sudah ditandai.');
             }
 
+            if ($subscription->isCancelled()) {
+                throw new InvalidArgumentException('Paket PT ini sudah dibatalkan. Batalkan sesinya.');
+            }
+
             if ($subscription->sessions_remaining < 1) {
                 throw new InvalidArgumentException('Sisa sesi paket PT sudah habis.');
             }
