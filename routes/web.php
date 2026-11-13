@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LandingController::class, 'index']);
 Route::get('/paket-pt', [LandingController::class, 'paketPt'])->name('paket-pt');
+Route::get('/pengumuman', [LandingController::class, 'pengumuman'])->name('pengumuman');
 
 Route::middleware(['auth', EnsureUserIsActive::class])->group(function (): void {
     Route::get('/media/member-photos/{member}', MemberPhotoController::class)

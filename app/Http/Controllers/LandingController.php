@@ -22,4 +22,11 @@ class LandingController extends Controller
     {
         return view('paket-pt', ['ptPackages' => PtPackage::active()->get()]);
     }
+
+    public function pengumuman(): View
+    {
+        return view('pengumuman', [
+            'announcements' => Announcement::query()->published()->where('show_on_landing', true)->paginate(10),
+        ]);
+    }
 }

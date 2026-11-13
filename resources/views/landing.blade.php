@@ -22,7 +22,11 @@
                     <a href="{{ route('paket-pt') }}" class="rk-focus inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-muted hover:text-ink">
                         Paket PT
                     </a>
-                    <a href="/member/login" class="rk-focus inline-flex min-h-11 items-center rounded-lg border border-ink px-4 text-sm font-semibold hover:bg-ink hover:text-surface">
+                    <a href="{{ route('pengumuman') }}" class="rk-focus inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-muted hover:text-ink">
+                        Pengumuman
+                    </a>
+                    <a href="/member/login" class="rk-focus ml-1 inline-flex min-h-11 items-center rounded-lg border border-ink px-4 text-sm font-semibold hover:bg-ink hover:text-surface">
+
                         Masuk
                     </a>
                 </nav>
