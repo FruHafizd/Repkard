@@ -6,6 +6,7 @@ use App\Enums\UserRole;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Group;
 use Filament\Schemas\Schema;
@@ -65,6 +66,18 @@ class UserForm
                     ->columns(2)
                     ->columnSpanFull()
                     ->visible(fn ($get): bool => $get('role') === UserRole::Trainer->value),
+                Group::make([
+                    TimePicker::make('work_start_time')
+                        ->label('Jam mulai kerja')
+                        ->seconds(false)
+                        ->helperText('Dipakai menandai terlambat saat absen masuk.'),
+                    TimePicker::make('work_end_time')
+                        ->label('Jam selesai kerja')
+                        ->seconds(false),
+                ])
+                    ->columns(2)
+                    ->columnSpanFull()
+                    ->visible(fn ($get): bool => in_array($get('role'), [UserRole::Pegawai->value, UserRole::Trainer->value], true)),
                 Toggle::make('is_active')
                     ->label('Aktif')
                     ->default(true)

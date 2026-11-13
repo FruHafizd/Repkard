@@ -265,6 +265,8 @@ return [
         'ViewAll:Expense' => 'Lihat semua pengeluaran',
         'ViewAll:PtSubscription' => 'Lihat semua klien PT',
         'ViewAll:PtSession' => 'Lihat & kelola semua sesi PT',
+        'ViewAll:StaffAttendance' => 'Lihat absensi semua pegawai',
+        'Correct:StaffAttendance' => 'Koreksi absensi pegawai',
     ],
 
     /*

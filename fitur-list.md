@@ -175,8 +175,8 @@ Rencana & keputusan: prd.md bagian 13. Prompt: `prompts/fitur-tambahan/`. Kolom 
 | Tandai sesi selesai / tidak datang / batal | ✅ | ✅ | 🙋 | ❌ | ✅ |
 | Lihat sisa sesi & jadwal PT | ✅ | ✅ | 🙋 | 🙋 | ✅ |
 | Laporan komisi trainer | ✅ | ❌ | 🙋 | ❌ | ✅ |
-| Absen masuk / pulang dengan swafoto | — | ✅ | ✅ | ❌ | ⬜ |
-| Rekap & koreksi absensi | ✅ | 🙋 | 🙋 | ❌ | ⬜ |
+| Absen masuk / pulang dengan swafoto | — | ✅ | ✅ | ❌ | ✅ |
+| Rekap & koreksi absensi | ✅ | 🙋 | 🙋 | ❌ | ✅ |
 | Catat pengeluaran | ✅ | ✅ | ❌ | ❌ | ✅ |
 | Lihat pengeluaran | ✅ | 🙋 | ❌ | ❌ | ✅ |
 | Kategori pengeluaran | ✅ | ❌ | ❌ | ❌ | ✅ |

@@ -6,6 +6,7 @@ use App\Http\Controllers\MemberCardPdfController;
 use App\Http\Controllers\MemberPhotoController;
 use App\Http\Controllers\PaymentReceiptController;
 use App\Http\Controllers\SaleReceiptController;
+use App\Http\Controllers\StaffAttendancePhotoController;
 use App\Http\Middleware\EnsureUserIsActive;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,10 @@ Route::middleware(['auth', EnsureUserIsActive::class])->group(function (): void 
 
     Route::get('/media/bukti-pengeluaran/{expense}', ExpenseProofController::class)
         ->name('expense.proof');
+
+    Route::get('/media/absensi/{attendance}/{jenis}', StaffAttendancePhotoController::class)
+        ->whereIn('jenis', ['masuk', 'pulang'])
+        ->name('staff-attendance.photo');
 
     Route::get('/pembayaran/{payment}/kuitansi', PaymentReceiptController::class)
         ->name('payment.receipt');
