@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Paket Personal Trainer — {{ config('app.name') }}</title>
         @include('partials.design-tokens')
+        @include('partials.favicon')
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="flex min-h-screen flex-col bg-paper font-sans text-ink antialiased">

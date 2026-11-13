@@ -15,10 +15,6 @@
     font-weight: 800;
 }
 
-.fi-logo {
-    @apply text-gray-950 dark:text-white;
-}
-
 /* Halaman auth (login, daftar, reset, verifikasi): latar brand dengan garis lintasan. */
 .fi-simple-layout {
     background-color: var(--rk-primary-600);

@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ config('app.name') }} — Membership gym</title>
         @include('partials.design-tokens')
+        @include('partials.favicon')
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="bg-paper font-sans text-ink antialiased">
@@ -57,7 +58,7 @@
                     {{-- Ilustrasi kartu member (hiasan, bukan data asli). --}}
                     <div class="mx-auto hidden w-full max-w-sm lg:block" aria-hidden="true">
                         <div class="relative aspect-[85.6/54] rotate-3 overflow-hidden rounded-xl bg-surface p-5 text-ink shadow-[10px_10px_0_0_var(--color-ink)]">
-                            <span class="rk-wordmark">{{ config('app.name') }}<span class="rk-wordmark-dot">.</span></span>
+                            @include('partials.wordmark')
                             <div class="absolute bottom-7 left-5 flex items-end gap-3">
                                 <div class="flex aspect-[3/4] w-16 items-end justify-center overflow-hidden bg-brand-100 text-brand-300">
                                     <svg viewBox="0 0 60 70" class="w-14" fill="currentColor"><circle cx="30" cy="24" r="14"/><path d="M4 70c0-17 11-26 26-26s26 9 26 26z"/></svg>
