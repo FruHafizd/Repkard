@@ -1,7 +1,7 @@
 <x-dynamic-component :component="$getFieldWrapperView()" :field="$field">
     <div
         x-data="{
-            state: $wire.$entangle('{{ $getStatePath() }}'),
+            state: $wire.{{ $applyStateBindingModifiers("\$entangle('{$getStatePath()}')") }},
             stream: null,
             error: false,
             async start() {

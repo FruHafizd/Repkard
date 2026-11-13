@@ -17,7 +17,7 @@ class MemberPhotoService
     /**
      * Proses foto (rasio 3:4, JPEG) dan simpan di disk private. Mengembalikan path.
      */
-    public function store(UploadedFile $file): string
+    public function store(UploadedFile $file, string $directory = 'member-photos'): string
     {
         if ($file->getSize() > self::MAX_KB * 1024) {
             throw ValidationException::withMessages(['photo' => 'Ukuran foto maksimal 5 MB.']);
@@ -29,13 +29,13 @@ class MemberPhotoService
             throw ValidationException::withMessages(['photo' => 'File harus berupa gambar.']);
         }
 
-        return $this->simpan($encoded);
+        return $this->simpan($encoded, $directory);
     }
 
     /**
      * Simpan foto dari webcam (data URL JPEG/PNG). Selalu diproses ulang, byte mentah browser tidak disimpan.
      */
-    public function storeFromDataUrl(string $dataUrl): string
+    public function storeFromDataUrl(string $dataUrl, string $directory = 'member-photos'): string
     {
         $prefix = collect(['data:image/jpeg;base64,', 'data:image/png;base64,'])
             ->first(fn (string $p): bool => str_starts_with($dataUrl, $p));
@@ -60,12 +60,12 @@ class MemberPhotoService
             throw ValidationException::withMessages(['photo' => 'File harus berupa gambar.']);
         }
 
-        return $this->simpan($encoded);
+        return $this->simpan($encoded, $directory);
     }
 
-    private function simpan(mixed $encoded): string
+    private function simpan(mixed $encoded, string $directory): string
     {
-        $path = 'member-photos/'.Str::uuid().'.jpg';
+        $path = $directory.'/'.Str::uuid().'.jpg';
         Storage::disk('local')->put($path, (string) $encoded);
 
         return $path;
